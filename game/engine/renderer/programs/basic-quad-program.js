@@ -46,10 +46,10 @@ class Program extends BaseProgram {
       }
 
       // Set up textures if any are loaded.
-      if (perFrameCache['texture0']?.textureDetails) {
+      if (perFrameCache['texture0']) {
         renderCtx.activeTexture(renderCtx.TEXTURE0);
         renderCtx.bindTexture(renderCtx.TEXTURE_2D, perFrameCache['texture0']);
-        renderCtx.uniform1i(renderCtx.getUniformLocation(this.getProgram().program, 'u_texture0'), 0);
+        renderCtx.uniform1i(this.getProgram().uniforms['texture0'], 0);
       }
 
       let index = this._getFlushIndex();

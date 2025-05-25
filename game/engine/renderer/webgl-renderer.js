@@ -8,6 +8,7 @@ export default class WebGLRenderer {
     this.renderCtx = renderCtx;
     this.perFrameCache = {};
     this.renderCommandBuffer = [];
+    this.renderTargets = {}; // FBOs and other registered render targets
 
     this._initializeSupportedMaterials();
     this.colorUtil = new Colors();
@@ -22,7 +23,6 @@ export default class WebGLRenderer {
   getCanvasDimensions() {
     return {width: this.renderCtx.canvas.width, height: this.renderCtx.canvas.height};
   }
-
 
   loadTexture(renderCtx, textureDetails) {
     const texture = renderCtx.createTexture();
@@ -54,7 +54,7 @@ export default class WebGLRenderer {
     this.perFrameCache = {};
     this.perFrameCache['projectionMatrix'] = this._buildProjectionMatrix(renderCtx, viewport)
     this.perFrameCache['texture0'] = this.textureDetails?.texture;
-
+    renderCtx.blendFunc(renderCtx.SRC_ALPHA, renderCtx.ONE_MINUS_SRC_ALPHA);
     this._clearScreen(renderCtx, clearScreenColor);
   }
 
@@ -125,6 +125,55 @@ export default class WebGLRenderer {
     const color = this.colorUtil.colorToRaw(clearScreenColor, 255);
     renderCtx.clearColor(color.r, color.g, color.b, color.a);
     renderCtx.clear(renderCtx.COLOR_BUFFER_BIT | renderCtx.DEPTH_BUFFER_BIT);
+  }
+
+  //////
+  // Hooks
+  /////
+
+  createRenderTarget(key, width, height) {
+    let framebuffer = this.renderCtx.createFramebuffer();
+    this.renderCtx.bindFramebuffer(this.renderCtx.FRAMEBUFFER, framebuffer);
+
+    // const prevTex = this.renderCtx.getParameter(this.renderCtx.TEXTURE_BINDING_2D);
+
+    // Frame Buffer renders to a target texture
+    const texture = this.renderCtx.createTexture();
+    this.renderCtx.bindTexture(this.renderCtx.TEXTURE_2D, texture);
+    this.renderCtx.texImage2D(this.renderCtx.TEXTURE_2D, 0, this.renderCtx.RGBA, width, height, 0, this.renderCtx.RGBA, this.renderCtx.UNSIGNED_BYTE, null);
+    this.renderCtx.texParameteri(this.renderCtx.TEXTURE_2D, this.renderCtx.TEXTURE_MIN_FILTER, this.renderCtx.LINEAR);
+    this.renderCtx.texParameteri(this.renderCtx.TEXTURE_2D, this.renderCtx.TEXTURE_WRAP_S, this.renderCtx.CLAMP_TO_EDGE);
+    this.renderCtx.texParameteri(this.renderCtx.TEXTURE_2D, this.renderCtx.TEXTURE_WRAP_T, this.renderCtx.CLAMP_TO_EDGE);
+  
+    this.renderCtx.framebufferTexture2D(this.renderCtx.FRAMEBUFFER, this.renderCtx.COLOR_ATTACHMENT0, this.renderCtx.TEXTURE_2D, texture, 0);
+    this.renderCtx.bindFramebuffer(this.renderCtx.FRAMEBUFFER, null);
+
+    this.renderTargets[key] = {
+      framebuffer: framebuffer,
+      texture: texture,
+      width: width,
+      height: height
+    }
+    // this.renderCtx.bindTexture(this.renderCtx.TEXTURE_2D, prevTex);
+
+    return this.renderTargets[key]
+  }
+
+  bindRenderTarget(key = null) {
+    if (!key) {
+      this.renderCtx.bindFramebuffer(this.renderCtx.FRAMEBUFFER, null);
+      this.renderCtx.viewport(0, 0, this.renderCtx.canvas.width, this.renderCtx.canvas.height);
+      return;
+    }
+
+    let target = this.renderTargets[key];
+
+    if (!target) {
+      target = this.createRenderTarget(key, this.renderCtx.canvas.width, this.renderCtx.canvas.height);
+    }
+
+    this.renderCtx.bindFramebuffer(this.renderCtx.FRAMEBUFFER, target.framebuffer);
+    this.renderCtx.viewport(0, 0, target.width, target.height);
   }
 
 

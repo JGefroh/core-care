@@ -33,6 +33,8 @@ class Program {
 
     renderCtx.useProgram(this.program.program);
     renderCtx.uniform4fv(this.program.uniforms['u_color'], this.fullscreenTone.color);
+    
+    renderCtx.blendFunc(renderCtx.DST_COLOR, renderCtx.ZERO);
 
     renderCtx.bindVertexArray(this.vertexArrayObject);
     renderCtx.drawArrays(renderCtx.TRIANGLES, 0, 6);

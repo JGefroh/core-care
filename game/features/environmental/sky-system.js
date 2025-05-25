@@ -37,7 +37,7 @@ export default class SkySystem extends System {
       this.stepColor = null;
       this.nextColorIndex = 1;
       this.numberSteps = 10;
-      this.wait = 5000;
+      this.wait = 10;
 
     }
 
@@ -60,13 +60,11 @@ export default class SkySystem extends System {
         this.stepColor = newColor;
         renderable.setShapeColor(newColor);
         this.currentStep++;
+
+
+        this.send("REQUEST_FULLSCREEN_TONE", {color: currentColor.replace(',1)', ', 0.9)')});
       });
-      this.forKeyedAs('SKYLIGHT', (skyEntity) => {
-        renderable.setEntity(skyEntity);
-  
-        let currentColor = this.stepColor;
-        renderable.setShapeColor(currentColor.replace(',1)', ', 1)'));
-      });
+      
     }
 
     nextColor() {

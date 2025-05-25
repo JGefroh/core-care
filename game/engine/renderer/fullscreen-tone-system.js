@@ -4,7 +4,7 @@ import WebGLRenderer from '@game/engine/renderer/webgl-renderer'
 export default class ToneOverlaySystem extends System {
     constructor() {
       super();
-      this.toneColor = 'rgba(0,0,0,0)';
+      this.toneColor = 'rgba(255,255,255,1)';
     }
   
     initialize() {
@@ -14,6 +14,7 @@ export default class ToneOverlaySystem extends System {
 
       this.send('REGISTER_RENDER_PASS', {
         name: 'TONE_OVERLAY_PASS',
+        target: 'environment',
         execute: (renderer, materialResolver) => {
             this.render(renderer, materialResolver);
         }
