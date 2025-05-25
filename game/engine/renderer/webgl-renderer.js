@@ -1,5 +1,6 @@
 import BasicQuadProgram from './programs/basic-quad-program'
 import BasicLightProgram from './programs/basic-light-program'
+import BlitProgram from './programs/blit-program';
 import FullscreenToneProgram from './programs/fullscreen-tone-program'
 import Colors from '@game/engine/util/colors';
 
@@ -9,7 +10,7 @@ export default class WebGLRenderer {
     this.renderCtx = renderCtx;
     this.perFrameCache = {};
     this.renderCommandBuffer = [];
-    this.renderTargets = {}; // FBOs and other registered render targets
+    this.destinationTargets = {}; // FBOs and other registered render targets
 
     this._initializeSupportedMaterials();
     this.colorUtil = new Colors();
@@ -20,6 +21,7 @@ export default class WebGLRenderer {
     this.materialRegistry.register('basic-quad', new BasicQuadProgram(this.renderCtx, {}));
     this.materialRegistry.register('basic-light', new BasicLightProgram(this.renderCtx, {}));
     this.materialRegistry.register('fullscreen-tone', new FullscreenToneProgram(this.renderCtx, {}));
+    this.materialRegistry.register('blit', new BlitProgram(this.renderCtx, {}));
   }
 
   getCanvasDimensions() {
@@ -58,6 +60,10 @@ export default class WebGLRenderer {
     this.perFrameCache['texture0'] = this.textureDetails?.texture;
     renderCtx.blendFunc(renderCtx.SRC_ALPHA, renderCtx.ONE_MINUS_SRC_ALPHA);
     this._clearScreen(renderCtx, clearScreenColor);
+  }
+
+  beginPass(passName) {
+    this.perFrameCache['sourceTexture'] = this.destinationTargets[passName]?.texture;
   }
 
   draw() {
@@ -134,7 +140,7 @@ export default class WebGLRenderer {
   // Hooks
   /////
 
-  createRenderTarget(key, width, height) {
+  createDestinationTarget(key, width, height) {
     let framebuffer = this.renderCtx.createFramebuffer();
     this.renderCtx.bindFramebuffer(this.renderCtx.FRAMEBUFFER, framebuffer);
 
@@ -151,7 +157,7 @@ export default class WebGLRenderer {
     this.renderCtx.framebufferTexture2D(this.renderCtx.FRAMEBUFFER, this.renderCtx.COLOR_ATTACHMENT0, this.renderCtx.TEXTURE_2D, texture, 0);
     this.renderCtx.bindFramebuffer(this.renderCtx.FRAMEBUFFER, null);
 
-    this.renderTargets[key] = {
+    this.destinationTargets[key] = {
       framebuffer: framebuffer,
       texture: texture,
       width: width,
@@ -159,20 +165,20 @@ export default class WebGLRenderer {
     }
     framebuffer.key = key
 
-    return this.renderTargets[key]
+    return this.destinationTargets[key]
   }
 
-  bindRenderTarget(key = null) {
+  bindDestinationTarget(key = null) {
     if (!key) {
       this.renderCtx.bindFramebuffer(this.renderCtx.FRAMEBUFFER, null);
       this.renderCtx.viewport(0, 0, this.renderCtx.canvas.width, this.renderCtx.canvas.height);
       return;
     }
 
-    let target = this.renderTargets[key];
+    let target = this.destinationTargets[key];
 
     if (!target) {
-      target = this.createRenderTarget(key, this.renderCtx.canvas.width, this.renderCtx.canvas.height);
+      target = this.createDestinationTarget(key, this.renderCtx.canvas.width, this.renderCtx.canvas.height);
     }
 
     this.renderCtx.bindFramebuffer(this.renderCtx.FRAMEBUFFER, target.framebuffer);

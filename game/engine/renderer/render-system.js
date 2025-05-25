@@ -52,7 +52,8 @@ export default class RenderSystem extends System {
     this.renderer.beginFrame(this.renderCtx, viewport, this.clearScreenColor);
 
     for (let pass of this.renderPasses) {
-      this.renderer.bindRenderTarget(pass.target);
+      this.renderer.beginPass(pass.key);
+      this.renderer.bindDestinationTarget(pass.destinationTarget);
       pass.execute(this.renderer, this.materialResolver); 
       this.renderer.draw();
     }
