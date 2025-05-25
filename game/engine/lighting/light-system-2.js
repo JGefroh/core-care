@@ -12,7 +12,7 @@ export default class LightSystem2 extends System {
         });
 
         this.send('REGISTER_RENDER_PASS', {
-            name: 'LIGHTING_PASS',
+            name: 'LIGHTING',
             execute: (renderer, materialResolver) => {
                 this._render(renderer, materialResolver);
             }

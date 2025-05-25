@@ -18,7 +18,7 @@ export default class ParticleSystem extends System {
         });
 
         this.send('REGISTER_RENDER_PASS', {
-            name: 'PARTICLE_SUBMISSION',
+            name: 'PARTICLE',
             execute: (renderer, materialResolver) => {
                 this._submitRenderableDraws(renderer, materialResolver);
             }

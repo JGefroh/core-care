@@ -9,7 +9,7 @@ export default class RenderSubmissionSystem extends System {
 
   initialize() {
     this.send('REGISTER_RENDER_PASS', {
-      name: 'RENDERABLE_SUBMISSION',
+      name: 'WORLD',
       execute: (renderer, materialResolver) => {
         this._submitRenderableDraws(renderer, materialResolver);
       }

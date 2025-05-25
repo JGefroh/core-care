@@ -140,6 +140,7 @@ export default class WebGLRenderer {
 
     // Frame Buffer renders to a target texture
     const texture = this.renderCtx.createTexture();
+    texture.key = key; // Easier to identify textures for debugging
     this.renderCtx.activeTexture(this.renderCtx.TEXTURE0);
     this.renderCtx.bindTexture(this.renderCtx.TEXTURE_2D, texture);
     this.renderCtx.texImage2D(this.renderCtx.TEXTURE_2D, 0, this.renderCtx.RGBA, width, height, 0, this.renderCtx.RGBA, this.renderCtx.UNSIGNED_BYTE, null);
