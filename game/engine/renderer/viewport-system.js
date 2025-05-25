@@ -114,6 +114,11 @@ export default class ViewportSystem extends System {
     this.addHandler('TRACK_ENTITY_REQUESTED', (payload) => {
       this.followEntityId = payload.entityId;
     })
+
+    this.addHandler('SET_VIEWPORT', (payload) => {
+      this.viewportWorldYPosition = payload.yPosition / this.viewportScale;
+      this.viewportWorldXPosition = payload.xPosition / this.viewportScale;
+    })
   }
 
   work() {

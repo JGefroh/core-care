@@ -20,8 +20,16 @@ export default class Timer extends Tag{
       return this.entity.getComponent('TimerComponent').onEndEffect
     }
 
+    setStartedAt(startedAt) {
+      this.entity.getComponent('TimerComponent').startedAt = startedAt;
+    }
+
     setEndedAt(endedAt) {
       this.entity.getComponent('TimerComponent').endedAt = endedAt;
+    }
+
+    shouldRepeat() {
+      return this.entity.getComponent('TimerComponent').shouldRepeat;
     }
 
     removeTimer() {

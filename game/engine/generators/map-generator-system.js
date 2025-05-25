@@ -36,6 +36,7 @@ export default class MapGeneratorSystem extends System {
     _addFloors(map) {
         map.floors.forEach((floor) => {
             this._addFloor({
+                key: floor.key,
                 xPosition: floor.xPosition + map.xPosition,
                 yPosition: floor.yPosition + map.yPosition,
                 width: floor.width,
@@ -165,12 +166,13 @@ export default class MapGeneratorSystem extends System {
     }
 
     _addFloor(floorDefinition) {
+        let key = floorDefinition.key;
         let x = floorDefinition.xPosition;
         let y = floorDefinition.yPosition;
         let width = floorDefinition.width;
         let height = floorDefinition.height;
         let color = floorDefinition.color;
-        let entity = new Entity()
+        let entity = new Entity({key: key})
         entity.addComponent(new PositionComponent(
             {
                 width: width,

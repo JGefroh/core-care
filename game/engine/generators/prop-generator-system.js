@@ -39,7 +39,7 @@ export default class PropGeneratorSystem extends System {
         this.propMap = {};
 
         this.addHandler('CREATE_PROP', (payload) => {
-            this.createProp(payload)
+            this.createProp(payload);
         });
 
         this.addHandler('DEFINE_PROP', (payload) => {
@@ -130,10 +130,10 @@ export default class PropGeneratorSystem extends System {
 
         entity.addComponent(new PositionComponent(
             {
-                width: width,
-                height: height,
-                xPosition: xPosition,
-                yPosition: yPosition,
+                width: this._getValueIfRandom(width),
+                height:  this._getValueIfRandom(height),
+                xPosition: this._getValueIfRandom(xPosition),
+                yPosition: this._getValueIfRandom(yPosition),
                 angleDegrees: angleDegrees
             }
         ));
@@ -236,5 +236,17 @@ export default class PropGeneratorSystem extends System {
 
     defineProp(propDefinition) {
         this.propMap[propDefinition.type] = propDefinition
+    }
+
+    _getValueIfRandom(value) {
+        if (`${value}`.indexOf('random') == -1) {
+            return value;
+        }
+
+        let minMaxValues = value.split('(')[1].trim().split(')')[0].trim().split(','); //random(min,max)
+        let min = parseFloat(minMaxValues[0]);
+        let max = parseFloat(minMaxValues[1]);
+    
+        return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 }

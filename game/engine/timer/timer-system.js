@@ -12,7 +12,12 @@ export default class TimerSystem extends System {
             this._core.removeEntity(entity);
           }
           else if (typeof tag.getOnEndEffect() == 'function') {
-            tag.setEndedAt(Date.now())
+            if (tag.shouldRepeat()) {
+              tag.setStartedAt(Date.now());
+            }
+            else {
+              tag.setEndedAt(Date.now())
+            }
 
             if (tag.getOnEndEffect()) {
               tag.getOnEndEffect()();

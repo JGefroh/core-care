@@ -9,7 +9,7 @@ import { createTestData } from '@game/title/test-data.js';
 // General Mechanics
 import GuiSystem from '@game/engine/gui/gui-system';
 import LightSystem from '@game/engine/lighting/light-system';
-import RenderSystem from '@game/engine/renderer/render-system';
+import RenderSystem from '@game/engine/renderer2/render-system';
 import RenderablesRenderSystem from '@game/engine/renderer/renderables-render-system';
 import TimerSystem from '@game/engine/timer/timer-system';
 
@@ -80,6 +80,9 @@ import TrailZone from '../features/trail-fx/trail-zone-tag';
 import AiConfigurationSystem from '../specifics/configuration/ai-configuration-system';
 import AssetConfigurationSystem from '../specifics/configuration/assets/asset-configuration-system';
 import LogicConfigurationSystem from '../specifics/configuration/logic/logic-configuration-system';
+import CloudGeneratorSystem from '../features/environmental/cloud-generator-system';
+import SkySystem from '../features/environmental/sky-system';
+import RenderSubmissionSystem from '../engine/renderer2/render-submission-system';
 
 export function startGame() {
 
@@ -87,15 +90,21 @@ export function startGame() {
     // Generic systems
     ////
     // Rendering
-    Core.addSystem(new RenderSystem())
-        Core.addTag(Renderable)
-        Core.addSystem(new RenderablesRenderSystem())
-        Core.addSystem(new TextureSystem());
+    // Core.addSystem(new RenderSystem())
+        // Core.addTag(Renderable)
+        // Core.addSystem(new RenderablesRenderSystem())
+        // Core.addSystem(new TextureSystem());
+
+    // Rendering V2
+    Core.addSystem(new RenderSystem());
+        Core.addSystem(new RenderSubmissionSystem());
+        Core.addTag(Renderable);
+
 
 
     // GUI
-    Core.addSystem(new GuiSystem())
-        Core.addTag(GuiCanvasRenderable)
+    // Core.addSystem(new GuiSystem())
+        // Core.addTag(GuiCanvasRenderable)
 
     // Loaders and Gnerators
     Core.addSystem(new AssetLoaderSystem());
@@ -182,6 +191,10 @@ export function startGame() {
     ////
     // Game-specific configuration
     ////
+
+    // Environmental
+    Core.addSystem(new SkySystem());
+    Core.addSystem(new CloudGeneratorSystem());
 
     // Game Specific Configuration
     Core.addSystem(new InputConfigurationSystem());

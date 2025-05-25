@@ -97,6 +97,9 @@ export default class Renderable extends Tag {
     getShape() {
       return this.entity.getComponent('RenderComponent').shape;
     }
+    setShapeColor(shapeColor) {
+      this.entity.getComponent('RenderComponent').shapeColor = shapeColor;
+    }
 
     getShapeColor() {
       return this.entity.getComponent('RenderComponent').shapeColor;
