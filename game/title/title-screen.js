@@ -21,8 +21,8 @@ import MovementProposalSystem from '@game/engine/movement/movement-proposal-syst
 import Movable from '@game/engine/movement/movement-tags';
 import ParticleSystem from '@game/engine/particle/particle-system';
 import Renderable from '@game/engine/renderer/render-tags';
-import RenderSystem from '@game/engine/renderer2/render-system';
-import RenderSubmissionSystem from '@game/engine/renderer2/render-submission-system';
+import RenderSystem from '@game/engine/renderer/render-system';
+import RenderSubmissionSystem from '@game/engine/renderer/render-submission-system';
 import TimerSystem from '@game/engine/timer/timer-system';
 import Timer from '@game/engine/timer/timer-tag';
 import Attached from '../engine/attachments/attached-tag';

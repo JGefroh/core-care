@@ -8,9 +8,7 @@ import { createTestData } from '@game/title/test-data.js';
 
 // General Mechanics
 import GuiSystem from '@game/engine/gui/gui-system';
-import LightSystem from '@game/engine/lighting/light-system';
 
-import RenderablesRenderSystem from '@game/engine/renderer/renderables-render-system';
 import TimerSystem from '@game/engine/timer/timer-system';
 
 import AudioListener from '@game/engine/audio/audio-listener-tag';
@@ -39,7 +37,6 @@ import TurnsTowards from '@game/features/turn-towards-cursor/turns-towards-tag';
 
 
 // Tags
-import Lightable from '@game/engine/lighting/lightable-tag';
 import Movable from '@game/engine/movement/movement-tags';
 import Renderable from '@game/engine/renderer/render-tags';
 import Timer from '@game/engine/timer/timer-tag';
@@ -47,7 +44,6 @@ import Timer from '@game/engine/timer/timer-tag';
 //Debug systems
 import Collidable from '@game/engine/collision/collidable-tag';
 import CollisionSystem from '@game/engine/collision/collision-system';
-import Shadowable from '@game/engine/lighting/shadowable-tag';
 import ViewportFollowable from '@game/engine/renderer/viewport-followable-tag';
 import DebugUiSystem from '@game/specifics/debug/debug-ui-system';
 import Attached from '../engine/attachments/attached-tag';
@@ -59,6 +55,8 @@ import AiSystem from '@game/engine/ai/ai-system';
 import AssetLoaderSystem from '@game/engine/assets/asset-loader-system';
 import MapGeneratorSystem from '@game/engine/generators/map-generator-system';
 import PropGeneratorSystem from '@game/engine/generators/prop-generator-system';
+import RenderSubmissionSystem from '@game/engine/renderer/render-submission-system';
+import RenderSystem from '@game/engine/renderer/render-system';
 import Ai from '../engine/ai/ai-tag';
 import HasLogic from '../engine/logic/has-logic';
 import LogicSystem from '../engine/logic/logic-system';
@@ -71,6 +69,8 @@ import AiStateInformerSystem from '../features/ai/informers/ai-state-informer-sy
 import DoorOpener from '../features/door/door-opener';
 import DoorSystem from '../features/door/door-system';
 import Door from '../features/door/door-tag';
+import CloudGeneratorSystem from '../features/environmental/cloud-generator-system';
+import SkySystem from '../features/environmental/sky-system';
 import FootstepFxSystem from '../features/footstep-fx/footstep-fx-system';
 import HasFootsteps from '../features/footstep-fx/has-footsteps-tag';
 import DustParticleFxSystem from '../features/fx/dust-particle-fx-system';
@@ -80,10 +80,6 @@ import TrailZone from '../features/trail-fx/trail-zone-tag';
 import AiConfigurationSystem from '../specifics/configuration/ai-configuration-system';
 import AssetConfigurationSystem from '../specifics/configuration/assets/asset-configuration-system';
 import LogicConfigurationSystem from '../specifics/configuration/logic/logic-configuration-system';
-import CloudGeneratorSystem from '../features/environmental/cloud-generator-system';
-import SkySystem from '../features/environmental/sky-system';
-import RenderSystem from '@game/engine/renderer2/render-system';
-import RenderSubmissionSystem from '@game/engine/renderer2/render-submission-system';
 
 export function startGame() {
 

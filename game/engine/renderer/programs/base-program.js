@@ -1,8 +1,8 @@
 
-import { default as quadFragmentShaderSourceCode } from '@game/engine/renderer2/shaders/quad-fragment-shader';
-import { default as quadVertexShaderSourceCode } from '@game/engine/renderer2/shaders/quad-vertex-shader';
+import { default as quadFragmentShaderSourceCode } from '@game/engine/renderer/shaders/quad-fragment-shader';
+import { default as quadVertexShaderSourceCode } from '@game/engine/renderer/shaders/quad-vertex-shader';
 
-import { compileShader } from '@game/engine/renderer2/util/shader-util';
+import { compileShader } from '@game/engine/renderer/util/shader-util';
 
 import Colors from '@game/engine/util/colors';
 
