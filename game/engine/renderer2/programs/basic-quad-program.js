@@ -8,10 +8,19 @@ import Colors from '@game/engine/util/colors';
 import BaseProgram from './base-program';
 
 class Program extends BaseProgram {
+  constructor(renderCtx, config = {}) {
+    super(renderCtx, config);
+    this.shapeMap = {
+      'rectangle': 0,
+      'circle': 1
+    }
+    this.initialize(renderCtx, config);
+  }
 
   uploadInstanceData(commands) {
       for (let command of commands) {
         this.instanceBuffers.offsets.push(command.xPosition, command.yPosition)
+        this.instanceBuffers.shapes.push(this.shapeMap[command.shape] || 0)
         this.instanceBuffers.angles.push(command.angleDegrees || 0)
         this.instanceBuffers.scales.push(command.width, command.height)
         let colorObject = this.colorUtil.colorToRaw(command.color, 255);
@@ -52,6 +61,7 @@ class Program extends BaseProgram {
 
       this._bindToBufferIfExists(renderCtx, this.getBuffers(), `INSTANCE_OFFSET_${index}`, this.instanceBuffers.offsets)
       this._bindToBufferIfExists(renderCtx, this.getBuffers(), `INSTANCE_SCALE_${index}`, this.instanceBuffers.scales)
+      this._bindToBufferIfExists(renderCtx, this.getBuffers(), `INSTANCE_SHAPE_${index}`, this.instanceBuffers.shapes)
       this._bindToBufferIfExists(renderCtx, this.getBuffers(), `INSTANCE_ANGLE_${index}`, this.instanceBuffers.angles)
       this._bindToBufferIfExists(renderCtx, this.getBuffers(), `INSTANCE_TEXTURE_UV_BOUNDS_${index}`, this.instanceBuffers.textureUVBounds)
       this._bindToBufferIfExists(renderCtx, this.getBuffers(), `INSTANCE_COLOR_${index}`, this.instanceBuffers.colors)
@@ -110,14 +120,14 @@ class Program extends BaseProgram {
           renderCtx.vertexAttribDivisor(0, 0); // per-vertex
     
           // === Per-instance offset (vec2) ===
-          this.initializeBuffersFor(renderCtx, `INSTANCE_OFFSET`, this.maxBufferSize, renderCtx.DYNAMIC_DRAW, index, () => {
+          this.initializeBuffersFor(renderCtx, `INSTANCE_OFFSET`, this.maxBufferSize, renderCtx.DYNAMIC_DRAW, 'float32', index, () => {
             const locOffset = renderCtx.getAttribLocation(program.program, 'a_instanceOffset');
             renderCtx.enableVertexAttribArray(locOffset);
             renderCtx.vertexAttribPointer(locOffset, 2, renderCtx.FLOAT, false, 0, 0);
             renderCtx.vertexAttribDivisor(locOffset, 1); // per-instance
           })
           // === Per-instance color (vec4) ===
-          this.initializeBuffersFor(renderCtx, `INSTANCE_COLOR`, this.maxBufferSize * 2, renderCtx.DYNAMIC_DRAW, index, () => {
+          this.initializeBuffersFor(renderCtx, `INSTANCE_COLOR`, this.maxBufferSize * 2, renderCtx.DYNAMIC_DRAW, 'float32', index, () => {
             const locColor = renderCtx.getAttribLocation(program.program, 'a_instanceColor');
             renderCtx.enableVertexAttribArray(locColor);
             renderCtx.vertexAttribPointer(locColor, 4, renderCtx.FLOAT, false, 0, 0);
@@ -125,7 +135,7 @@ class Program extends BaseProgram {
           })
     
           // === Per-instance scale (vec2) ===
-          this.initializeBuffersFor(renderCtx, `INSTANCE_SCALE`, this.maxBufferSize, renderCtx.DYNAMIC_DRAW, index, () => {
+          this.initializeBuffersFor(renderCtx, `INSTANCE_SCALE`, this.maxBufferSize, renderCtx.DYNAMIC_DRAW, 'float32', index, () => {
             const locScale = renderCtx.getAttribLocation(program.program, 'a_instanceScale');
             renderCtx.enableVertexAttribArray(locScale);
             renderCtx.vertexAttribPointer(locScale, 2, renderCtx.FLOAT, false, 0, 0);
@@ -133,7 +143,7 @@ class Program extends BaseProgram {
         
           })
           // === Per-instance angle (float) ===
-          this.initializeBuffersFor(renderCtx, `INSTANCE_ANGLE`, this.maxBufferSize, renderCtx.DYNAMIC_DRAW, index, () => {
+          this.initializeBuffersFor(renderCtx, `INSTANCE_ANGLE`, this.maxBufferSize, renderCtx.DYNAMIC_DRAW, 'float32', index, () => {
             const locAngle = renderCtx.getAttribLocation(program.program, 'a_instanceAngleDegrees');
             renderCtx.enableVertexAttribArray(locAngle);
             renderCtx.vertexAttribPointer(locAngle, 1, renderCtx.FLOAT, false, 0, 0);
@@ -141,15 +151,23 @@ class Program extends BaseProgram {
           })
     
           // === Per-instance border size (float) ===
-          this.initializeBuffersFor(renderCtx, `INSTANCE_BORDER_SIZE`, this.maxBufferSize, renderCtx.DYNAMIC_DRAW, index, () => {
+          this.initializeBuffersFor(renderCtx, `INSTANCE_BORDER_SIZE`, this.maxBufferSize, renderCtx.DYNAMIC_DRAW, 'float32', index, () => {
             const locBorderSize = renderCtx.getAttribLocation(program.program, 'a_instanceBorderSize');
             renderCtx.enableVertexAttribArray(locBorderSize);
             renderCtx.vertexAttribPointer(locBorderSize, 1, renderCtx.FLOAT, false, 0, 0);
             renderCtx.vertexAttribDivisor(locBorderSize, 1); // per-instance
           })
+    
+          // === Per-instance border size (float) ===
+          this.initializeBuffersFor(renderCtx, `INSTANCE_SHAPE`, this.maxBufferSize, renderCtx.DYNAMIC_DRAW, 'int', index, () => {
+            const locShape = renderCtx.getAttribLocation(program.program, 'a_instanceShape');
+            renderCtx.enableVertexAttribArray(locShape);
+            renderCtx.vertexAttribIPointer(locShape, 1, renderCtx.INT, 0, 0);
+            renderCtx.vertexAttribDivisor(locShape, 1); // per-instance
+          })
           
           // === Per-instance border color (vec4) ===
-          this.initializeBuffersFor(renderCtx, `INSTANCE_BORDER_COLOR`, this.maxBufferSize * 2, renderCtx.DYNAMIC_DRAW, index, () => {
+          this.initializeBuffersFor(renderCtx, `INSTANCE_BORDER_COLOR`, this.maxBufferSize * 2, renderCtx.DYNAMIC_DRAW, 'float32', index, () => {
             const locBorderColor = renderCtx.getAttribLocation(program.program, 'a_instanceBorderColor');
             renderCtx.enableVertexAttribArray(locBorderColor);
             renderCtx.vertexAttribPointer(locBorderColor, 4, renderCtx.FLOAT, false, 0, 0);
@@ -157,7 +175,7 @@ class Program extends BaseProgram {
           })
           
           // === Per-instance UV for a texture (vec4) ===
-          this.initializeBuffersFor(renderCtx, `INSTANCE_TEXTURE_UV_BOUNDS`, this.maxBufferSize * 2, renderCtx.DYNAMIC_DRAW, index, () => {
+          this.initializeBuffersFor(renderCtx, `INSTANCE_TEXTURE_UV_BOUNDS`, this.maxBufferSize * 2, renderCtx.DYNAMIC_DRAW, 'float32', index, () => {
             const locTextureUV = renderCtx.getAttribLocation(program.program, 'a_instanceTextureUvBounds');
             renderCtx.enableVertexAttribArray(locTextureUV);
             renderCtx.vertexAttribPointer(locTextureUV, 4, renderCtx.FLOAT, false, 0, 0);
@@ -173,6 +191,7 @@ class Program extends BaseProgram {
       _ensureInstanceBuffers() {
         this.instanceBuffers ||= {
           offsets: [],
+          shapes: [],
           colors: [],
           angles: [],
           scales: [],

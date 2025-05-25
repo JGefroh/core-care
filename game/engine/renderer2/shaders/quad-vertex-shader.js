@@ -7,6 +7,7 @@ const shaderSourceCode = `#version 300 es
       in float a_instanceBorderSize;
       in vec4 a_instanceBorderColor;
       in vec4 a_instanceTextureUvBounds;
+      in int a_instanceShape;
       
       out vec4 v_color;
       out vec2 v_localPosition;
@@ -14,6 +15,7 @@ const shaderSourceCode = `#version 300 es
       out vec4 v_borderColor;
       out vec2 v_instanceScale;
       out vec2 v_texCoord;
+      flat out int v_instanceShape;
 
       uniform mat4 u_projectionMatrix;
 
@@ -38,6 +40,7 @@ const shaderSourceCode = `#version 300 es
         v_borderSize = a_instanceBorderSize;
         v_borderColor = a_instanceBorderColor;
         v_instanceScale = a_instanceScale;
+        v_instanceShape = a_instanceShape;
         vec2 localUV = a_position + vec2(0.5);
         v_texCoord = mix(a_instanceTextureUvBounds.xy, a_instanceTextureUvBounds.zw, localUV);
       }`;

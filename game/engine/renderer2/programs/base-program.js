@@ -15,10 +15,14 @@ class BaseProgram {
         this.flushCountMax = config.flushCountMax || 60;
         this.colorUtil = new Colors();
         this.flushIndex = 0
+        this.attributeTypeByBufferKey = {};
 
-        this._ensureInstanceBuffers();
-        this._initializeProgram(renderCtx);
-        this._initializeBuffers(renderCtx);
+    }
+
+    initialize(renderCtx, config) {
+      this._ensureInstanceBuffers();
+      this._initializeProgram(renderCtx);
+      this._initializeBuffers(renderCtx);
     }
 
     getProgram() {
@@ -56,7 +60,15 @@ class BaseProgram {
         return;
       }
       renderCtx.bindBuffer(renderCtx.ARRAY_BUFFER, buffer);
-      renderCtx.bufferSubData(renderCtx.ARRAY_BUFFER, 0, new Float32Array(array));
+
+      let baseKey = key.replace(/_\d+$/, '')
+      if (this.attributeTypeByBufferKey[baseKey] == 'int') {
+        renderCtx.bufferSubData(renderCtx.ARRAY_BUFFER, 0, new Int32Array(array));
+      }
+      else {
+        renderCtx.bufferSubData(renderCtx.ARRAY_BUFFER, 0, new Float32Array(array));
+      }
+
     }
 
     _clearInstanceBuffers() {
@@ -100,12 +112,14 @@ class BaseProgram {
       return this.program;
     }
 
-    initializeBuffersFor(renderCtx, key, size = this.maxBufferSize, drawType = renderCtx.DYNAMIC_DRAW, index, vertexBindFn = () => {}) {
+    initializeBuffersFor(renderCtx, key, size = this.maxBufferSize, drawType = renderCtx.DYNAMIC_DRAW, attributeType = 'float32', index, vertexBindFn = () => {}) {
         let buffer = renderCtx.createBuffer()
         this.buffers[`${key}_${index}`] = buffer;
         renderCtx.bindBuffer(renderCtx.ARRAY_BUFFER, buffer);
         renderCtx.bufferData(renderCtx.ARRAY_BUFFER, size, drawType); // dummy size
   
+        this.attributeTypeByBufferKey[key.replace(/_\d+$/, '')] = attributeType;
+
         vertexBindFn()
     }
 }

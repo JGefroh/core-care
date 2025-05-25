@@ -137,6 +137,7 @@ export default class ParticleSystem extends System {
 
             renderer.submitRenderCommand({
                 materialId,
+                shape: particle.shape,
                 zIndex: 99999,
                 xPosition: particle.xPosition,
                 yPosition: particle.yPosition,
