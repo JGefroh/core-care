@@ -80,6 +80,7 @@ import TrailZone from '../features/trail-fx/trail-zone-tag';
 import AiConfigurationSystem from '../specifics/configuration/ai-configuration-system';
 import AssetConfigurationSystem from '../specifics/configuration/assets/asset-configuration-system';
 import LogicConfigurationSystem from '../specifics/configuration/logic/logic-configuration-system';
+import FullscreenToneSystem from '../engine/renderer/fullscreen-tone-system';
 
 export function startGame() {
 
@@ -91,6 +92,10 @@ export function startGame() {
         Core.addSystem(new RenderSubmissionSystem());
         Core.addTag(Renderable);
         Core.addSystem(new TextureSystem());
+
+    // EXAMPLESTART
+    Core.addSystem(new FullscreenToneSystem())
+    // EXAMPLEEND
 
 
 

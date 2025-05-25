@@ -1,4 +1,5 @@
 import BasicQuadProgram from './programs/basic-quad-program'
+import FullscreenToneProgram from './programs/fullscreen-tone-program'
 import Colors from '@game/engine/util/colors';
 
 export default class WebGLRenderer {
@@ -15,6 +16,11 @@ export default class WebGLRenderer {
 
   _initializeSupportedMaterials() {
     this.materialRegistry.register('basic-quad', new BasicQuadProgram(this.renderCtx, {}));
+    this.materialRegistry.register('fullscreen-tone', new FullscreenToneProgram(this.renderCtx, {}));
+  }
+
+  getCanvasDimensions() {
+    return {width: this.renderCtx.canvas.width, height: this.renderCtx.canvas.height};
   }
 
 
