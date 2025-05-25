@@ -38,18 +38,9 @@ const fragmentSourceCode = `#version 300 es
       if (isBorder) {
         o_color = v_borderColor;
       } else {
-        vec2 uv = v_localPosition + vec2(0.5); // [0,1] range
-        float gradient = uv.y; // Vertical gradient
-        float noise = (random(uv * 50.0) - 0.5) * 0.02; // subtle
-        gradient = clamp(gradient + noise, 0.0, 1.0);
-        vec3 base = v_color.rgb;
-        vec3 lighter = min(base * 1.3, vec3(1.0));
-        vec3 color = mix(base, lighter, gradient);
-        vec2 sunPos = vec2(0.5, 1.1); // Just above center top
-        float sunDist = distance(uv, sunPos);
-        float sunGlow = exp(-sunDist * 15.0);
-        color += vec3(1.0, 0.8, 0.6) * sunGlow;
-        o_color = vec4(color, v_color.a);
+        float noise = random(uv * 32.0);
+        vec3 noisyColor = v_color.rgb * (0.9 + 0.2 * noise);
+        o_color = vec4(noisyColor, v_color.a);
       }
     }
   }

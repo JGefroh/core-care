@@ -10,15 +10,44 @@ export default class WebGLRenderer {
 
     this._initializeSupportedMaterials();
     this.colorUtil = new Colors();
+    this.textureDetails = null;
   }
 
   _initializeSupportedMaterials() {
     this.materialRegistry.register('basic-quad', new BasicQuadProgram(this.renderCtx, {}));
   }
 
+
+  loadTexture(renderCtx, textureDetails) {
+    const texture = renderCtx.createTexture();
+    renderCtx.bindTexture(renderCtx.TEXTURE_2D, texture);
+    textureDetails.texture = texture;
+
+    renderCtx.texImage2D(
+      renderCtx.TEXTURE_2D,
+      0,
+      renderCtx.RGBA,
+      renderCtx.RGBA,
+      renderCtx.UNSIGNED_BYTE,
+      textureDetails.atlasImage
+    );
+
+    renderCtx.texParameteri(renderCtx.TEXTURE_2D, renderCtx.TEXTURE_WRAP_S, renderCtx.CLAMP_TO_EDGE);
+    renderCtx.texParameteri(renderCtx.TEXTURE_2D, renderCtx.TEXTURE_WRAP_T, renderCtx.CLAMP_TO_EDGE);
+    renderCtx.texParameteri(renderCtx.TEXTURE_2D, renderCtx.TEXTURE_MIN_FILTER, renderCtx.NEAREST);
+    renderCtx.texParameteri(renderCtx.TEXTURE_2D, renderCtx.TEXTURE_MAG_FILTER, renderCtx.NEAREST);
+
+    this.textureDetails = textureDetails; //TODO: Make this support multiple textures when the need eventually arises.
+  }
+
+  ////
+  // Rendering
+  ////
+
   beginFrame(renderCtx, viewport, clearScreenColor) {
     this.perFrameCache = {};
     this.perFrameCache['projectionMatrix'] = this._buildProjectionMatrix(renderCtx, viewport)
+    this.perFrameCache['texture0'] = this.textureDetails?.texture;
 
     this._clearScreen(renderCtx, clearScreenColor);
   }
@@ -31,7 +60,33 @@ export default class WebGLRenderer {
   }
 
   submitRenderCommand(command) {
+    if (command.imagePath) {
+      command.textureUVBounds = this._getTextureUVBounds(command.imagePath);
+    }
     this.renderCommandBuffer.push(command);
+  }
+
+  _getTextureUVBounds(imagePath) {
+    if (!this.textureDetails) {
+      return null; // No texture loaded.
+    }
+    let image = this.textureDetails.images[imagePath]
+
+    if (!image) {
+      return null; // Can't find image.
+    }
+
+    if (!image.uv) {
+      // Calculate and cache UV
+      const u0 = image.atlasXPosition / this.textureDetails.width;
+      const v0 = image.atlasYPosition / this.textureDetails.height;
+      const u1 = (image.atlasXPosition + image.width) / this.textureDetails.width;
+      const v1 = (image.atlasYPosition + image.height) / this.textureDetails.height;
+  
+      image.uv = [u0, v0, u1, v1];
+    }
+
+    return image.uv
   }
 
   flushRenderCommandBuffer(renderCommandBuffer) {

@@ -14,7 +14,7 @@ export default class RenderComponent extends Component {
 
         // Shape primitivis
         this.shape = payload.shape ||'rectangle' // rectangle, circle, path
-        this.shapeColor = payload.shapeColor || 'orange'
+        this.shapeColor = payload.shapeColor;
         this.pathPoints = payload.pathPoints || null; // If oyu want path rendering.
 
         this.borderColor = payload.borderColor;

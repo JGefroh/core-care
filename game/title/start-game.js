@@ -99,6 +99,7 @@ export function startGame() {
     Core.addSystem(new RenderSystem());
         Core.addSystem(new RenderSubmissionSystem());
         Core.addTag(Renderable);
+        Core.addSystem(new TextureSystem());
 
 
 

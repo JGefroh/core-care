@@ -15,7 +15,10 @@ export default class RenderSystem extends System {
     this.renderCtx = this.primaryCanvas.getContext('webgl2');
 
     this.materialRegistry = new MaterialRegistry();
+
     this.materialResolver = new MaterialResolver(this.materialRegistry);
+    this._core.publishData('MATERIAL_RESOLVER', this.materialResolver);
+
     this.renderer = new WebGLRenderer(this.renderCtx, this.materialRegistry);
 
     this.renderPasses = [];
@@ -23,7 +26,14 @@ export default class RenderSystem extends System {
     this.addHandler('REGISTER_RENDER_PASS', (pass) => {
       this.renderPasses.push(pass);
     });
-    this._core.publishData('MATERIAL_RESOLVER', this.materialResolver);
+
+
+    this.addHandler('LOAD_TEXTURE_TO_RENDERER', (textureDetails) => {
+      this.renderer.loadTexture(this.renderCtx, textureDetails);
+    });
+
+    this.renderCtx.enable(this.renderCtx.BLEND);
+    this.renderCtx.blendFunc(this.renderCtx.SRC_ALPHA, this.renderCtx.ONE_MINUS_SRC_ALPHA);
   }
 
   work() {
