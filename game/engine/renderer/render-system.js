@@ -50,7 +50,8 @@ export default class RenderSystem extends System {
 
     for (let pass of this.renderPasses) {
       this.renderer.bindRenderTarget(pass.target);
-      pass.execute(this.renderer, this.materialResolver);
+      pass.execute(this.renderer, this.materialResolver); 
+      this.renderer.draw();
     }
 
     this.renderer.endFrame();

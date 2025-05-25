@@ -14,7 +14,6 @@ export default class ToneOverlaySystem extends System {
 
       this.send('REGISTER_RENDER_PASS', {
         name: 'TONE_OVERLAY_PASS',
-        target: 'environment',
         execute: (renderer, materialResolver) => {
             this.render(renderer, materialResolver);
         }

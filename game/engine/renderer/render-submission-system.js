@@ -37,7 +37,5 @@ export default class RenderSubmissionSystem extends System {
         options: {} // Use later
       });
     });
-
-    renderer.draw();
   }
 }

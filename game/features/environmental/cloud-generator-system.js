@@ -6,6 +6,7 @@ import PositionComponent from '@game/engine/position/position-component';
 import RenderComponent from '@game/engine/renderer/render-component';
 import VectorComponent from '@game/engine/movement/vector-component';
 import TimerComponent from '@game/engine/timer/timer-component';
+import LightSourceComponent from '../../engine/lighting/light-source-component';
 
 
 export default class CloudGeneratorSystem extends System {
@@ -48,7 +49,13 @@ export default class CloudGeneratorSystem extends System {
         shouldRepeat: true
       });
 
+      let light = new LightSourceComponent({
+        maxDistance: 100,
+        lightType: 'point'
+      })
+
       entity.addComponent(vector)
       entity.addComponent(timer);
+      entity.addComponent(light);
     }
   }

@@ -81,6 +81,9 @@ import AiConfigurationSystem from '../specifics/configuration/ai-configuration-s
 import AssetConfigurationSystem from '../specifics/configuration/assets/asset-configuration-system';
 import LogicConfigurationSystem from '../specifics/configuration/logic/logic-configuration-system';
 import FullscreenToneSystem from '../engine/renderer/fullscreen-tone-system';
+import LightSystem2 from '@game/engine/lighting/light-system-2';
+import Lightable from '@game/engine/lighting/lightable-tag';
+import Shadowable from '@game/engine/lighting/shadowable-tag';
 
 export function startGame() {
 
@@ -120,6 +123,12 @@ export function startGame() {
     // Core.addSystem(new LightSystem())
     //     Core.addTag(Lightable)
     //     Core.addTag(Shadowable)
+
+
+    //Lighting (Light by Default)
+    Core.addSystem(new LightSystem2())
+        Core.addTag(Lightable)
+        Core.addTag(Shadowable)
 
     // Input
     Core.addSystem(new InputSystem())

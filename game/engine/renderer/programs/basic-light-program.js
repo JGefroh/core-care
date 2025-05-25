@@ -1,6 +1,6 @@
 
-import { default as quadFragmentShaderSourceCode } from '@game/engine/renderer/shaders/quad-fragment-shader';
-import { default as quadVertexShaderSourceCode } from '@game/engine/renderer/shaders/quad-vertex-shader';
+import { default as fragmentShaderSourceCode } from '@game/engine/renderer/shaders/light-fragment-shader';
+import { default as vertexShaderSourceCode } from '@game/engine/renderer/shaders/light-vertex-shader';
 
 import { compileShader } from '@game/engine/renderer/util/shader-util';
 
@@ -25,10 +25,6 @@ class Program extends BaseProgram {
         this.instanceBuffers.scales.push(command.width, command.height)
         let colorObject = this.colorUtil.colorToRaw(command.color, 255);
         this.instanceBuffers.colors.push(...[colorObject.r, colorObject.g, colorObject.b, colorObject.a])
-        this.instanceBuffers.borderSizes.push(command.borderSize || 0.0);
-        this.instanceBuffers.textureUVBounds.push(...(command.textureUVBounds || [0, 0, 0, 0])); // [0,0,0,0] will be ignored by the fragment shader
-        const borderColorObject = this.colorUtil.colorToRaw(command.borderColor || 'rgba(0,0,0,0)', 255);
-        this.instanceBuffers.borderColors.push(...[borderColorObject.r, borderColorObject.g, borderColorObject.b, borderColorObject.a]);
       }
     }
 
@@ -52,21 +48,11 @@ class Program extends BaseProgram {
       renderCtx.bindVertexArray(this.getVertexArrayObjects()[`${index}`]);
       renderCtx.uniformMatrix4fv(this.program.uniforms['u_projectionMatrix'], false, perFrameCache['projectionMatrix']);
 
-      // Set up textures if any are loaded.
-      if (perFrameCache['texture0']) {
-        renderCtx.activeTexture(renderCtx.TEXTURE0);
-        renderCtx.bindTexture(renderCtx.TEXTURE_2D, perFrameCache['texture0']);
-        renderCtx.uniform1i(this.program.uniforms['u_texture0'], 0);
-      }
-
       this._bindToBufferIfExists(renderCtx, this.getBuffers(), `INSTANCE_OFFSET_${index}`, this.instanceBuffers.offsets)
       this._bindToBufferIfExists(renderCtx, this.getBuffers(), `INSTANCE_SCALE_${index}`, this.instanceBuffers.scales)
       this._bindToBufferIfExists(renderCtx, this.getBuffers(), `INSTANCE_SHAPE_${index}`, this.instanceBuffers.shapes)
       this._bindToBufferIfExists(renderCtx, this.getBuffers(), `INSTANCE_ANGLE_${index}`, this.instanceBuffers.angles)
-      this._bindToBufferIfExists(renderCtx, this.getBuffers(), `INSTANCE_TEXTURE_UV_BOUNDS_${index}`, this.instanceBuffers.textureUVBounds)
       this._bindToBufferIfExists(renderCtx, this.getBuffers(), `INSTANCE_COLOR_${index}`, this.instanceBuffers.colors)
-      this._bindToBufferIfExists(renderCtx, this.getBuffers(), `INSTANCE_BORDER_SIZE_${index}`, this.instanceBuffers.borderSizes)
-      this._bindToBufferIfExists(renderCtx, this.getBuffers(), `INSTANCE_BORDER_COLOR_${index}`, this.instanceBuffers.borderColors)
 
       renderCtx.drawArraysInstanced(renderCtx.TRIANGLES, 0, 6, this.instanceBuffers.offsets.length / 2);
 
@@ -86,9 +72,9 @@ class Program extends BaseProgram {
     _initializeProgram(renderCtx) {
       this.program = this._initializeProgramGeneric(
         renderCtx, 
-        quadVertexShaderSourceCode, 
-        quadFragmentShaderSourceCode, 
-        ['u_projectionMatrix', 'u_texture0']
+        vertexShaderSourceCode, 
+        fragmentShaderSourceCode, 
+        ['u_projectionMatrix']
       )
     }
 
@@ -152,35 +138,11 @@ class Program extends BaseProgram {
           })
     
           // === Per-instance border size (float) ===
-          this.initializeBuffersFor(renderCtx, `INSTANCE_BORDER_SIZE`, this.maxBufferSize, renderCtx.DYNAMIC_DRAW, 'float32', index, () => {
-            const locBorderSize = renderCtx.getAttribLocation(program.program, 'a_instanceBorderSize');
-            renderCtx.enableVertexAttribArray(locBorderSize);
-            renderCtx.vertexAttribPointer(locBorderSize, 1, renderCtx.FLOAT, false, 0, 0);
-            renderCtx.vertexAttribDivisor(locBorderSize, 1); // per-instance
-          })
-    
-          // === Per-instance border size (float) ===
           this.initializeBuffersFor(renderCtx, `INSTANCE_SHAPE`, this.maxBufferSize, renderCtx.DYNAMIC_DRAW, 'int', index, () => {
             const locShape = renderCtx.getAttribLocation(program.program, 'a_instanceShape');
             renderCtx.enableVertexAttribArray(locShape);
             renderCtx.vertexAttribIPointer(locShape, 1, renderCtx.INT, 0, 0);
             renderCtx.vertexAttribDivisor(locShape, 1); // per-instance
-          })
-          
-          // === Per-instance border color (vec4) ===
-          this.initializeBuffersFor(renderCtx, `INSTANCE_BORDER_COLOR`, this.maxBufferSize * 2, renderCtx.DYNAMIC_DRAW, 'float32', index, () => {
-            const locBorderColor = renderCtx.getAttribLocation(program.program, 'a_instanceBorderColor');
-            renderCtx.enableVertexAttribArray(locBorderColor);
-            renderCtx.vertexAttribPointer(locBorderColor, 4, renderCtx.FLOAT, false, 0, 0);
-            renderCtx.vertexAttribDivisor(locBorderColor, 1); // per-instance
-          })
-          
-          // === Per-instance UV for a texture (vec4) ===
-          this.initializeBuffersFor(renderCtx, `INSTANCE_TEXTURE_UV_BOUNDS`, this.maxBufferSize * 2, renderCtx.DYNAMIC_DRAW, 'float32', index, () => {
-            const locTextureUV = renderCtx.getAttribLocation(program.program, 'a_instanceTextureUvBounds');
-            renderCtx.enableVertexAttribArray(locTextureUV);
-            renderCtx.vertexAttribPointer(locTextureUV, 4, renderCtx.FLOAT, false, 0, 0);
-            renderCtx.vertexAttribDivisor(locTextureUV, 1); // per-instance
           })
     
           // Clean up
@@ -196,9 +158,6 @@ class Program extends BaseProgram {
           colors: [],
           angles: [],
           scales: [],
-          borderSizes: [],
-          borderColors: [],
-          textureUVBounds: [],
         }
       }
 }

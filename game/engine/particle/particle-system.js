@@ -147,8 +147,6 @@ export default class ParticleSystem extends System {
                 options: {} // Use later
             });
         };
-
-        renderer.draw();
     }
 
     _rand(min, max) {

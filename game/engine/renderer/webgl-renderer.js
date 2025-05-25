@@ -1,4 +1,5 @@
 import BasicQuadProgram from './programs/basic-quad-program'
+import BasicLightProgram from './programs/basic-light-program'
 import FullscreenToneProgram from './programs/fullscreen-tone-program'
 import Colors from '@game/engine/util/colors';
 
@@ -17,6 +18,7 @@ export default class WebGLRenderer {
 
   _initializeSupportedMaterials() {
     this.materialRegistry.register('basic-quad', new BasicQuadProgram(this.renderCtx, {}));
+    this.materialRegistry.register('basic-light', new BasicLightProgram(this.renderCtx, {}));
     this.materialRegistry.register('fullscreen-tone', new FullscreenToneProgram(this.renderCtx, {}));
   }
 
@@ -60,6 +62,9 @@ export default class WebGLRenderer {
 
   draw() {
     this.flushRenderCommandBuffer(this.renderCommandBuffer)
+
+    this.renderCtx.activeTexture(this.renderCtx.TEXTURE0);
+    this.renderCtx.bindTexture(this.renderCtx.TEXTURE_2D, null);
   }
 
   endFrame() {
@@ -119,8 +124,6 @@ export default class WebGLRenderer {
     renderCommandBuffer.length = 0; // clear
   }
 
-
-
   _clearScreen(renderCtx, clearScreenColor) {
     const color = this.colorUtil.colorToRaw(clearScreenColor, 255);
     renderCtx.clearColor(color.r, color.g, color.b, color.a);
@@ -135,10 +138,9 @@ export default class WebGLRenderer {
     let framebuffer = this.renderCtx.createFramebuffer();
     this.renderCtx.bindFramebuffer(this.renderCtx.FRAMEBUFFER, framebuffer);
 
-    // const prevTex = this.renderCtx.getParameter(this.renderCtx.TEXTURE_BINDING_2D);
-
     // Frame Buffer renders to a target texture
     const texture = this.renderCtx.createTexture();
+    this.renderCtx.activeTexture(this.renderCtx.TEXTURE0);
     this.renderCtx.bindTexture(this.renderCtx.TEXTURE_2D, texture);
     this.renderCtx.texImage2D(this.renderCtx.TEXTURE_2D, 0, this.renderCtx.RGBA, width, height, 0, this.renderCtx.RGBA, this.renderCtx.UNSIGNED_BYTE, null);
     this.renderCtx.texParameteri(this.renderCtx.TEXTURE_2D, this.renderCtx.TEXTURE_MIN_FILTER, this.renderCtx.LINEAR);
@@ -154,7 +156,7 @@ export default class WebGLRenderer {
       width: width,
       height: height
     }
-    // this.renderCtx.bindTexture(this.renderCtx.TEXTURE_2D, prevTex);
+    framebuffer.key = key
 
     return this.renderTargets[key]
   }
