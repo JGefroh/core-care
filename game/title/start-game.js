@@ -9,7 +9,7 @@ import { createTestData } from '@game/title/test-data.js';
 // General Mechanics
 import GuiSystem from '@game/engine/gui/gui-system';
 import LightSystem from '@game/engine/lighting/light-system';
-import RenderSystem from '@game/engine/renderer2/render-system';
+
 import RenderablesRenderSystem from '@game/engine/renderer/renderables-render-system';
 import TimerSystem from '@game/engine/timer/timer-system';
 
@@ -82,19 +82,14 @@ import AssetConfigurationSystem from '../specifics/configuration/assets/asset-co
 import LogicConfigurationSystem from '../specifics/configuration/logic/logic-configuration-system';
 import CloudGeneratorSystem from '../features/environmental/cloud-generator-system';
 import SkySystem from '../features/environmental/sky-system';
-import RenderSubmissionSystem from '../engine/renderer2/render-submission-system';
+import RenderSystem from '@game/engine/renderer2/render-system';
+import RenderSubmissionSystem from '@game/engine/renderer2/render-submission-system';
 
 export function startGame() {
 
     ////
     // Generic systems
     ////
-    // Rendering
-    // Core.addSystem(new RenderSystem())
-        // Core.addTag(Renderable)
-        // Core.addSystem(new RenderablesRenderSystem())
-        // Core.addSystem(new TextureSystem());
-
     // Rendering V2
     Core.addSystem(new RenderSystem());
         Core.addSystem(new RenderSubmissionSystem());
@@ -104,8 +99,8 @@ export function startGame() {
 
 
     // GUI
-    // Core.addSystem(new GuiSystem())
-        // Core.addTag(GuiCanvasRenderable)
+    Core.addSystem(new GuiSystem())
+        Core.addTag(GuiCanvasRenderable)
 
     // Loaders and Gnerators
     Core.addSystem(new AssetLoaderSystem());

@@ -10,8 +10,8 @@ export default class RenderSubmissionSystem extends System {
   initialize() {
     this.send('REGISTER_RENDER_PASS', {
       name: 'RENDERABLE_SUBMISSION',
-      execute: (renderer, viewport) => {
-        this._submitRenderableDraws(renderer, viewport);
+      execute: (renderer, materialResolver) => {
+        this._submitRenderableDraws(renderer, materialResolver);
       }
     });
   }
@@ -19,8 +19,7 @@ export default class RenderSubmissionSystem extends System {
   work() {
   }
 
-  _submitRenderableDraws(renderer, viewport) {
-    let materialResolver = this._core.getData('MATERIAL_RESOLVER')
+  _submitRenderableDraws(renderer, materialResolver) {
     this.workForTag('Renderable', (renderable, entity) => {
       const materialId = materialResolver.resolve(renderable);
  

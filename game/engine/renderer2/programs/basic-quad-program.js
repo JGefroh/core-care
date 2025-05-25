@@ -12,7 +12,7 @@ class Program extends BaseProgram {
   uploadInstanceData(commands) {
       for (let command of commands) {
         this.instanceBuffers.offsets.push(command.xPosition, command.yPosition)
-        this.instanceBuffers.angles.push(command.angleDegrees)
+        this.instanceBuffers.angles.push(command.angleDegrees || 0)
         this.instanceBuffers.scales.push(command.width, command.height)
         let colorObject = this.colorUtil.colorToRaw(command.color, 255);
         this.instanceBuffers.colors.push(...[colorObject.r, colorObject.g, colorObject.b, colorObject.a])
@@ -37,7 +37,7 @@ class Program extends BaseProgram {
       }
 
       // Set up textures if any are loaded.
-      if (perFrameCache['texture0']) {
+      if (perFrameCache['texture0']?.textureDetails) {
         renderCtx.activeTexture(renderCtx.TEXTURE0);
         renderCtx.bindTexture(renderCtx.TEXTURE_2D, perFrameCache['texture0']);
         renderCtx.uniform1i(renderCtx.getUniformLocation(this.getProgram().program, 'u_texture0'), 0);
@@ -77,7 +77,7 @@ class Program extends BaseProgram {
         renderCtx, 
         quadVertexShaderSourceCode, 
         quadFragmentShaderSourceCode, 
-        ['u_projectionMatrix']
+        ['u_projectionMatrix', 'u_texture0']
       )
     }
 

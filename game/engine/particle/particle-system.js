@@ -17,12 +17,12 @@ export default class ParticleSystem extends System {
             this._createEmitter(payload);
         });
 
-        this.send("REGISTER_RENDER_LAYER", {
-            layer: 'PARTICLES_BEFORE_LIGHTING',
-            render: (renderOptions) => {
-                this._render(this.particles, renderOptions)
+        this.send('REGISTER_RENDER_PASS', {
+            name: 'PARTICLE_SUBMISSION',
+            execute: (renderer, materialResolver) => {
+                this._submitRenderableDraws(renderer, materialResolver);
             }
-        })
+        });
     }
 
     _createEmitter(payload) {
@@ -60,7 +60,7 @@ export default class ParticleSystem extends System {
             particleWidthMax,
             particleShape,
             particleColors,
-            particleSpeedMin,
+            particleSpeedMin, 
             particleSpeedMax,
             particleEmissionAngleDegreesMin,
             particleEmissionAngleDegreesMax,
@@ -130,41 +130,24 @@ export default class ParticleSystem extends System {
 
     }
 
-    _render(particles, renderOptions) {
-        const viewport = renderOptions.viewport;
-        const ctx = renderOptions.layerCanvasCtx;
-        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-
-        if (!ctx) return;
-
-        ctx.save();
-
+    _submitRenderableDraws(renderer, materialResolver) {
+        let particles = this.particles;
         for (const particle of particles) {
-            ctx.fillStyle = particle.color;
-            const screenX = (particle.xPosition * viewport.scale) - viewport.xPosition;
-            const screenY = (particle.yPosition * viewport.scale) - viewport.yPosition;
+            const materialId = materialResolver.resolve(particle);
 
-            if (particle.shape === 'circle') {
-                ctx.beginPath();
-                ctx.arc(
-                    screenX,
-                    screenY,
-                    particle.width / 2, // assume width == height for circle
-                    0,
-                    2 * Math.PI
-                );
-                ctx.fill();
-            } else { // default to rectangle
-                ctx.fillRect(
-                    screenX - particle.width / 2,
-                    screenY - particle.height / 2,
-                    particle.width,
-                    particle.height
-                );
-            }
-        }
+            renderer.submitRenderCommand({
+                materialId,
+                zIndex: 99999,
+                xPosition: particle.xPosition,
+                yPosition: particle.yPosition,
+                width: particle.width,
+                height: particle.height,
+                color: particle.color,
+                options: {} // Use later
+            });
+        };
 
-        ctx.restore();
+        renderer.draw();
     }
 
     _rand(min, max) {

@@ -20,9 +20,9 @@ import MovementFinalizationSystem from '@game/engine/movement/movement-finalizat
 import MovementProposalSystem from '@game/engine/movement/movement-proposal-system';
 import Movable from '@game/engine/movement/movement-tags';
 import ParticleSystem from '@game/engine/particle/particle-system';
-import RenderSystem from '@game/engine/renderer/render-system';
 import Renderable from '@game/engine/renderer/render-tags';
-import RenderablesRenderSystem from '@game/engine/renderer/renderables-render-system';
+import RenderSystem from '@game/engine/renderer2/render-system';
+import RenderSubmissionSystem from '@game/engine/renderer2/render-submission-system';
 import TimerSystem from '@game/engine/timer/timer-system';
 import Timer from '@game/engine/timer/timer-tag';
 import Attached from '../engine/attachments/attached-tag';
@@ -53,10 +53,10 @@ function addSystems() {
     // Generic systems
     ////
     // Rendering
-    Core.addSystem(new RenderSystem())
-        Core.addTag(Renderable)
-        Core.addSystem(new RenderablesRenderSystem())
-        Core.addSystem(new TextureSystem());
+        Core.addSystem(new RenderSystem());
+            Core.addSystem(new RenderSubmissionSystem());
+            Core.addTag(Renderable);
+            Core.addSystem(new TextureSystem());
 
 
     // GUI

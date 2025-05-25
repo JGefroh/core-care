@@ -17,7 +17,6 @@ export default class RenderSystem extends System {
     this.materialRegistry = new MaterialRegistry();
 
     this.materialResolver = new MaterialResolver(this.materialRegistry);
-    this._core.publishData('MATERIAL_RESOLVER', this.materialResolver);
 
     this.renderer = new WebGLRenderer(this.renderCtx, this.materialRegistry);
 
@@ -50,7 +49,7 @@ export default class RenderSystem extends System {
     this.renderer.beginFrame(this.renderCtx, viewport, this.clearScreenColor);
 
     for (let pass of this.renderPasses) {
-      pass.execute(this.renderer, this.materialRegistry);
+      pass.execute(this.renderer, this.materialResolver);
     }
 
     this.renderer.endFrame();

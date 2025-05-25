@@ -51,6 +51,18 @@ setPageMetadata();
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
 
+
+      // UI Canvas (until I figure out how to re-combine the layers)
+      const uiCanvas = document.createElement("canvas");
+      uiCanvas.setAttribute("id", 'ui-canvas');
+      uiCanvas.style.position = "absolute";
+      uiCanvas.style.top = "0";
+      uiCanvas.style.left = "0";
+      uiCanvas.style.pointerEvents = "none"; // Let clicks pass through to WebGL if needed
+      uiCanvas.width = window.innerWidth;
+      uiCanvas.height = window.innerHeight;
+      document.body.appendChild(uiCanvas);
+
       // canvas.onclick = () => {
         // canvas.style.cursor = 'none';
       //   canvas.requestPointerLock();

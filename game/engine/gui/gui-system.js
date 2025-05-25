@@ -64,8 +64,8 @@ export default class GuiSystem extends System {
 
 
     work() {
-      let canvasCtx = document.getElementById('canvas').getContext("2d");
-
+      let canvasCtx = document.getElementById('ui-canvas').getContext("2d");
+      canvasCtx.clearRect(0, 0, canvasCtx.canvas.width, canvasCtx.canvas.height);
 
       this._renderCanvas(canvasCtx)
 
