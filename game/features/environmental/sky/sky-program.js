@@ -17,7 +17,7 @@ class Program extends BaseProgram {
         this.instanceBuffers.offsets.push(command.xPosition, command.yPosition)
         this.instanceBuffers.angles.push(command.angleDegrees || 0)
         this.instanceBuffers.scales.push(command.width, command.height)
-        this.instanceBuffers.gradientSources.push(command.gradientSource || [-100,500])
+        this.instanceBuffers.gradientSources.push(command.gradientSource || [-100, 500])
         let colorObject = this.colorUtil.colorToRaw(command.color, 255);
         this.instanceBuffers.colors.push(...[colorObject.r, colorObject.g, colorObject.b, colorObject.a])
       }

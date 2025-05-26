@@ -52,8 +52,7 @@ export default class DayNightCycleSystem extends System {
     }
 
     initialize() {
-      // this.initializeGameClock(22, 60);
-      this.initializeGameClock(8, 60);
+      this.initializeGameClock(12, 60);
 
       this.send('REGISTER_MATERIAL', {
         materialId: 'sky',
@@ -64,6 +63,10 @@ export default class DayNightCycleSystem extends System {
           }
         }
       })
+
+      this.send("REQUEST_FULLSCREEN_TONE", {
+        color: null
+      });
     }
     
     work() {
@@ -79,6 +82,10 @@ export default class DayNightCycleSystem extends System {
         this.send("REQUEST_FULLSCREEN_TONE", {
           color: currentColor.sourceColor?.toneFilter?.replace(',1)', ', 0.3)') || null
         });
+        
+        this._core.publishData('TIME_OF_DAY', {
+          currentGameTime: this._calculateCurrentTime()
+        });
       });
       
     }
@@ -90,10 +97,7 @@ export default class DayNightCycleSystem extends System {
     }
 
     getSkyColor() {
-      const now = performance.now() / 1000;
-      const realElapsed = now - this._realStartTime;
-      const gameTime = this._gameStartTime + realElapsed * this.timeFactor;
-      const hourFloat = (gameTime / 3600) % 24;
+      const hourFloat = this._calculateCurrentTime();
     
       // Extract hours from structured skyColors array
       const hours = this.skyColors.map(entry => entry.hour).sort((a, b) => a - b);
@@ -136,6 +140,15 @@ export default class DayNightCycleSystem extends System {
         sourceColor: colorAEntry,
         destinationColor: colorBEntry,
       }
+    }
+
+    _calculateCurrentTime() {
+      const now = performance.now() / 1000;
+      const realElapsed = now - this._realStartTime;
+      const gameTime = this._gameStartTime + realElapsed * this.timeFactor;
+      const hourFloat = (gameTime / 3600) % 24;
+
+      return hourFloat;
     }
 
     _formatGameTime(hourFloat) {
