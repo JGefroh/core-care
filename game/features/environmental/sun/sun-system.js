@@ -22,7 +22,7 @@ export default class SunSystem extends System {
       this.sunriseHour = 6;
       this.sunsetHour = 19;
       this.sunriseAngle = Math.PI * 0.75;  // ~135°, top-left
-      this.sunsetAngle  = Math.PI * 0.25;  // ~45°, top-right
+      this.sunsetAngle  = Math.PI / 6;  // ~45°, top-right
     }
   
     initialize() {

@@ -40,12 +40,11 @@ export default class DayNightCycleSystem extends System {
 
         { hour: 15, skyColor: "rgba(160,180,210,1)" },                            // softened
         { hour: 16, skyColor: "rgba(210,160,110,1)", toneFilter: "rgba(0,0,0,0.2)" }, // golden
-        { hour: 17, skyColor: "rgba(190,120,80,1)", toneFilter: "rgba(0,0,0,0.35)" }, // orange-red
-        { hour: 18, skyColor: "rgba(130,90,70,1)", toneFilter: "rgba(0,0,0,0.5)" },   // deep orange
-
-        { hour: 19, skyColor: "rgba(43,58,103,1)", toneFilter: "rgba(0,0,0,0.5)" },
-        { hour: 20, skyColor: "rgba(28,31,42,1)", toneFilter: "rgba(0,0,0,0.65)" },
-        { hour: 21, skyColor: "rgba(11,12,16,1)", toneFilter: "rgba(0,0,0,0.77)" },
+        { hour: 17, skyColor: "rgba(190,120,80,1)", toneFilter: "rgba(0,0,0,0.40)" }, // orange-red
+        { hour: 18, skyColor: "rgba(130,90,70,1)", toneFilter: "rgba(0,0,0,0.55)" },   // deep orange
+        { hour: 19, skyColor: "rgba(43,58,103,1)", toneFilter: "rgba(0,0,0,0.65)" },
+        { hour: 20, skyColor: "rgba(28,31,42,1)", toneFilter: "rgba(0,0,0,0.7)" },
+        { hour: 21, skyColor: "rgba(11,12,16,1)", toneFilter: "rgba(0,0,0,0.8)" },
         { hour: 22, skyColor: "rgba(13,51,102,1)", toneFilter: "rgba(0,0,0,0.87)" },
         { hour: 23, skyColor: "rgba(46,43,95,1)", toneFilter: "rgba(0,0,0,0.87)" },
         { hour: 24, skyColor: "rgba(0,0,0,1)", toneFilter: "rgba(0,0,0,0.87)" }
