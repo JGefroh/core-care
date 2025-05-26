@@ -21,7 +21,7 @@ export default class RenderSystem extends System {
 
     this.renderPasses = [];
 
-    this.renderPassSequence = ['WORLD', 'LIGHTING', 'LIGHTING_BLIT', 'ENVIRONMENT', 'ENVIRONMENT_BLIT']
+    this.renderPassSequence = ['WORLD', 'WORLD_OVERLAY_1', 'WORLD_OVERLAY_1_BLIT', 'LIGHTING', 'LIGHTING_BLIT', 'ENVIRONMENT', 'ENVIRONMENT_BLIT']
 
     this.addHandler('REGISTER_RENDER_PASS', (pass) => {
       this.renderPasses.push(pass);

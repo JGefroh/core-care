@@ -32,7 +32,7 @@ export default class RegionSystem extends System {
     
     forEachTile(fn) {
         this.workForTag('RegionTile', (tag, entity) => {
-            fn(entity);
+            fn(tag, entity);
         })
     }
 
@@ -69,11 +69,12 @@ export default class RegionSystem extends System {
             column: column
         }));
 
-        entity.addComponent(new RenderComponent({
-            width: this.regionTileSize,
-            height: this.regionTileSize,
-            shapeColor: 'rgba(255,0,0,1)'
-        }));
+        // entity.addComponent(new RenderComponent({
+        
+        //     width: this.regionTileSize,
+        //     height: this.regionTileSize,
+        //     shapeColor: 'rgba(255,0,0,1)'
+        // }));
 
         this._core.addEntity(entity);
     }

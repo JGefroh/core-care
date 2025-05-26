@@ -24,7 +24,7 @@ export default class SnowSystem extends System {
         this.send('ADD_REGION_TILE_PROCESSOR', {processorFn: this.addComponents})
 
         this.send('REGISTER_RENDER_PASS', {
-          name: 'WORLD_OVERLAY_1 - SNOW',
+          name: 'WORLD_OVERLAY_1',
           destinationTarget: 'WORLD_OVERLAY_1',
           execute: (renderer, materialResolver) => {
               this._render(renderer, materialResolver);
@@ -47,7 +47,7 @@ export default class SnowSystem extends System {
           materialClass: SnowProgram
         })
 
-        this.wait = 0
+        this.wait = 1000
     }
 
     _render(renderer, materialResolver) {
@@ -67,15 +67,21 @@ export default class SnowSystem extends System {
     
     work() {
       this.workForTag('SnowAccumulator', (tag) => {
-        tag.accumulate(Math.random() * 0.001)
+        if (Math.random() <= 0.01) {
+          tag.accumulate(Math.random() * 0.001)
+        }
       });
     }
 
     addSnow(tag) {
     }
 
-    addComponents(entity) {
+    addComponents(tag, entity) {
       if (entity.hasComponent('SnowAccumulatorComponent')) {
+        return;
+      }
+
+      if (tag.getRow() < -10) {
         return;
       }
 

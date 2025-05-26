@@ -22,9 +22,8 @@ export default class CloudGeneratorSystem extends System {
     }
 
     initialize() {
-      for (let index = 0; index < 10; index++) {
-        this._createRandomCloud(0, window.innerWidth, 0, 100);
-        this._createRandomCloud(0, window.innerWidth, 0, 100);
+      for (let index = 0; index < 20; index++) {
+        this._createRandomCloud( -window.innerWidth / 2, window.innerWidth /2, -500, -500);
       }
     }
     

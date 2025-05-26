@@ -10,7 +10,7 @@ export default class AssetConfigurationSystem extends System {
       if (config.skipMapLoad) {
         return;
       }
-      this.send('LOAD_MAP', {...mapEmpty, xPosition: 0, yPosition: 0})
-      this.send('SET_VIEWPORT', {xPosition: window.innerWidth, yPosition: window.innerHeight / 2})
+      this.send('LOAD_MAP', {...mapEmpty, xPosition: 0, yPosition:  -window.innerHeight / 2})
+      this.send('SET_VIEWPORT', {xPosition: 0, yPosition: -700})
     }
 }
