@@ -26,11 +26,13 @@ export default class RenderSystem extends System {
     this.addHandler('REGISTER_RENDER_PASS', (pass) => {
       this.renderPasses.push(pass);
       this.renderPasses = this.renderPasses.sort((a, b) => this.renderPassSequence.indexOf(a.name) - this.renderPassSequence.indexOf(b.name));
-      console.info('new order', this.renderPasses)
     });
 
     this.addHandler('REGISTER_MATERIAL', (payload) => {
-      this.materialRegistry.register(payload.materialId, new payload.materialClass(this.renderCtx, {}))
+      this.materialRegistry.register(payload.materialId, {
+        program: new payload.materialClass(this.renderCtx, {}),
+        resolver: payload.materialResolver
+      })
     });
 
 

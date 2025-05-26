@@ -15,6 +15,7 @@ export function createTestData() {
     createTree(window.innerWidth / 2, 300, 30, 100, true);
     createTree(window.innerWidth / 2 - 100, 300, 30, 100, false);
     createTree(window.innerWidth / 2 - 300, 300, 30, 100, false);
+    createGuard(0, -128, 32);
 
 }
 
@@ -45,6 +46,26 @@ function createTree(x, y, width, height, addLight) {
       }
 
       Core.addEntity(entity);
+}
+
+
+function createGuard(x, y, tileSize) {
+  let entity = new Entity();
+  let position = new PositionComponent({
+      xPosition: x,
+      yPosition: y,
+      width: tileSize,
+      height: tileSize * 2
+  });
+  let render = new RenderComponent({
+      width: tileSize,
+      height: tileSize * 2,
+      imagePath: 'GUARD_1'
+  });
+
+    entity.addComponent(position);
+    entity.addComponent(render);
+    Core.addEntity(entity);
 }
 
 function _randomFrom(array) {

@@ -2,6 +2,8 @@ import { default as System } from '@core/system';
 import { default as Core}  from '@core/core';
 import { default as Entity } from '@core/entity.js'
 
+import { default as SkyProgram } from '@game/features/environmental/sky/sky-program';
+
 import Colors from '@game/engine/util/colors';
 import PositionComponent from '@game/engine/position/position-component';
 import RenderComponent from '@game/engine/renderer/render-component';
@@ -52,6 +54,16 @@ export default class DayNightCycleSystem extends System {
     initialize() {
       // this.initializeGameClock(22, 60);
       this.initializeGameClock(8, 60);
+
+      this.send('REGISTER_MATERIAL', {
+        materialId: 'sky',
+        materialClass: SkyProgram,
+        materialResolver: (renderCommand, context = {}) => {
+          if (context.key == 'SKY') {
+            return 'sky'
+          }
+        }
+      })
     }
     
     work() {

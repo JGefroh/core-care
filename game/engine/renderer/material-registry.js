@@ -12,6 +12,6 @@ export default class MaterialRegistry {
   }
 
   list() {
-    return Object.keys(this.materials);
+    return Object.values(this.materials);
   }
 }

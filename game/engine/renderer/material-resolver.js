@@ -3,7 +3,17 @@ export default class MaterialResolver {
         this.materialRegistry = materialRegistry;
     }
 
-    resolve(renderable) {
-        return 'basic-quad';
+    resolve(drawCommand, context = {}) {
+        let firstMatch = null;
+        this.materialRegistry.list().forEach((material) => {
+            if (firstMatch) {
+                return;
+            }
+            if (material.resolver) {
+                firstMatch = material.resolver(drawCommand, context);
+            }
+        })
+        
+        return firstMatch || 'basic-quad';
     }
 }

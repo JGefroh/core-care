@@ -21,10 +21,7 @@ export default class RenderSubmissionSystem extends System {
 
   _submitRenderableDraws(renderer, materialResolver) {
     this.workForTag('Renderable', (renderable, entity) => {
-      const materialId = materialResolver.resolve(renderable);
- 
-      renderer.submitRenderCommand({
-        materialId,
+      let drawCommand = {
         shape: renderable.getShape(),
         zIndex: this.renderablesLayerOrder.indexOf(renderable.getRenderLayer()) || 99999,
         xPosition: renderable.getXPosition(),
@@ -38,7 +35,11 @@ export default class RenderSubmissionSystem extends System {
         },
         color: renderable.getShapeColor(),
         options: {} // Use later
-      });
+      }
+
+      const materialId = materialResolver.resolve(drawCommand, {key: entity.key});
+      drawCommand.materialId = materialId;
+      renderer.submitRenderCommand(drawCommand);
     });
   }
 }

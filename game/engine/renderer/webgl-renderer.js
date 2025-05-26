@@ -20,10 +20,10 @@ export default class WebGLRenderer {
   }
 
   _initializeSupportedMaterials() {
-    this.materialRegistry.register('basic-quad', new BasicQuadProgram(this.renderCtx, {}));
-    this.materialRegistry.register('basic-light', new BasicLightProgram(this.renderCtx, {}));
-    this.materialRegistry.register('fullscreen-tone', new FullscreenToneProgram(this.renderCtx, {}));
-    this.materialRegistry.register('blit', new BlitProgram(this.renderCtx, {}));
+    this.materialRegistry.register('basic-quad', {program: new BasicQuadProgram(this.renderCtx, {})});
+    this.materialRegistry.register('basic-light', {program: new BasicLightProgram(this.renderCtx, {})});
+    this.materialRegistry.register('fullscreen-tone', {program: new FullscreenToneProgram(this.renderCtx, {})});
+    this.materialRegistry.register('blit', {program: new BlitProgram(this.renderCtx, {})});
   }
 
   getCanvasDimensions() {
@@ -134,7 +134,7 @@ export default class WebGLRenderer {
     }
   
     for (const [materialId, commands] of grouped.entries()) {
-      const program = this.materialRegistry.get(materialId);
+      const program = this.materialRegistry.get(materialId)?.program;
       if (!program) { continue; }
   
       program.uploadInstanceData(commands);
