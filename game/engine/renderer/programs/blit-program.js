@@ -29,6 +29,9 @@ class Program {
       renderCtx.bindTexture(renderCtx.TEXTURE_2D, sourceTexture);
       renderCtx.uniform1i(this.program.uniforms['u_sourceTexture'], 0);
     }
+    renderCtx.enable(renderCtx.BLEND);
+    renderCtx.blendFunc(renderCtx.SRC_ALPHA, renderCtx.ONE_MINUS_SRC_ALPHA);
+
 
     renderCtx.bindVertexArray(this.vertexArrayObject);
 

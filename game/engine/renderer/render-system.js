@@ -59,9 +59,6 @@ export default class RenderSystem extends System {
       this.renderer.bindDestinationTarget(pass.destinationTarget);
       pass.execute(this.renderer, this.materialResolver); 
       this.renderer.draw();
-      if (pass.name == 'LIGHTING') {
-        // this.renderer.save('LIGHTING');
-      }
     }
 
     this.renderer.endFrame();

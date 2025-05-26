@@ -36,6 +36,9 @@ export default class ToneOverlaySystem extends System {
     }
 
     render(renderer, materialResolver) {
+        if (!this.toneColor) {
+          return;
+        }
         let {width, height} = renderer.getCanvasDimensions();
 
         renderer.submitRenderCommand({

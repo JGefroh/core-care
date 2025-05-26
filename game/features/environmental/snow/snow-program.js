@@ -48,6 +48,8 @@ class Program extends BaseProgram {
         renderCtx.uniform1i(this.program.uniforms['u_texture0'], 0);
       }
 
+      renderCtx.enable(renderCtx.BLEND);
+      renderCtx.blendFunc(renderCtx.SRC_ALPHA, renderCtx.ONE_MINUS_SRC_ALPHA);
       this._bindToBufferIfExists(renderCtx, this.getBuffers(), `INSTANCE_OFFSET_${index}`, this.instanceBuffers.offsets)
       this._bindToBufferIfExists(renderCtx, this.getBuffers(), `INSTANCE_SCALE_${index}`, this.instanceBuffers.scales)
       this._bindToBufferIfExists(renderCtx, this.getBuffers(), `INSTANCE_ANGLE_${index}`, this.instanceBuffers.angles)
