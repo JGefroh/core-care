@@ -8,7 +8,7 @@ export default class RenderSystem extends System {
   constructor() {
     super();
 
-    this.clearScreenColor = 'rgba(255,255,255,0)';
+    this.clearScreenColor = 'rgba(0,0,0,0)';
     this.viewportScale = 1;
 
     this.primaryCanvas = document.getElementById('canvas');
@@ -22,7 +22,7 @@ export default class RenderSystem extends System {
 
     this.renderPasses = [];
 
-    this.renderPassSequence = ['WORLD', 'LIGHTING', 'LIGHTING_BLIT', 'ENVIRONMENT']
+    this.renderPassSequence = ['WORLD', 'LIGHTING', 'LIGHTING_BLIT', 'ENVIRONMENT', 'ENVIRONMENT_BLIT']
 
     this.addHandler('REGISTER_RENDER_PASS', (pass) => {
       this.renderPasses.push(pass);
@@ -56,6 +56,9 @@ export default class RenderSystem extends System {
       this.renderer.bindDestinationTarget(pass.destinationTarget);
       pass.execute(this.renderer, this.materialResolver); 
       this.renderer.draw();
+      if (pass.name == 'LIGHTING') {
+        // this.renderer.save('LIGHTING');
+      }
     }
 
     this.renderer.endFrame();

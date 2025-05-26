@@ -222,4 +222,31 @@ export default class WebGLRenderer {
       tx, ty, 0, 1
     ]);
   }
+
+
+  save(targetName) {
+    this.saveFramebufferAsImage(this.renderCtx, this.destinationTargets[targetName]?.framebuffer, 1024, 1024);
+  }
+
+
+  /// DEBUG
+  saveFramebufferAsImage(gl, framebuffer, width, height, filename = 'output.png') {
+    gl.bindFramebuffer(gl.FRAMEBUFFER, framebuffer);
+  
+    const pixels = new Uint8Array(width * height * 4);
+    gl.readPixels(0, 0, width, height, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
+  
+    const canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext('2d');
+    const imageData = ctx.createImageData(width, height);
+    imageData.data.set(pixels);
+    ctx.putImageData(imageData, 0, 0);
+  
+    const link = document.createElement('a');
+    link.download = filename;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  }
 } 

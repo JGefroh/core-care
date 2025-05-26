@@ -13,7 +13,7 @@ class Program {
   }
 
   initialize(renderCtx, config) {
-    this._initializeProgramGeneric(renderCtx, vertexShaderSourceCode, fragmentShaderSourceCode, ['u_color']);
+    this._initializeProgramGeneric(renderCtx, vertexShaderSourceCode, fragmentShaderSourceCode, ['u_color', 'u_sourceTexture']);
     this._initializeBuffers(renderCtx);
   }
 
@@ -35,6 +35,16 @@ class Program {
     renderCtx.uniform4fv(this.program.uniforms['u_color'], this.fullscreenTone.color);
     
     renderCtx.blendFunc(renderCtx.DST_COLOR, renderCtx.ZERO);
+
+
+    // Load the texture to blit
+    const sourceTexture = perFrameCache['sourceTexture']
+    if (sourceTexture) {
+      renderCtx.activeTexture(renderCtx.TEXTURE0);
+      renderCtx.bindTexture(renderCtx.TEXTURE_2D, sourceTexture);
+      renderCtx.uniform1i(this.program.uniforms['u_sourceTexture'], 0);
+    }
+
 
     renderCtx.bindVertexArray(this.vertexArrayObject);
     renderCtx.drawArrays(renderCtx.TRIANGLES, 0, 6);

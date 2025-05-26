@@ -13,21 +13,11 @@ export default class LightSystem2 extends System {
 
         this.send('REGISTER_RENDER_PASS', {
             name: 'LIGHTING',
-            destinationTarget:'LIGHTING',
+            destinationTarget: 'LIGHTING',
             execute: (renderer, materialResolver) => {
                 this._render(renderer, materialResolver);
             }
         });
-
-        // this.send('REGISTER_RENDER_PASS', {
-        //     name: 'LIGHTING_BLIT',
-        //     sourceTargets: ['LIGHTING'],
-        //     execute: (renderer, materialResolver) => {
-        //         renderer.submitRenderCommand({
-        //             materialId: 'blit',
-        //         });
-        //     }
-        // });
     }
 
     work() {
