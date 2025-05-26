@@ -2,19 +2,17 @@ const fragmentSourceCode = `#version 300 es
 precision mediump float;
 
 in vec4 v_color;
-in vec2 v_uv; // You must output this from the vertex shader
+in vec2 v_uv;
 out vec4 o_color;
 
 uniform sampler2D u_sourceTexture;
 
 void main() {
-  float mask = texture(u_sourceTexture, v_uv).r;
-
-  // Invert the mask: where light is strong, alpha is reduced
-  float toneAlpha = 1.0 - mask;
-
+  float raw = texture(u_sourceTexture, v_uv).a;
+float mask = min(max(raw, 0.0), 1.0); // 🚫 No room for guesswork
+  float toneAlpha = mix(0.4, 1.0, 1.0 - pow(mask, 1.5));
   vec3 toneColor = v_color.rgb * toneAlpha;
-  o_color = vec4(toneColor, toneAlpha * v_color.a);
+  o_color = vec4(toneColor, toneAlpha * v_color.a * 1.12);
 }
 `;
 

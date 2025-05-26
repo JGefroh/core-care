@@ -12,12 +12,14 @@ import TimerComponent from '@game/engine/timer/timer-component';
 import LightSourceComponent from '@game/engine/lighting/light-source-component';
 
 export function createTestData() {
-    createTree(window.innerWidth / 2, 300, 30, 100);
+    createTree(window.innerWidth / 2, 300, 30, 100, true);
+    createTree(window.innerWidth / 2 - 100, 300, 30, 100, false);
+    createTree(window.innerWidth / 2 - 300, 300, 30, 100, false);
 
 }
 
 
-function createTree(x, y, width, height) {
+function createTree(x, y, width, height, addLight) {
     let entity = new Entity();
     let position = new PositionComponent({
         xPosition: x,
@@ -30,10 +32,6 @@ function createTree(x, y, width, height) {
         width: width,
         height: height
     });
-    let vector = new VectorComponent({
-        magnitude: 0.02,
-        angle: Math.random() * 360
-      });
 
       let light = new LightSourceComponent({
         maxDistance: 300,
@@ -42,8 +40,9 @@ function createTree(x, y, width, height) {
 
       entity.addComponent(position);
       entity.addComponent(render);
-      entity.addComponent(vector)
-      entity.addComponent(light);
+      if (addLight) {
+        entity.addComponent(light);
+      }
 
       Core.addEntity(entity);
 }

@@ -44,6 +44,11 @@ class Program extends BaseProgram {
       let index = this._getFlushIndex();
 
       renderCtx.useProgram(this.getProgram().program);
+      renderCtx.enable(renderCtx.BLEND)
+      renderCtx.blendFunc(renderCtx.ONE, renderCtx.ONE);
+
+
+      
 
       renderCtx.bindVertexArray(this.getVertexArrayObjects()[`${index}`]);
       renderCtx.uniformMatrix4fv(this.program.uniforms['u_projectionMatrix'], false, perFrameCache['projectionMatrix']);

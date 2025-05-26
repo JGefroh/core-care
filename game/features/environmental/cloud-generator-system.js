@@ -49,13 +49,7 @@ export default class CloudGeneratorSystem extends System {
         shouldRepeat: true
       });
 
-      let light = new LightSourceComponent({
-        maxDistance: 100,
-        lightType: 'point'
-      })
-
       entity.addComponent(vector)
       entity.addComponent(timer);
-      entity.addComponent(light);
     }
   }

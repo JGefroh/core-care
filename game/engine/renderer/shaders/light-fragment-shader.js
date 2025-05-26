@@ -8,21 +8,21 @@ const fragmentSourceCode = `#version 300 es
 
   out vec4 o_color;
 
-  vec4 renderCircle(vec4 baseColor) {
-    float dist = length(v_localPosition);
-    float edge = 0.49;
-    float pixelSize = fwidth(dist);
-    float borderOuter = edge;
-    float borderInner = edge - (1.0 / max(v_instanceScale.x, v_instanceScale.y));
+ vec4 renderCircle(vec4 baseColor) {
+  float dist = length(v_localPosition) * 1.5;
+  float edge = 0.1;
+  float blur = 0.55;
 
-    float alpha = 1.0;
-    vec3 premultiplied = baseColor.rgb * (baseColor.a * alpha);
+  // Raw radial gradient
+  float gradient = 1.0 - smoothstep(edge - blur, edge + blur, dist);
+  gradient = pow(gradient, 0.5);
 
-    if (dist >= edge) {
-      discard;
-    }
-    return vec4(baseColor.rgb, alpha);
-  }
+  // ✅ Clamp gradient to avoid exceeding 1.0 when blending
+  gradient = clamp(gradient, 0.0, 1.0);
+
+  // ✅ Only write to alpha (clean mask)
+  return vec4(0.0, 0.0, 0.0, gradient);
+}
 
   vec4 renderRectangle(vec4 baseColor) {
     return baseColor;

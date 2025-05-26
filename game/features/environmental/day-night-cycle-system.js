@@ -46,7 +46,7 @@ export default class DayNightCycleSystem extends System {
     }
 
     initialize() {
-      this.initializeGameClock(6, 60);
+      this.initializeGameClock(22, 60);
     }
     
     work() {
@@ -60,7 +60,7 @@ export default class DayNightCycleSystem extends System {
     
         // Apply the same sky color as a semi-transparent tone
         this.send("REQUEST_FULLSCREEN_TONE", {
-          color: currentColor.replace(',1)', ', 0.9)')
+          color: currentColor.replace(',1)', ', 0.97)')
         });
       });
       
