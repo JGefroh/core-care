@@ -8,7 +8,6 @@ export default class RenderSystem extends System {
   constructor() {
     super();
 
-    this.clearScreenColor = 'rgba(0, 0, 0, 1)';
     this.viewportScale = 1;
 
     this.primaryCanvas = document.getElementById('canvas');
@@ -49,7 +48,7 @@ export default class RenderSystem extends System {
       scale: this.viewportScale
     };
 
-    this.renderer.beginFrame(this.renderCtx, viewport, this.clearScreenColor);
+    this.renderer.beginFrame(this.renderCtx, viewport);
 
     for (let pass of this.renderPasses) {
       this.renderer.beginPass(pass);

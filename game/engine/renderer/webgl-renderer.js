@@ -6,6 +6,8 @@ import Colors from '@game/engine/util/colors';
 
 export default class WebGLRenderer {
   constructor(renderCtx, materialRegistry) {
+    this.clearScreenColor = 'rgba(0, 0, 255, 0.3)';
+
     this.materialRegistry = materialRegistry;
     this.renderCtx = renderCtx;
     this.perFrameCache = {};
@@ -54,11 +56,11 @@ export default class WebGLRenderer {
   // Rendering
   ////
 
-  beginFrame(renderCtx, viewport, clearScreenColor) {
+  beginFrame(renderCtx, viewport) {
     this.perFrameCache = {};
     this.perFrameCache['projectionMatrix'] = this._buildProjectionMatrix(renderCtx, viewport)
     this.perFrameCache['texture0'] = this.textureDetails?.texture;
-    this._clearScreen(renderCtx, clearScreenColor);
+    this._clearScreen(renderCtx);
   }
 
   beginPass(pass) {
@@ -131,9 +133,14 @@ export default class WebGLRenderer {
     renderCommandBuffer.length = 0; // clear
   }
 
-  _clearScreen(renderCtx, clearScreenColor) {
-    const color = this.colorUtil.colorToRaw(clearScreenColor, 255);
-    this.renderCtx.bindFramebuffer(this.renderCtx.FRAMEBUFFER, null);
+  _clearScreen(renderCtx, targetFramebuffer = null) {
+    const color = this.colorUtil.colorToRaw(this.clearScreenColor, 255);
+    if (targetFramebuffer) {
+      this.renderCtx.bindFramebuffer(this.renderCtx.FRAMEBUFFER, targetFramebuffer);
+    }
+    else {
+      this.renderCtx.bindFramebuffer(this.renderCtx.FRAMEBUFFER, null);
+    }
     this.renderCtx.enable(this.renderCtx.BLEND);
     this.renderCtx.blendFunc(this.renderCtx.SRC_ALPHA, this.renderCtx.ONE_MINUS_SRC_ALPHA);
     renderCtx.clearColor(color.r, color.g, color.b, color.a);
@@ -179,6 +186,7 @@ export default class WebGLRenderer {
       return;
     }
 
+
     let target = this.destinationTargets[key];
 
     if (!target) {
@@ -186,6 +194,7 @@ export default class WebGLRenderer {
     }
 
     this.renderCtx.bindFramebuffer(this.renderCtx.FRAMEBUFFER, target.framebuffer);
+    this._clearScreen(this.renderCtx, target.framebuffer);
     this.renderCtx.viewport(0, 0, target.width, target.height);
   }
 

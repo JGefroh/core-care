@@ -8,9 +8,6 @@ out vec4 o_color;
 uniform sampler2D u_sourceTexture;
 
 void main() {
-  o_color = vec4(1,0,1,0);
-  return;
-
   float mask = texture(u_sourceTexture, v_uv).r;
 
   // Invert the mask: where light is strong, alpha is reduced

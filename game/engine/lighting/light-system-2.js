@@ -49,8 +49,7 @@ export default class LightSystem2 extends System {
             angleDegrees: 0,
             width: lightable.getMaxDistance(),
             height: lightable.getMaxDistance(),
-            // color: lightable.getColors()[0] || 'rgba(255,0,0,1)',
-            color: 'rgba(255,0,0,1)',
+            color: lightable.getColors()[0],
             options: {} 
           });
     }

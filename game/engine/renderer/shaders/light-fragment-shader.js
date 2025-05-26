@@ -12,17 +12,16 @@ const fragmentSourceCode = `#version 300 es
     float dist = length(v_localPosition);
     float edge = 0.49;
     float pixelSize = fwidth(dist);
-
     float borderOuter = edge;
     float borderInner = edge - (1.0 / max(v_instanceScale.x, v_instanceScale.y));
 
-    if (dist >= borderOuter) {
+    float alpha = 1.0;
+    vec3 premultiplied = baseColor.rgb * (baseColor.a * alpha);
+
+    if (dist >= edge) {
       discard;
     }
-
-    float alpha = smoothstep(borderInner, borderInner - pixelSize, dist);
-    vec3 premultiplied = baseColor.rgb * (baseColor.a * alpha);
-    return vec4(premultiplied, baseColor.a * alpha);
+    return vec4(baseColor.rgb, alpha);
   }
 
   vec4 renderRectangle(vec4 baseColor) {
