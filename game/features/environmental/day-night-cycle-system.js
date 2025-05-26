@@ -21,32 +21,38 @@ export default class DayNightCycleSystem extends System {
 
       this.skyColors = [
         { hour: 0,  skyColor: "rgba(11,12,16,1)", toneFilter: "rgba(0,0,0,0.87)" },       // midnight
+        { hour: 1,  skyColor: "rgba(11,12,16,1)", toneFilter: "rgba(0,0,0,0.87)" },       // midnight
+        { hour: 2,  skyColor: "rgba(11,12,16,1)", toneFilter: "rgba(0,0,0,0.87)" },       // midnight
+        { hour: 3,  skyColor: "rgba(11,12,16,1)", toneFilter: "rgba(0,0,0,0.87)" },       // midnight
         { hour: 4,  skyColor: "rgba(28,31,42,1)", toneFilter: "rgba(0,0,0,0.75)" },       // early dawn
+        { hour: 5,  skyColor: "rgba(43,58,103,1)", toneFilter: "rgba(0,0,0,0.60)" },      // dawn
         { hour: 6,  skyColor: "rgba(43,58,103,1)", toneFilter: "rgba(0,0,0,0.60)" },      // dawn
         { hour: 7,  skyColor: "rgba(166,126,97,1)", toneFilter: "rgba(0,0,0,0.50)"},                                    // sunrise
+        { hour: 8,  skyColor: "rgba(166,126,97,1)", toneFilter: "rgba(0,0,0,0.50)"},                                    // sunrise
         { hour: 9,  skyColor: "rgba(252,161,125,1)", toneFilter: "rgba(0,0,0,0.40)" },                                   // morning
         { hour: 10, skyColor: "rgba(177,208,224,1)" },                                   // late morning
-        { hour: 11, skyColor: "rgba(135,206,235,1)" },                                   // late morning
+        { hour: 11, skyColor: "rgba(135,206,235,1)" },
+        { hour: 12, skyColor: "rgba(135,206,235,1)" },                                   // late morning
         { hour: 13, skyColor: "rgba(92,160,211,1)" },                                    // early afternoon
-        { hour: 15, skyColor: "rgba(135,207,234,1)" },                                   // afternoon
-        { hour: 17, skyColor: "rgba(252,204,102,1)", toneFilter: "rgba(255,128,64,0.40)" }, // golden hour
-        { hour: 18, skyColor: "rgba(250,140,102,1)", toneFilter: "rgba(255,100,50,0.50)" },  // sunset
-        { hour: 19, skyColor: "rgba(255,94,58,1)", toneFilter: "rgba(255,60,20,0.60)" },    // deep sunset
-        { hour: 20, skyColor: "rgba(252,142,83,1)", toneFilter: "rgba(255,90,20,0.70)" },   // early night
-        { hour: 21, skyColor: "rgba(166,126,97,1)", toneFilter: "rgba(255,90,20,0.80)"  },                                    // post-sunset warm
+        { hour: 14, skyColor: "rgba(92,160,211,1)" },        
+        { hour: 15, skyColor: "rgba(135,207,234,1)" },              
+        { hour: 16, skyColor: "rgba(135,207,234,1)" },                                   // afternoon
+        { hour: 17,  skyColor: "rgba(252,161,125,1)", toneFilter: "rgba(0,0,0,0.40)" },  // golden hour
+        { hour: 18,  skyColor: "rgba(166,126,97,1)", toneFilter: "rgba(0,0,0,0.50)"},  // sunset
+        { hour: 19,  skyColor: "rgba(43,58,103,1)", toneFilter: "rgba(0,0,0,0.60)" },    // deep sunset
+        { hour: 20,  skyColor: "rgba(28,31,42,1)", toneFilter: "rgba(0,0,0,0.75)" },   // early night
+        { hour: 21,  skyColor: "rgba(11,12,16,1)", toneFilter: "rgba(0,0,0,0.87)" },                                    // post-sunset warm
         { hour: 22, skyColor: "rgba(13,51,102,1)", toneFilter: "rgba(0,0,0,0.87)" },      // late evening
         { hour: 23, skyColor: "rgba(46,43,95,1)", toneFilter: "rgba(0,0,0,0.87)" },      // night
-        { hour: 24, skyColor: "rgba(0,0,0,1)", toneFilter: "rgba(0,0,0,0.87)" },          // deep night
+        { hour: 24, skyColor: "rgba(0,0,0,1)", toneFilter: "rgba(0,0,0,0.87)" }          // deep night
       ];
       
-      this.wait = 500;
-
       this.addHandler('INPUT_RECEIVED', (payload) => {
         if (payload.action == 'previous_time_of_day') {
-          this._gameStartTime -= 3600;
+          this._gameStartTime -= 100;
         }
         else if (payload.action == 'next_time_of_day') {
-          this._gameStartTime += 3600;
+          this._gameStartTime += 100;
         }
       })
     }
@@ -82,7 +88,7 @@ export default class DayNightCycleSystem extends System {
         this.send("REQUEST_FULLSCREEN_TONE", {
           color: currentColor.sourceColor?.toneFilter?.replace(',1)', ', 0.3)') || null
         });
-        
+
         this._core.publishData('TIME_OF_DAY', {
           currentGameTime: this._calculateCurrentTime()
         });

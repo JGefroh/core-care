@@ -37,6 +37,8 @@ export default class InputConfigurationSystem extends System {
             'p_release': 'debug_kill',
             '[_release': 'previous_time_of_day',
             ']_release': 'next_time_of_day',
+            '[_hold': 'previous_time_of_day',
+            ']_hold': 'next_time_of_day',
 
             // Viewport Contrlols - Debug
             '=_press': 'main_viewport_zoom_in',

@@ -18,6 +18,11 @@ export default class SunSystem extends System {
       this.radius = 500;     // how wide the arc is
       this.rotationAngle = -Math.PI / 2;; // radians
       this.rotationSpeed = 0.0015; // radians per tick
+
+      this.sunriseHour = 6;
+      this.sunsetHour = 19;
+      this.sunriseAngle = Math.PI * 0.75;  // ~135°, top-left
+      this.sunsetAngle  = Math.PI * 0.25;  // ~45°, top-right
     }
   
     initialize() {
@@ -39,14 +44,23 @@ export default class SunSystem extends System {
     }
 
     rotateSun(timeOfDay) {
-      // Map timeOfDay to rotation angle where noon is top (-π/2)
-      const angle = ((-timeOfDay / 24) * (2 * Math.PI)) - (Math.PI / 2);
-      this.rotationAngle = angle;
+      const pos = this.sun.getComponent('PositionComponent');
+    
+      if (timeOfDay < this.sunriseHour || timeOfDay > this.sunsetHour) {
+        pos.xPosition = -9999; // hide sun off-screen
+        pos.yPosition = -9999;
+        return;
+      }
+    
+      // Normalize time within active range
+      const t = (timeOfDay - this.sunriseHour) / (this.sunsetHour - this.sunriseHour);
+    
+      // Interpolate between sunrise and sunset angles
+      const angle = this.sunriseAngle + t * (this.sunsetAngle - this.sunriseAngle);
     
       const x = this.centerX + this.radius * Math.cos(angle);
-      const y = this.centerY - this.radius * Math.sin(angle);
+      const y = this.centerY - this.radius * Math.sin(angle); // Y flipped for screen coords
     
-      const pos = this.sun.getComponent('PositionComponent');
       pos.xPosition = x;
       pos.yPosition = y;
     }
