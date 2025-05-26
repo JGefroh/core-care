@@ -70,7 +70,7 @@ import DoorOpener from '../features/door/door-opener';
 import DoorSystem from '../features/door/door-system';
 import Door from '../features/door/door-tag';
 import CloudGeneratorSystem from '../features/environmental/cloud-generator-system';
-import SkySystem from '../features/environmental/sky-system';
+import DayNightCycleSystemSystem from '../features/environmental/day-night-cycle-system';
 import FootstepFxSystem from '../features/footstep-fx/footstep-fx-system';
 import HasFootsteps from '../features/footstep-fx/has-footsteps-tag';
 import DustParticleFxSystem from '../features/fx/dust-particle-fx-system';
@@ -199,7 +199,7 @@ export function startGame() {
     ////
 
     // Environmental
-    Core.addSystem(new SkySystem());
+    Core.addSystem(new DayNightCycleSystemSystem());
     Core.addSystem(new CloudGeneratorSystem());
 
     // Game Specific Configuration

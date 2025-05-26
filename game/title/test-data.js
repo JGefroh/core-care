@@ -5,29 +5,47 @@ import '@core/tag';
 
 import '@game/title/font-loader.js';
 
+import PositionComponent from '@game/engine/position/position-component';
+import RenderComponent from '@game/engine/renderer/render-component';
+import VectorComponent from '@game/engine/movement/vector-component';
+import TimerComponent from '@game/engine/timer/timer-component';
+import LightSourceComponent from '@game/engine/lighting/light-source-component';
 
 export function createTestData() {
-    setInterval(() => {
-        Core.send('EMIT_PARTICLES', {
-            xPosition: 300,
-            yPosition: 300,
-            particleEmitFrequencyInMs: 0,
-            particleEmissionCyclesMax: 1,
-            particleShape: 'circle',
-            particleCount: 100,
-            particleLifetimeMin: 150000,
-            particleLifetimeMax: 150000,
-            particleHeightMin: 0.5, //0.08 is pretty much the smallest
-            particleHeightMax: 12,
-            particleWidthMin: 0.5,
-            particleWidthMax: 12,
-            particleColors: [`rgba(255, 255, 255, ${Math.random()})`],
-            particleSpeedMin: 0.5,
-            particleSpeedMax: 10,
-            particleEmissionAngleDegreesMin: 0,
-            particleEmissionAngleDegreesMax: 360
-        });
-    }, 1000)
+    createTree(window.innerWidth / 2, 300, 30, 100);
+
+}
+
+
+function createTree(x, y, width, height) {
+    let entity = new Entity();
+    let position = new PositionComponent({
+        xPosition: x,
+        yPosition: y,
+        width: width,
+        height: height
+    });
+    let render = new RenderComponent({
+        shapeColor: 'rgba(101,67,33,1)',
+        width: width,
+        height: height
+    });
+    let vector = new VectorComponent({
+        magnitude: 0.02,
+        angle: Math.random() * 360
+      });
+
+      let light = new LightSourceComponent({
+        maxDistance: 300,
+        lightType: 'point'
+      })
+
+      entity.addComponent(position);
+      entity.addComponent(render);
+      entity.addComponent(vector)
+      entity.addComponent(light);
+
+      Core.addEntity(entity);
 }
 
 function _randomFrom(array) {

@@ -218,4 +218,26 @@ export default class Colors {
     const delta = ((h2 - h1 + 1.5) % 1) - 0.5;
     return (h1 + delta * t + 1) % 1;
   }
+  parseRgba(rgbaString) {
+    const match = rgbaString.match(/rgba?\((\d+),(\d+),(\d+),?([\d.]+)?\)/);
+    return {
+      r: parseInt(match[1]),
+      g: parseInt(match[2]),
+      b: parseInt(match[3]),
+      a: parseFloat(match[4] ?? '1')
+    };
+  }
+  
+  interpolateParsedRgba(c1, c2, t) {
+    return {
+      r: Math.round(c1.r * (1 - t) + c2.r * t),
+      g: Math.round(c1.g * (1 - t) + c2.g * t),
+      b: Math.round(c1.b * (1 - t) + c2.b * t),
+      a: c1.a * (1 - t) + c2.a * t,
+    };
+  }
+  
+  rgbaToString({r, g, b, a}) {
+    return `rgba(${r},${g},${b},${a})`;
+  }
 }
