@@ -28,6 +28,10 @@ export default class RenderSystem extends System {
       this.renderPasses = this.renderPasses.sort((a, b) => this.renderPassSequence.indexOf(a.destinationTarget) - this.renderPassSequence.indexOf(b.destinationTarget));
     });
 
+    this.addHandler('REGISTER_MATERIAL', (payload) => {
+      this.materialRegistry.register(payload.materialId, new payload.materialClass(this.renderCtx, {}))
+    });
+
 
     this.addHandler('LOAD_TEXTURE_TO_RENDERER', (textureDetails) => {
       this.renderer.loadTexture(this.renderCtx, textureDetails);

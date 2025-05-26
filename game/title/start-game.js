@@ -84,6 +84,10 @@ import FullscreenToneSystem from '../engine/renderer/fullscreen-tone-system';
 import LightSystem2 from '@game/engine/lighting/light-system-2';
 import Lightable from '@game/engine/lighting/lightable-tag';
 import Shadowable from '@game/engine/lighting/shadowable-tag';
+import SnowSystem from '../features/environmental/snow-system';
+import RegionSystem from '../engine/regions/region-system';
+import RegionTile from '../engine/regions/region-tile-tag';
+import SnowAccumulator from '../features/environmental/snow-accumulator-tag';
 
 export function startGame() {
 
@@ -166,6 +170,12 @@ export function startGame() {
     // Features
     ////
 
+    ////
+    // RegionTile?
+    ////
+    Core.addSystem(new RegionSystem());
+        Core.addTag(RegionTile);
+
     //Gameplay
     Core.addSystem(new TurnsTowardsSystem());
         Core.addTag(TurnsTowards);
@@ -201,6 +211,8 @@ export function startGame() {
     // Environmental
     Core.addSystem(new DayNightCycleSystemSystem());
     Core.addSystem(new CloudGeneratorSystem());
+    Core.addSystem(new SnowSystem());
+        Core.addTag(SnowAccumulator);
 
     // Game Specific Configuration
     Core.addSystem(new InputConfigurationSystem());
