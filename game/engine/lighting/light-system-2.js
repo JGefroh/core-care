@@ -13,10 +13,21 @@ export default class LightSystem2 extends System {
 
         this.send('REGISTER_RENDER_PASS', {
             name: 'LIGHTING',
+            destinationTarget:'LIGHTING',
             execute: (renderer, materialResolver) => {
                 this._render(renderer, materialResolver);
             }
         });
+
+        // this.send('REGISTER_RENDER_PASS', {
+        //     name: 'LIGHTING_BLIT',
+        //     sourceTargets: ['LIGHTING'],
+        //     execute: (renderer, materialResolver) => {
+        //         renderer.submitRenderCommand({
+        //             materialId: 'blit',
+        //         });
+        //     }
+        // });
     }
 
     work() {
@@ -48,7 +59,8 @@ export default class LightSystem2 extends System {
             angleDegrees: 0,
             width: lightable.getMaxDistance(),
             height: lightable.getMaxDistance(),
-            color: lightable.getColors()[0] || 'rgba(255,0,0,1)',
+            // color: lightable.getColors()[0] || 'rgba(255,0,0,1)',
+            color: 'rgba(255,0,0,1)',
             options: {} 
           });
     }

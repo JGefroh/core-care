@@ -22,9 +22,8 @@ class Program {
   draw(renderCtx, perFrameCache) {
     renderCtx.useProgram(this.program.program);
 
-
     // Load the texture to blit
-    const sourceTexture = perFrameCache['sourceTexture'][0];
+    const sourceTexture = perFrameCache['sourceTexture']
     if (sourceTexture) {
       renderCtx.activeTexture(renderCtx.TEXTURE0);
       renderCtx.bindTexture(renderCtx.TEXTURE_2D, sourceTexture);
@@ -32,6 +31,7 @@ class Program {
     }
 
     renderCtx.bindVertexArray(this.vertexArrayObject);
+
     renderCtx.drawArrays(renderCtx.TRIANGLES, 0, 6);
   }
 

@@ -62,8 +62,10 @@ export default class WebGLRenderer {
     this._clearScreen(renderCtx, clearScreenColor);
   }
 
-  beginPass(passName) {
-    this.perFrameCache['sourceTexture'] = this.destinationTargets[passName]?.texture;
+  beginPass(pass) {
+    let sourceName = (pass.sourceTargets || [])[0];
+    let source = this.destinationTargets[sourceName]; 
+    this.perFrameCache['sourceTexture'] = source?.texture
   }
 
   draw() {

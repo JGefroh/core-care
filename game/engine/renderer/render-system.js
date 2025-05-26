@@ -8,11 +8,11 @@ export default class RenderSystem extends System {
   constructor() {
     super();
 
-    this.clearScreenColor = 'rgba(0,0,0,1)';
+    this.clearScreenColor = 'rgba(255,255,255,0)';
     this.viewportScale = 1;
 
     this.primaryCanvas = document.getElementById('canvas');
-    this.renderCtx = this.primaryCanvas.getContext('webgl2');
+    this.renderCtx = this.primaryCanvas.getContext('webgl2', {debug: true});
 
     this.materialRegistry = new MaterialRegistry();
 
@@ -22,7 +22,7 @@ export default class RenderSystem extends System {
 
     this.renderPasses = [];
 
-    this.renderPassSequence = ['WORLD', 'LIGHTING', 'ENVIRONMENT']
+    this.renderPassSequence = ['WORLD', 'LIGHTING', 'LIGHTING_BLIT', 'ENVIRONMENT']
 
     this.addHandler('REGISTER_RENDER_PASS', (pass) => {
       this.renderPasses.push(pass);
@@ -52,7 +52,7 @@ export default class RenderSystem extends System {
     this.renderer.beginFrame(this.renderCtx, viewport, this.clearScreenColor);
 
     for (let pass of this.renderPasses) {
-      this.renderer.beginPass(pass.key);
+      this.renderer.beginPass(pass);
       this.renderer.bindDestinationTarget(pass.destinationTarget);
       pass.execute(this.renderer, this.materialResolver); 
       this.renderer.draw();
