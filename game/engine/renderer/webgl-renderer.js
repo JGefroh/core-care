@@ -58,7 +58,6 @@ export default class WebGLRenderer {
     this.perFrameCache = {};
     this.perFrameCache['projectionMatrix'] = this._buildProjectionMatrix(renderCtx, viewport)
     this.perFrameCache['texture0'] = this.textureDetails?.texture;
-    renderCtx.blendFunc(renderCtx.SRC_ALPHA, renderCtx.ONE_MINUS_SRC_ALPHA);
     this._clearScreen(renderCtx, clearScreenColor);
   }
 
@@ -134,6 +133,9 @@ export default class WebGLRenderer {
 
   _clearScreen(renderCtx, clearScreenColor) {
     const color = this.colorUtil.colorToRaw(clearScreenColor, 255);
+    this.renderCtx.bindFramebuffer(this.renderCtx.FRAMEBUFFER, null);
+    this.renderCtx.enable(this.renderCtx.BLEND);
+    this.renderCtx.blendFunc(this.renderCtx.SRC_ALPHA, this.renderCtx.ONE_MINUS_SRC_ALPHA);
     renderCtx.clearColor(color.r, color.g, color.b, color.a);
     renderCtx.clear(renderCtx.COLOR_BUFFER_BIT | renderCtx.DEPTH_BUFFER_BIT);
   }

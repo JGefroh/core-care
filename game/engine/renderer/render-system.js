@@ -8,7 +8,7 @@ export default class RenderSystem extends System {
   constructor() {
     super();
 
-    this.clearScreenColor = 'rgba(0,0,0,0)';
+    this.clearScreenColor = 'rgba(0, 0, 0, 1)';
     this.viewportScale = 1;
 
     this.primaryCanvas = document.getElementById('canvas');

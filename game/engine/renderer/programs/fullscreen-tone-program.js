@@ -34,8 +34,6 @@ class Program {
     renderCtx.useProgram(this.program.program);
     renderCtx.uniform4fv(this.program.uniforms['u_color'], this.fullscreenTone.color);
     
-    renderCtx.blendFunc(renderCtx.DST_COLOR, renderCtx.ZERO);
-
 
     // Load the texture to blit
     const sourceTexture = perFrameCache['sourceTexture']
