@@ -70,6 +70,7 @@ export default class WebGLRenderer {
   }
 
   draw() {
+    this.renderCommandBuffer = this.renderCommandBuffer.sort((a, b) => {return a.zIndex - b.zIndex});
     this.flushRenderCommandBuffer(this.renderCommandBuffer)
 
     this.renderCtx.activeTexture(this.renderCtx.TEXTURE0);

@@ -4,7 +4,7 @@ export default class RenderSubmissionSystem extends System {
   constructor() {
     super();
     this.renderer = null;
-    this.renderablesLayerOrder = ['TERRAIN', 'LOWER_DECOR', 'WALL', 'PROP', 'CHARACTER_DECOR_LOWER', 'CHARACTER', 'UPPER_DECOR', 'TOP']
+    this.renderablesLayerOrder = ['SKY', 'SKY_TOP', 'TERRAIN', 'LOWER_DECOR', 'WALL', 'PROP', 'CHARACTER_DECOR_LOWER', 'CHARACTER', 'UPPER_DECOR', 'TOP']
   }
 
   initialize() {
@@ -23,7 +23,7 @@ export default class RenderSubmissionSystem extends System {
     this.workForTag('Renderable', (renderable, entity) => {
       let drawCommand = {
         shape: renderable.getShape(),
-        zIndex: this.renderablesLayerOrder.indexOf(renderable.getRenderLayer()) || 99999,
+        zIndex: this.renderablesLayerOrder.indexOf(renderable.getRenderLayer() || 'TOP'),
         xPosition: renderable.getXPosition(),
         yPosition: renderable.getYPosition(),
         angleDegrees: renderable.getAngleDegrees() || 0,

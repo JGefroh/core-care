@@ -88,7 +88,7 @@ import SnowSystem from '../features/environmental/snow-system';
 import RegionSystem from '../engine/regions/region-system';
 import RegionTile from '../engine/regions/region-tile-tag';
 import SnowAccumulator from '../features/environmental/snow-accumulator-tag';
-
+import SunSystem from '../features/environmental/sun/sun-system';
 export function startGame() {
 
     ////
@@ -211,6 +211,7 @@ export function startGame() {
     // Environmental
     Core.addSystem(new DayNightCycleSystemSystem());
     Core.addSystem(new CloudGeneratorSystem());
+    Core.addSystem(new SunSystem());
     Core.addSystem(new SnowSystem());
         Core.addTag(SnowAccumulator);
 

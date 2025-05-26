@@ -42,7 +42,8 @@ export default class MapGeneratorSystem extends System {
                 width: floor.width,
                 height: floor.height,
                 color: floor.color,
-                imagePath: floor.imageKey
+                imagePath: floor.imageKey,
+                renderLayer: floor.renderLayer
             });
         });
     }
@@ -175,6 +176,7 @@ export default class MapGeneratorSystem extends System {
         let color = floorDefinition.color;
         let imagePath = floorDefinition.imagePath;
         let entity = new Entity({key: key})
+        let renderLayer = floorDefinition.renderLayer;
         entity.addComponent(new PositionComponent(
             {
                 width: width,
@@ -189,7 +191,7 @@ export default class MapGeneratorSystem extends System {
             shape: 'rectangle',
             shapeColor: color,
             angleDegrees: 0, // Used to override the facing direction for positional logic
-            renderLayer: 'TERRAIN',
+            renderLayer: renderLayer || 'TERRAIN',
             imagePath: imagePath
         }))
         this._core.addEntity(entity);
