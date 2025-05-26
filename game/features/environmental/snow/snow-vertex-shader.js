@@ -7,6 +7,7 @@ in float a_instanceAccumulation;
 
 out vec2 vUV;
 out float vAccumulation;
+out vec2 v_instanceOffset;
 
 uniform mat4 u_projectionMatrix;
 
@@ -26,6 +27,7 @@ void main() {
 
   vUV = aPosition * 0.5 + 0.5; // from [-1,1] to [0,1]
   vAccumulation = a_instanceAccumulation;
+  v_instanceOffset = a_instanceOffset;
 }
   `;
 
