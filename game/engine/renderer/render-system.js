@@ -25,7 +25,8 @@ export default class RenderSystem extends System {
 
     this.addHandler('REGISTER_RENDER_PASS', (pass) => {
       this.renderPasses.push(pass);
-      this.renderPasses = this.renderPasses.sort((a, b) => this.renderPassSequence.indexOf(a.destinationTarget) - this.renderPassSequence.indexOf(b.destinationTarget));
+      this.renderPasses = this.renderPasses.sort((a, b) => this.renderPassSequence.indexOf(a.name) - this.renderPassSequence.indexOf(b.name));
+      console.info('new order', this.renderPasses)
     });
 
     this.addHandler('REGISTER_MATERIAL', (payload) => {
