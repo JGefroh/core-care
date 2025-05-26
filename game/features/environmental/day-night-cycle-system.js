@@ -20,31 +20,35 @@ export default class DayNightCycleSystem extends System {
       this.gameTime = 0;
 
       this.skyColors = [
-        { hour: 0,  skyColor: "rgba(11,12,16,1)", toneFilter: "rgba(0,0,0,0.87)" },       // midnight
-        { hour: 1,  skyColor: "rgba(11,12,16,1)", toneFilter: "rgba(0,0,0,0.87)" },       // midnight
-        { hour: 2,  skyColor: "rgba(11,12,16,1)", toneFilter: "rgba(0,0,0,0.87)" },       // midnight
-        { hour: 3,  skyColor: "rgba(11,12,16,1)", toneFilter: "rgba(0,0,0,0.87)" },       // midnight
-        { hour: 4,  skyColor: "rgba(28,31,42,1)", toneFilter: "rgba(0,0,0,0.75)" },       // early dawn
-        { hour: 5,  skyColor: "rgba(43,58,103,1)", toneFilter: "rgba(0,0,0,0.60)" },      // dawn
-        { hour: 6,  skyColor: "rgba(43,58,103,1)", toneFilter: "rgba(0,0,0,0.60)" },      // dawn
-        { hour: 7,  skyColor: "rgba(166,126,97,1)", toneFilter: "rgba(0,0,0,0.50)"},                                    // sunrise
-        { hour: 8,  skyColor: "rgba(166,126,97,1)", toneFilter: "rgba(0,0,0,0.50)"},                                    // sunrise
-        { hour: 9,  skyColor: "rgba(252,161,125,1)", toneFilter: "rgba(0,0,0,0.40)" },                                   // morning
-        { hour: 10, skyColor: "rgba(177,208,224,1)" },                                   // late morning
+        { hour: 0,  skyColor: "rgba(11,12,16,1)", toneFilter: "rgba(0,0,0,0.87)" },
+        { hour: 1,  skyColor: "rgba(11,12,16,1)", toneFilter: "rgba(0,0,0,0.87)" },
+        { hour: 2,  skyColor: "rgba(11,12,16,1)", toneFilter: "rgba(0,0,0,0.87)" },
+        { hour: 3,  skyColor: "rgba(11,12,16,1)", toneFilter: "rgba(0,0,0,0.87)" },
+        { hour: 4,  skyColor: "rgba(28,31,42,1)", toneFilter: "rgba(0,0,0,0.87)" },
+
+        { hour: 5,  skyColor: "rgba(70,60,110,1)", toneFilter: "rgba(70,60,110,0.75)" },   // predawn (cool)
+        { hour: 6,  skyColor: "rgba(103,78,139,1)", toneFilter: "rgba(0,0,0,0.6)" },   // violet-blue
+        { hour: 7,  skyColor: "rgba(180,130,90,1)", toneFilter: "rgba(0,0,0,0.35)" },  // warm amber
+        { hour: 8,  skyColor: "rgba(230,170,120,1)", toneFilter: "rgba(0,0,0,0.2)" },  // sunrise glow
+        { hour: 9,  skyColor: "rgba(252,200,150,1)", toneFilter: "rgba(0,0,0,0.1)" },  // soft peach
+      
+        { hour: 10, skyColor: "rgba(180,220,240,1)" }, // cooler blue
         { hour: 11, skyColor: "rgba(135,206,235,1)" },
-        { hour: 12, skyColor: "rgba(135,206,235,1)" },                                   // late morning
-        { hour: 13, skyColor: "rgba(92,160,211,1)" },                                    // early afternoon
-        { hour: 14, skyColor: "rgba(92,160,211,1)" },        
-        { hour: 15, skyColor: "rgba(135,207,234,1)" },              
-        { hour: 16, skyColor: "rgba(135,207,234,1)" },                                   // afternoon
-        { hour: 17,  skyColor: "rgba(252,161,125,1)", toneFilter: "rgba(0,0,0,0.40)" },  // golden hour
-        { hour: 18,  skyColor: "rgba(166,126,97,1)", toneFilter: "rgba(0,0,0,0.50)"},  // sunset
-        { hour: 19,  skyColor: "rgba(43,58,103,1)", toneFilter: "rgba(0,0,0,0.60)" },    // deep sunset
-        { hour: 20,  skyColor: "rgba(28,31,42,1)", toneFilter: "rgba(0,0,0,0.75)" },   // early night
-        { hour: 21,  skyColor: "rgba(11,12,16,1)", toneFilter: "rgba(0,0,0,0.87)" },                                    // post-sunset warm
-        { hour: 22, skyColor: "rgba(13,51,102,1)", toneFilter: "rgba(0,0,0,0.87)" },      // late evening
-        { hour: 23, skyColor: "rgba(46,43,95,1)", toneFilter: "rgba(0,0,0,0.87)" },      // night
-        { hour: 24, skyColor: "rgba(0,0,0,1)", toneFilter: "rgba(0,0,0,0.87)" }          // deep night
+        { hour: 12, skyColor: "rgba(135,206,235,1)" },
+        { hour: 13, skyColor: "rgba(130,195,225,1)" },
+        { hour: 14, skyColor: "rgba(125,185,215,1)" },
+
+        { hour: 15, skyColor: "rgba(160,180,210,1)" },                            // softened
+        { hour: 16, skyColor: "rgba(210,160,110,1)", toneFilter: "rgba(0,0,0,0.2)" }, // golden
+        { hour: 17, skyColor: "rgba(190,120,80,1)", toneFilter: "rgba(0,0,0,0.35)" }, // orange-red
+        { hour: 18, skyColor: "rgba(130,90,70,1)", toneFilter: "rgba(0,0,0,0.5)" },   // deep orange
+
+        { hour: 19, skyColor: "rgba(43,58,103,1)", toneFilter: "rgba(0,0,0,0.5)" },
+        { hour: 20, skyColor: "rgba(28,31,42,1)", toneFilter: "rgba(0,0,0,0.65)" },
+        { hour: 21, skyColor: "rgba(11,12,16,1)", toneFilter: "rgba(0,0,0,0.77)" },
+        { hour: 22, skyColor: "rgba(13,51,102,1)", toneFilter: "rgba(0,0,0,0.87)" },
+        { hour: 23, skyColor: "rgba(46,43,95,1)", toneFilter: "rgba(0,0,0,0.87)" },
+        { hour: 24, skyColor: "rgba(0,0,0,1)", toneFilter: "rgba(0,0,0,0.87)" }
       ];
       
       this.addHandler('INPUT_RECEIVED', (payload) => {
@@ -86,7 +90,7 @@ export default class DayNightCycleSystem extends System {
 
         // Apply the same sky color as a semi-transparent tone
         this.send("REQUEST_FULLSCREEN_TONE", {
-          color: currentColor.sourceColor?.toneFilter?.replace(',1)', ', 0.3)') || null
+          color: currentColor.toneFilter
         });
 
         this._core.publishData('TIME_OF_DAY', {
@@ -136,6 +140,15 @@ export default class DayNightCycleSystem extends System {
       const colorB = this.colors.parseRgba(colorBEntry.skyColor);
       const interpolated = this.colors.interpolateParsedRgba(colorA, colorB, t);
     
+      const toneA = colorAEntry.toneFilter
+        ? this.colors.parseRgba(colorAEntry.toneFilter)
+        : { r: 0, g: 0, b: 0, a: 0 };
+
+      const toneB = colorBEntry.toneFilter
+        ? this.colors.parseRgba(colorBEntry.toneFilter)
+        : { r: 0, g: 0, b: 0, a: 0 };
+
+      const interpolatedTone = this.colors.interpolateParsedRgba(toneA, toneB, t);
       // Publish time info (e.g. "14:05")
       this._core.publishData('DEBUG_TIME_OF_DAY', {
         currentGameTime: this._formatGameTime(hourFloat)
@@ -143,6 +156,7 @@ export default class DayNightCycleSystem extends System {
     
       return {
         color: this.colors.rgbaToString(interpolated),
+        toneFilter: this.colors.rgbaToString(interpolatedTone),
         sourceColor: colorAEntry,
         destinationColor: colorBEntry,
       }
