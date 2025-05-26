@@ -15,11 +15,6 @@ export default class SnowSystem extends System {
     }
 
     initialize() {
-        let count = 20;
-        for (let i = 1; i < count; i++) {
-            const x = (i / (count - 1)) * window.innerWidth;
-            this.addSnowflakeEmitter(x, 0, {});
-        }
 
         this.send('ADD_REGION_TILE_PROCESSOR', {processorFn: this.addComponents})
 
@@ -88,6 +83,15 @@ export default class SnowSystem extends System {
       entity.addComponent(new SnowAccumulatorComponent());
     }
 
+
+    emitSnowflakes() {
+      let count = 20;
+      for (let i = 1; i < count; i++) {
+          const x = (i / (count - 1)) * window.innerWidth;
+          this.addSnowflakeEmitter(x, -300, {});
+      }
+    }
+    
     addSnowflakeEmitter(xPosition, yPosition, options) {
         this._core.send('EMIT_PARTICLES', {
             xPosition: xPosition,

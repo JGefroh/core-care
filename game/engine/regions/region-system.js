@@ -10,7 +10,7 @@ export default class RegionSystem extends System {
         super()
         this.regionMap = new Map();
         this.regionTileSize = 32;
-        this.mapRegionAround(0, 0, 500)
+        this.mapRegionAround(0, 0, 550, 300)
         this.regionTileProcessors = [];
         this.wait = 1000
 
@@ -36,11 +36,11 @@ export default class RegionSystem extends System {
         })
     }
 
-    mapRegionAround(xPosition, yPosition, range) {
-        const startXPosition = xPosition - range;
-        const endXPosition = xPosition + range;
-        const startYPosition = yPosition - range;
-        const endYPosition = yPosition + range;
+    mapRegionAround(xPosition, yPosition, rangeX, rangeY) {
+        const startXPosition = xPosition - rangeX;
+        const endXPosition = xPosition + rangeX;
+        const startYPosition = yPosition - rangeY;
+        const endYPosition = yPosition + rangeY;
     
         for (let currentXPosition = startXPosition; currentXPosition <= endXPosition; currentXPosition += this.regionTileSize) {
             for (let currentYPosition = startYPosition; currentYPosition <= endYPosition; currentYPosition += this.regionTileSize) {
@@ -69,12 +69,12 @@ export default class RegionSystem extends System {
             column: column
         }));
 
-        // entity.addComponent(new RenderComponent({
-        
-        //     width: this.regionTileSize,
-        //     height: this.regionTileSize,
-        //     shapeColor: 'rgba(255,0,0,1)'
-        // }));
+        entity.addComponent(new RenderComponent({
+            width: this.regionTileSize,
+            height: this.regionTileSize,
+            shapeColor: 'rgba(0,0,255,1)',
+            imagePath: 'GRASS_5'
+        }));
 
         this._core.addEntity(entity);
     }

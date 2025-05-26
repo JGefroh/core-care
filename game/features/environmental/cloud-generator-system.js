@@ -22,7 +22,7 @@ export default class CloudGeneratorSystem extends System {
     }
 
     initialize() {
-      for (let index = 0; index < 20; index++) {
+      for (let index = 0; index < 7; index++) {
         this._createRandomCloud( -window.innerWidth / 2, window.innerWidth /2, -500, -500);
       }
     }
@@ -31,7 +31,7 @@ export default class CloudGeneratorSystem extends System {
     }
 
     _createRandomCloud(xLimitMin, xLimitMax, yLimitMin, yLimitMax) {
-      this.send('CREATE_PROP', {type: 'CLOUD_RANDOM', xPosition: `random(${xLimitMin}, ${xLimitMax})`, yPosition: `random(${yLimitMin}, ${yLimitMax})`, width: 30, height: 20, angleDegrees: 'random'});
+      this.send('CREATE_PROP', {type: 'CLOUD_RANDOM', xPosition: `random(${xLimitMin}, ${xLimitMax})`, yPosition: `random(${yLimitMin}, ${yLimitMax})`, width: 30, height: 20});
     }
 
     _applyCloudFX(entity) {

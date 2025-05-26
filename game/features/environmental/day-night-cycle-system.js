@@ -43,6 +43,14 @@ export default class DayNightCycleSystem extends System {
       this.numberSteps = 10;
       this.wait = 500;
 
+      this.addHandler('INPUT_RECEIVED', (payload) => {
+        if (payload.action == 'previous_time_of_day') {
+          this._gameStartTime -= 3600;
+        }
+        else if (payload.action == 'next_time_of_day') {
+          this._gameStartTime += 3600;
+        }
+      })
     }
 
     initialize() {
@@ -81,7 +89,8 @@ export default class DayNightCycleSystem extends System {
     getCurrentGameTime() {
       const now = performance.now() / 1000;
       const realElapsed = now - this._realStartTime;
-      return this._gameStartTime + realElapsed * this.timeFactor;
+      let currentGameTime = this._gameStartTime + realElapsed * this.timeFactor;
+      return currentGameTime
     }
 
     getSkyColor() {
@@ -128,11 +137,23 @@ export default class DayNightCycleSystem extends System {
         : (24 - lowerHour + hourFloat); // wrap case
     
       const t = total === 0 ? 0 : elapsed / total;
+
+
+      this._core.publishData('DEBUG_TIME_OF_DAY', {
+        currentGameTime: this._formatGameTime(hourFloat)
+      });
     
       const colorA = this.colors.parseRgba(skyColorByHour[lowerHour]);
       const colorB = this.colors.parseRgba(skyColorByHour[upperHour]);
       const interpolated = this.colors.interpolateParsedRgba(colorA, colorB, t);
     
       return this.colors.rgbaToString(interpolated);
+    }
+
+    _formatGameTime(hourFloat) {
+      const hours = Math.floor(hourFloat);
+      const minutes = Math.floor((hourFloat % 1) * 60);
+      const formattedTime = `${hours}:${minutes.toString().padStart(2, '0')}`;
+      return formattedTime;
     }
   }
