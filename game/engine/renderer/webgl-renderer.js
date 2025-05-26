@@ -80,13 +80,17 @@ export default class WebGLRenderer {
   }
 
   submitRenderCommand(command) {
-    if (command.imagePath) {
-      command.textureUVBounds = this._getTextureUVBounds(command.imagePath);
+    if (command.texture?.imagePath) {
+      let textureDetail = this._getTextureDetails(command.texture.imagePath);
+      if (textureDetail) {
+        command.texture.textureUVBounds = textureDetail.uvBounds;
+        command.texture.textureAtlasPosition = textureDetail.atlasPosition;
+      }
     }
     this.renderCommandBuffer.push(command);
   }
 
-  _getTextureUVBounds(imagePath) {
+  _getTextureDetails(imagePath) {
     if (!this.textureDetails) {
       return null; // No texture loaded.
     }
@@ -106,7 +110,14 @@ export default class WebGLRenderer {
       image.uv = [u0, v0, u1, v1];
     }
 
-    return image.uv
+    if (!image.atlasPosition) {
+      image.atlasPosition = [image.atlasXPosition, image.atlasYPosition, image.atlasXPosition + image.width, image.atlasYPosition + image.height]
+    }
+
+    return {
+      uvBounds: image.uv,
+      atlasPosition: [image.atlasXPosition, image.atlasYPosition, image.atlasXPosition + image.width, image.atlasYPosition + image.height]
+    }
   }
 
   flushRenderCommandBuffer(renderCommandBuffer) {

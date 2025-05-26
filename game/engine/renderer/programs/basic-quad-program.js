@@ -26,7 +26,7 @@ class Program extends BaseProgram {
         let colorObject = this.colorUtil.colorToRaw(command.color, 255);
         this.instanceBuffers.colors.push(...[colorObject.r, colorObject.g, colorObject.b, colorObject.a])
         this.instanceBuffers.borderSizes.push(command.borderSize || 0.0);
-        this.instanceBuffers.textureUVBounds.push(...(command.textureUVBounds || [0, 0, 0, 0])); // [0,0,0,0] will be ignored by the fragment shader
+        this.instanceBuffers.textureUVBounds.push(...(command.texture?.textureUVBounds || [0, 0, 0, 0])); // [0,0,0,0] will be ignored by the fragment shader
         const borderColorObject = this.colorUtil.colorToRaw(command.borderColor || 'rgba(0,0,0,0)', 255);
         this.instanceBuffers.borderColors.push(...[borderColorObject.r, borderColorObject.g, borderColorObject.b, borderColorObject.a]);
       }

@@ -66,6 +66,10 @@ export default class Renderable extends Tag {
       return this.entity.getComponent('RenderComponent').imagePath;
     }
 
+    getImageStyle() {
+      return this.entity.getComponent('RenderComponent').imageStyle;
+    }
+
     setImageObject(imageObject) {
       return this.entity.getComponent('RenderComponent').setImageObject(imageObject);
     }

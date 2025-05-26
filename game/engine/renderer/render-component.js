@@ -6,7 +6,11 @@ export default class RenderComponent extends Component {
         this.componentType = 'RenderComponent'
         this.width = payload.width;
         this.height = payload.height;
-        this.imagePath = payload.imagePath;
+        
+        this.imagePath = payload.imagePath; // a path or a key to an asset-manifest entry
+        this.imageStyle = payload.imageStyle || 'fit'; // fit, tiled, tiledX, tiledY, tiled, 
+
+
         this.angleDegrees = payload.angleDegrees; // This is used for visual angles, and not position-based logic.
 
         this.renderLayer = payload.renderLayer || 'TOP'

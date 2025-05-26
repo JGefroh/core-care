@@ -32,7 +32,10 @@ export default class RenderSubmissionSystem extends System {
         angleDegrees: renderable.getAngleDegrees() || 0,
         width: renderable.getWidth() ||  0,
         height: renderable.getHeight() || 0,
-        imagePath: renderable.getImagePath(),
+        texture: {
+          imagePath: renderable.getImagePath(),
+          imageStyle: renderable.getImageStyle()
+        },
         color: renderable.getShapeColor(),
         options: {} // Use later
       });
