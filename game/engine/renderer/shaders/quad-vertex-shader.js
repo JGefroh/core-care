@@ -24,7 +24,8 @@ const shaderSourceCode = `#version 300 es
         float c = cos(angleRadians);
         float s = sin(angleRadians);
         
-        vec2 scaled = a_position * a_instanceScale;
+        vec2 scaleFix = vec2(1.007, 1.007); // 0.7% overdraw to account for visual seams from objects precisely next to each other
+        vec2 scaled = a_position * a_instanceScale * scaleFix;
 
         vec2 rotated = vec2(
           scaled.x * c - scaled.y * s,

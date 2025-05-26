@@ -50,8 +50,8 @@ export default class DayNightCycleSystem extends System {
     }
 
     initialize() {
-      this.initializeGameClock(22, 60);
-      // this.initializeGameClock(8, 60);
+      // this.initializeGameClock(22, 60);
+      this.initializeGameClock(8, 60);
     }
     
     work() {
