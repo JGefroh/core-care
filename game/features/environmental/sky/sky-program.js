@@ -17,6 +17,7 @@ class Program extends BaseProgram {
         this.instanceBuffers.offsets.push(command.xPosition, command.yPosition)
         this.instanceBuffers.angles.push(command.angleDegrees || 0)
         this.instanceBuffers.scales.push(command.width, command.height)
+        this.instanceBuffers.gradientSources.push(command.gradientSource || [-100,500])
         let colorObject = this.colorUtil.colorToRaw(command.color, 255);
         this.instanceBuffers.colors.push(...[colorObject.r, colorObject.g, colorObject.b, colorObject.a])
       }
@@ -55,6 +56,7 @@ class Program extends BaseProgram {
       this._bindToBufferIfExists(renderCtx, this.getBuffers(), `INSTANCE_SCALE_${index}`, this.instanceBuffers.scales)
       this._bindToBufferIfExists(renderCtx, this.getBuffers(), `INSTANCE_ANGLE_${index}`, this.instanceBuffers.angles)
       this._bindToBufferIfExists(renderCtx, this.getBuffers(), `INSTANCE_COLOR_${index}`, this.instanceBuffers.colors)
+      this._bindToBufferIfExists(renderCtx, this.getBuffers(), `INSTANCE_GRADIENT_SOURCE_${index}`, this.instanceBuffers.gradientSources)
 
       renderCtx.drawArraysInstanced(renderCtx.TRIANGLES, 0, 6, this.instanceBuffers.offsets.length / 2);
 
@@ -141,6 +143,13 @@ class Program extends BaseProgram {
             renderCtx.vertexAttribDivisor(locColor, 1); // per-instance
           })
 
+          this.initializeBuffersFor(renderCtx, `INSTANCE_GRADIENT_SOURCE`, this.maxBufferSize * 2, renderCtx.DYNAMIC_DRAW, 'float32', index, () => {
+            const loc = renderCtx.getAttribLocation(program.program, 'a_instanceGradientSource');
+            renderCtx.enableVertexAttribArray(loc);
+            renderCtx.vertexAttribPointer(loc, 2, renderCtx.FLOAT, false, 0, 0);
+            renderCtx.vertexAttribDivisor(loc, 1); // per-instance
+          })
+
           // Clean up
           renderCtx.bindVertexArray(null);
           renderCtx.bindBuffer(renderCtx.ARRAY_BUFFER, null);
@@ -153,6 +162,7 @@ class Program extends BaseProgram {
           angles: [],
           scales: [],
           colors: [],
+          gradientSources: [],
         }
       }
 }

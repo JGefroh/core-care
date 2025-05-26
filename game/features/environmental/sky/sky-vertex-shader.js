@@ -4,13 +4,16 @@ layout(location = 0) in vec2 a_position;
 in vec2 a_instanceOffset;
 in vec2 a_instanceScale;
 in float a_instanceAngleDegrees;
-
-in vec4 a_instanceColor;
-out vec4 v_instanceColor;
+in vec2 a_instanceGradientSource;
 
 uniform mat4 u_projectionMatrix;
-
 out vec2 v_localPosition;
+
+
+out vec2 v_worldPosition;
+out vec2 v_gradientSourceWorld;
+in vec4 a_instanceColor; 
+out vec4 v_instanceColor;
 
 void main() {
   float angle = radians(a_instanceAngleDegrees);
@@ -27,8 +30,10 @@ void main() {
 
   gl_Position = u_projectionMatrix * vec4(worldPosition, 0.0, 1.0);
 
-  v_localPosition = a_position; // useful for gradient or procedural effects
-  v_instanceColor = a_instanceColor;
+  v_worldPosition = worldPosition;
+  v_gradientSourceWorld = a_instanceGradientSource;
+    v_instanceColor = a_instanceColor;
+    v_localPosition = a_position;
 }
   `;
 
