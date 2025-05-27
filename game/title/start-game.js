@@ -89,6 +89,7 @@ import RegionSystem from '../engine/regions/region-system';
 import RegionTile from '../engine/regions/region-tile-tag';
 import SnowAccumulator from '../features/environmental/snow-accumulator-tag';
 import SunSystem from '../features/environmental/sun/sun-system';
+import MouseRegionSelectSystem from '../genre/2d-horizon/mouse-region-select/mouse-region-select-system';
 export function startGame() {
 
     ////
@@ -188,6 +189,10 @@ export function startGame() {
     // Player Control (firing, moving)
     Core.addSystem(new PlayerControlMovementSystem())
         Core.addTag(PlayerControllable);
+
+
+    // Temporary region inputs
+    Core.addSystem(new MouseRegionSelectSystem());
 
     // FX
     Core.addTag(Material);

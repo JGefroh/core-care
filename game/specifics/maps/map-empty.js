@@ -13,6 +13,7 @@ const map = {
     props: [
     ],
     lights: [
+        {xPosition: 300, yPosition: -300, type: 'point', radius: 300},
     ],
     enemies: [
     ]

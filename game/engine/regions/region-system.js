@@ -13,14 +13,19 @@ export default class RegionSystem extends System {
         this.mapRegionAround(0, 0, 550, 300)
         this.regionTileProcessors = [];
         this.wait = 1000
-
-        this.newProcessorAdded = false;
     }
 
     initialize() {
         this.addHandler('ADD_REGION_TILE_PROCESSOR', (payload) => {
-            this.newProcessorAdded = true;
             this.regionTileProcessors.push(payload.processorFn);
+        });
+
+        this.addHandler('GET_CLOSEST_REGION', (payload) => {
+            let results = this.getRowColumnForCoordinates(payload.xPosition, payload.yPosition);
+            if (results) {
+              let regionEntity = this._core.getEntityWithKey(`region-tile-${results.row}-${results.column}`);
+              payload.callback(regionEntity);
+            }
         });
     }
 
@@ -37,11 +42,11 @@ export default class RegionSystem extends System {
     }
 
     mapRegionAround(xPosition, yPosition, rangeX, rangeY) {
-        const startXPosition = xPosition - rangeX;
-        const endXPosition = xPosition + rangeX;
-        const startYPosition = yPosition - rangeY;
-        const endYPosition = yPosition + rangeY;
-    
+        const startXPosition = Math.floor((xPosition - rangeX) / this.regionTileSize) * this.regionTileSize;
+        const endXPosition = Math.floor((xPosition + rangeX) / this.regionTileSize) * this.regionTileSize;
+        const startYPosition = Math.floor((yPosition - rangeY) / this.regionTileSize) * this.regionTileSize;
+        const endYPosition = Math.floor((yPosition + rangeY) / this.regionTileSize) * this.regionTileSize;
+        
         for (let currentXPosition = startXPosition; currentXPosition <= endXPosition; currentXPosition += this.regionTileSize) {
             for (let currentYPosition = startYPosition; currentYPosition <= endYPosition; currentYPosition += this.regionTileSize) {
                 const column = Math.floor(currentXPosition / this.regionTileSize);
@@ -77,4 +82,11 @@ export default class RegionSystem extends System {
 
         this._core.addEntity(entity);
     }
+
+    getRowColumnForCoordinates(xPosition, yPosition) {
+        const column = Math.round(xPosition / this.regionTileSize);
+        const row = Math.round(yPosition / this.regionTileSize);
+        return { row, column };
+    }
+    
 }
