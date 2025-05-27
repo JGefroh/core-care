@@ -15,7 +15,6 @@ export default class InputConfigurationSystem extends System {
             'd_hold': 'move_right',
             's_press': 'move_down',
             's_hold': 'move_down',
-            'r_release': 'reload',
 
 
             'ArrowUp_press': 'move_up',
