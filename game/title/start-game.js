@@ -90,6 +90,7 @@ import RegionTile from '../engine/regions/region-tile-tag';
 import SnowAccumulator from '../features/environmental/snow-accumulator-tag';
 import SunSystem from '../features/environmental/sun/sun-system';
 import MouseRegionSelectSystem from '../genre/2d-horizon/mouse-region-select/mouse-region-select-system';
+import TileChangeSystem from '../genre/tile-management/tile-change-system';
 export function startGame() {
 
     ////
@@ -193,6 +194,10 @@ export function startGame() {
 
     // Temporary region inputs
     Core.addSystem(new MouseRegionSelectSystem());
+
+
+    // Tile system
+    Core.addSystem(new TileChangeSystem());
 
     // FX
     Core.addTag(Material);

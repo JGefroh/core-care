@@ -8,6 +8,11 @@ export default class MouseRegionSelectSystem extends System {
     }
 
     initialize() {
+      this.addHandler('INPUT_RECEIVED', (payload) => {
+        if (payload.type == 'click') {
+          this.send('REQUEST_TILE_CHANGE', {entity: this.lastSelectedRegionEntity})
+        }
+      });
     }
 
     work() {
@@ -46,11 +51,9 @@ export default class MouseRegionSelectSystem extends System {
         }
 
         regionEntity.getComponent('RenderComponent').shapeColor = 'rgba(255,0,0,1)';
-        regionEntity.getComponent('RenderComponent').imagePath = null;
       }
       else if (this.lastSelectedRegionEntityDetails) {
         regionEntity.getComponent('RenderComponent').shapeColor = this.lastSelectedRegionEntityDetails.shapeColor;
-        regionEntity.getComponent('RenderComponent').imagePath = this.lastSelectedRegionEntityDetails.imagePath;
       }
 
     }
