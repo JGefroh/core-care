@@ -13,7 +13,8 @@ const manifest = {
       'SNOW_1': { path: 'snow-1.png' },
       'SNOW_3': { path: 'snow-3.png' },
       'SNOW_4': { path: 'snow-4.png' },
-      'SUNFLOWER': { path: 'sunflower.png' }
+      'SUNFLOWER': { path: 'sunflower.png' },
+      'DAISY': { path: 'daisy.png' }
     }
 }
 export default manifest;

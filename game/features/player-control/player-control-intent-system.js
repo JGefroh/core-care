@@ -2,9 +2,6 @@ import { default as System } from '@core/system';
 import { default as Core}  from '@core/core';
 import { default as Entity } from '@core/entity.js'
 
-import ItemShovel from '../items/item-shovel';
-import ItemSeed from '../items/item-seed';
-
 export default class PlayerControlIntentSystem extends System {
     constructor() {
       super()
@@ -23,15 +20,8 @@ export default class PlayerControlIntentSystem extends System {
         return;
       } 
 
-      if (context.selectedItem == 'SHOVEL') {
-        if (new ItemShovel().canUse(context)) {
-          new ItemShovel().onUse(this, context.selectedRegion);
-        };
-      }
-      else if (context.selectedItem == 'SEED') {
-        if (new ItemSeed().canUse(context)) {
-          new ItemSeed().onUse(this, context.selectedRegion, 'SUNFLOWER');
-        };
+      if (context.selectedItem.canUse(context)) {
+        context.selectedItem.onUse(this, context.selectedRegion);
       }
     };
 

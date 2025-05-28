@@ -95,6 +95,8 @@ import PlantSystem from '../genre/farm/plant-system';
 import Plantable from '../genre/farm/plantable-tag';
 import PlayerControlIntentSystem from '../features/player-control/player-control-intent-system';
 import PlayerControlItemSelectionSystem from '../features/player-control/player-control-item-selection-system';
+import ItemConfigurationSystem from '../specifics/configuration/items/item-configuration-system';
+import ItemRegistrySystem from '../features/items/item-registry-system';
 export function startGame() {
 
     ////
@@ -196,6 +198,10 @@ export function startGame() {
         Core.addTag(PlayerControllable);
     Core.addSystem(new PlayerControlIntentSystem())
     Core.addSystem(new PlayerControlItemSelectionSystem());
+
+    // Items and Inventory
+    Core.addSystem(new ItemRegistrySystem());
+    Core.addSystem(new ItemConfigurationSystem());
 
 
     // Temporary region inputs

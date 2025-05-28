@@ -73,7 +73,7 @@ export default class DebugUiSystem extends System {
       })
       this.send("GUI_UPDATE_TEXT", {
         key: 'debug-line-5',
-        value: `Selected Item: ${this._core.getData('SELECTED_ITEM')}`
+        value: `Selected Item: ${this._core.getData('SELECTED_ITEM')?.name}`
       })
     }
 
