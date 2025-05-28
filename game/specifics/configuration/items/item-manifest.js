@@ -2,9 +2,9 @@ const ItemDefinitions = {
     HOE: {
       type: "TOOL",
       name: "Hoe",
-      useOn: [{ type: "PLANT" }],
+      useOn: [{ type: "TILE", tileType: 'DIRT' }],
       effects: [
-        { event: "HARVEST_PLANT" }
+        { event: "REQUEST_TILE_CHANGE", params: { to: "DIRT_TILLED" } }
       ]
     },
   
@@ -43,11 +43,11 @@ const ItemDefinitions = {
       name: "Daisies",
       useOn: [{ type: "TILE", tileType: "GRASS" }],
       effects: [
-        { event: "ADD_PLANT", params: { type: "DAISY" } }
+        { event: "ADD_PLANT", params: { type: "DAISY", scale: 0.5 } }
       ],
       imagePaths: [
         "DAISY.png"
-      ]
+      ],
     }
   };
 

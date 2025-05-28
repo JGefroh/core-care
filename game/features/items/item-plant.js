@@ -27,8 +27,6 @@ class ItemPlant {
     }
 
     onUse(system, selectedRegion) {
-        console.info("ON USE")
-        console.info(this.effects)
         system.send(this.effects[0].event, {...this.effects[0].params, entity: selectedRegion})
     }
 }

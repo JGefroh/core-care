@@ -21,7 +21,6 @@ export default class PlayerControlItemSelectionSystem extends System {
         this.itemSlots.push(payload.item);
         this.selectedItem = this.itemSlots[this.itemSlots.length - 1]
         this._core.publishData('SELECTED_ITEM', this.selectedItem)
-        console.info(payload)
 
       })
 
@@ -36,7 +35,6 @@ export default class PlayerControlItemSelectionSystem extends System {
       let selectedItemSlot = parseInt(stringInt) - 1;
       this.selectedItem = this.itemSlots[selectedItemSlot];
       this._core.publishData('SELECTED_ITEM', this.selectedItem)
-      console.info(this.selectedItem, this.itemSlots)
     }
     
     work() {

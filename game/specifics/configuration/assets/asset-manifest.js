@@ -3,6 +3,7 @@ const manifest = {
         'DEV_NO_TEXTURE': { path: 'dev-no-texture.jpg' },
         'GRASS_5': { path: 'grass-5.png' },
         'DIRT_5': { path: 'dirt-5.png' },
+        'DIRT_TILLED': { path: 'dirt-tilled.png' },
         'GUARD_1': { path: 'guard-1.png'},
         'BG_MOUNTAIN': { path: 'mountains.png'},
         'BG_TREELINE': { path: 'treeline.png'}

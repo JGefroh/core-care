@@ -7,37 +7,30 @@ export default class TileChangeSystem extends System {
 
     initialize() {
         this.addHandler('REQUEST_TILE_CHANGE', (payload) => {
-            this.changeTile(payload.entity)
+            this.changeTile(payload.entity, payload.to)
         });
     }
 
     work() {
     }
 
-    changeTile(entity) {
-        if (!entity) {
+    changeTile(entity, to) {
+        if (!entity || !to) {
             return;
         }
         
-        this._cycleTileType(entity)
+        this._changeTo(entity, to)
     }
 
-    _cycleTileType(entity) {
-        if (entity.getComponent('RenderComponent').imagePath == 'DIRT_5') {
-            this.send('ADD_PLANT', {
-                region: entity
-            })
+    _changeTo(entity, to) {
+        if (to == 'DIRT') {
+            entity.getComponent('RenderComponent').imagePath = 'DIRT_5';
         }
-        else {
-            this._changeToDirt(entity)
+        else if (to == 'GRASS') {
+            entity.getComponent('RenderComponent').imagePath = 'GRASS_5';
         }
-    }
-
-    _changeToDirt(entity) {
-        entity.getComponent('RenderComponent').imagePath = 'DIRT_5';
-    }
-
-    _changeToGrass(entity) {
-        entity.getComponent('RenderComponent').imagePath = 'GRASS_5';
+        else if (to == 'DIRT_TILLED') {
+            entity.getComponent('RenderComponent').imagePath = 'DIRT_TILLED';
+        }
     }
   }

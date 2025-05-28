@@ -12,20 +12,19 @@ export default class PlantSystem extends System {
     initialize() {
       this.addHandler('ADD_PLANT', (payload) => {
         console.info("ADD_PLANT", payload)
-        this.addPlantAt(payload.entity, payload.type);
+        this.addPlantAt(payload.entity, payload.type, payload);
       });
     }
 
     work() {
     }
 
-    addPlantAt(region, type) {
-      console.info(region, type)
+    addPlantAt(region, type, params = {}) {
       let row = region.getComponent('RegionTileComponent').row;
       let regionXPosition = region.getComponent('PositionComponent').xPosition;
       let regionYPosition = region.getComponent('PositionComponent').yPosition;
-      let plantWidth = 32;
-      let plantHeight = 64;
+      let plantWidth = 32 * (params.scale || 1);
+      let plantHeight = 64 * (params.scale || 1);
 
 
       let entity = new Entity();
@@ -44,7 +43,6 @@ export default class PlantSystem extends System {
         zIndex: regionYPosition,
         renderLayer: 'PROP'
       }));
-      console.info( regionYPosition)
       this._core.addEntity(entity);
     }
 }

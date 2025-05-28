@@ -28,7 +28,7 @@ class ItemTool {
     }
 
     onUse(system, selectedRegion) {
-        system.send(this.effects[0].event, {...this.effects.params, entity: selectedRegion})
+        system.send(this.effects[0].event, {...this.effects[0].params, entity: selectedRegion})
     }
 }
 
