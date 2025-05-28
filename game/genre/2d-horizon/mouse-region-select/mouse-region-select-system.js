@@ -10,7 +10,7 @@ export default class MouseRegionSelectSystem extends System {
     initialize() {
       this.addHandler('INPUT_RECEIVED', (payload) => {
         if (payload.type == 'click') {
-          this.send('REQUEST_TILE_CHANGE', {entity: this.lastSelectedRegionEntity})
+          this.send('PLAYER_INTENT', {entity: this.lastSelectedRegionEntity})
         }
       });
     }
@@ -37,6 +37,7 @@ export default class MouseRegionSelectSystem extends System {
         this._setSelected(this.lastSelectedRegionEntity, false)
         this._setSelected(region, true)
       }
+      this._core.publishData('SELECTED_REGION', region )
     }
 
     _setSelected(regionEntity, isSelected) {
@@ -55,6 +56,7 @@ export default class MouseRegionSelectSystem extends System {
       else if (this.lastSelectedRegionEntityDetails) {
         regionEntity.getComponent('RenderComponent').shapeColor = this.lastSelectedRegionEntityDetails.shapeColor;
       }
+
 
     }
   }

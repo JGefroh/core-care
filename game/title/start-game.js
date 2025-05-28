@@ -93,6 +93,8 @@ import MouseRegionSelectSystem from '../genre/2d-horizon/mouse-region-select/mou
 import TileChangeSystem from '../genre/tile-management/tile-change-system';
 import PlantSystem from '../genre/farm/plant-system';
 import Plantable from '../genre/farm/plantable-tag';
+import PlayerControlIntentSystem from '../features/player-control/player-control-intent-system';
+import PlayerControlItemSelectionSystem from '../features/player-control/player-control-item-selection-system';
 export function startGame() {
 
     ////
@@ -192,6 +194,8 @@ export function startGame() {
     // Player Control (firing, moving)
     Core.addSystem(new PlayerControlMovementSystem())
         Core.addTag(PlayerControllable);
+    Core.addSystem(new PlayerControlIntentSystem())
+    Core.addSystem(new PlayerControlItemSelectionSystem());
 
 
     // Temporary region inputs

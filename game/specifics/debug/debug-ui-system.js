@@ -62,7 +62,7 @@ export default class DebugUiSystem extends System {
                 })
               })
           }, 500)
-          this.wait = 500;
+          this.wait = 250;
         }
     }
     
@@ -70,6 +70,10 @@ export default class DebugUiSystem extends System {
       this.send("GUI_UPDATE_TEXT", {
         key: 'debug-line-4',
         value: `Time of day: ${this._core.getData('DEBUG_TIME_OF_DAY')?.currentGameTime}`
+      })
+      this.send("GUI_UPDATE_TEXT", {
+        key: 'debug-line-5',
+        value: `Selected Item: ${this._core.getData('SELECTED_ITEM')}`
       })
     }
 

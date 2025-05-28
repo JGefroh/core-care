@@ -16,8 +16,6 @@ export default class PlantSystem extends System {
     }
 
     work() {
-        this.workForTag('Plantable', (tag) => {
-        });
     }
 
     addPlantAt(region) {
@@ -47,4 +45,4 @@ export default class PlantSystem extends System {
       console.info( regionYPosition)
       this._core.addEntity(entity);
     }
-  }
+}
