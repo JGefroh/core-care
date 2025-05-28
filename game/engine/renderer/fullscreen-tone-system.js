@@ -49,7 +49,6 @@ export default class ToneOverlaySystem extends System {
             height: height,
             color: this.toneColor,
             shape: 'rectangle',
-            zIndex: 999999999,
           });
           
     }

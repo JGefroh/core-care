@@ -23,10 +23,10 @@ export default class TileChangeSystem extends System {
     }
 
     _cycleTileType(entity) {
-        console.info(entity.getComponent('RenderComponent').imagePath);
-
         if (entity.getComponent('RenderComponent').imagePath == 'DIRT_5') {
-            this._changeToGrass(entity)
+            this.send('ADD_PLANT', {
+                region: entity
+            })
         }
         else {
             this._changeToDirt(entity)

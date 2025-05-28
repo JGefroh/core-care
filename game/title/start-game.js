@@ -91,6 +91,8 @@ import SnowAccumulator from '../features/environmental/snow-accumulator-tag';
 import SunSystem from '../features/environmental/sun/sun-system';
 import MouseRegionSelectSystem from '../genre/2d-horizon/mouse-region-select/mouse-region-select-system';
 import TileChangeSystem from '../genre/tile-management/tile-change-system';
+import PlantSystem from '../genre/farm/plant-system';
+import Plantable from '../genre/farm/plantable-tag';
 export function startGame() {
 
     ////
@@ -194,6 +196,10 @@ export function startGame() {
 
     // Temporary region inputs
     Core.addSystem(new MouseRegionSelectSystem());
+
+    // FArming
+    Core.addSystem(new PlantSystem());
+        Core.addTag(Plantable)
 
 
     // Tile system

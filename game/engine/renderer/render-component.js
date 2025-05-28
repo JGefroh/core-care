@@ -13,7 +13,9 @@ export default class RenderComponent extends Component {
 
         this.angleDegrees = payload.angleDegrees; // This is used for visual angles, and not position-based logic.
 
-        this.renderLayer = payload.renderLayer || 'TOP'
+        // Z-indexing: you can specify a value OR assign to a semantic render layer
+        this.zIndex = payload.zIndex || 0; // Supercedes render layer if present (ie. non-zero)
+        this.renderLayer = payload.renderLayer || 'DEFAULT'//
         this.renderFromCorner = payload.renderFromCorner || false;
 
         // Shape primitivis

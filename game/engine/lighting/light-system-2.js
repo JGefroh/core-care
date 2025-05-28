@@ -43,7 +43,6 @@ export default class LightSystem2 extends System {
         renderer.submitRenderCommand({
             materialId: 'basic-light',
             shape: 'circle',
-            zIndex: 99999,
             xPosition: lightable.getXPosition(),
             yPosition: lightable.getYPosition(),
             angleDegrees: 0,

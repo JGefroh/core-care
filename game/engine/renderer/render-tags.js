@@ -27,6 +27,10 @@ export default class Renderable extends Tag {
     getYPosition() {
       return this.entity.getComponent('PositionComponent').yPosition;
     };
+
+    getZIndex() {
+      return this.entity.getComponent('RenderComponent').zIndex;
+    }
   
     getWidth() {
       let width = null;

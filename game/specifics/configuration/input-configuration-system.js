@@ -15,8 +15,6 @@ export default class InputConfigurationSystem extends System {
             'd_hold': 'move_right',
             's_press': 'move_down',
             's_hold': 'move_down',
-
-
             'ArrowUp_press': 'move_up',
             'ArrowUp_hold': 'move_up',
             'ArrowLeft_press': 'move_left',
@@ -26,11 +24,14 @@ export default class InputConfigurationSystem extends System {
             'ArrowDown_press': 'move_down',
             'ArrowDown_hold': 'move_down',
 
-            // Personal interaction controls
-            'f_press': 'flashlight_off', // Need the press to avoid the press delay
-            'f_hold': 'flashlight_off',
-            't_release': 'flashlight_mode_toggle',
-            'click_once': 'attack_1',
+            // Item and Interaction
+            '1_release': 'select_item_slot_1',
+            '2_release': 'select_item_slot_2',
+            '3_release': 'select_item_slot_3',
+            '4_release': 'select_item_slot_4',
+            '5_release': 'select_item_slot_5',
+            '6_release': 'select_item_slot_6',
+            '7_release': 'select_item_slot_7',
 
             // DEBUG
             'p_release': 'debug_kill',
