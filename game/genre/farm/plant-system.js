@@ -16,7 +16,7 @@ export default class PlantSystem extends System {
         'PLANT_3': { key: 'PLANT_3', height: 64, next: 'FINAL'},
         'FINAL': { key: 'FINAL', height: 64}
       }
-      this.wait = 5000;
+      this.wait = 500;
     }
 
     initialize() {
@@ -64,12 +64,13 @@ export default class PlantSystem extends System {
 
     advancePlant(entity) {
       let plantStage = this.plantStages[entity.getComponent('RenderComponent').imagePath]
-      if (plantStage != null && plantStage.next != 'FINAL') {
+      console.info(plantStage)
+      if (plantStage && plantStage.next != 'FINAL') {
         let nextStage = this.plantStages[plantStage.next]
         entity.getComponent('RenderComponent').imagePath = nextStage.key
         entity.getComponent('RenderComponent').height = nextStage.height;
       }
-      else if (plantStage.next == 'FINAL') {
+      else if (plantStage?.next == 'FINAL') {
         let plantType = entity.getComponent('PlantComponent').type;
         entity.getComponent('RenderComponent').imagePath = plantType;
       }
