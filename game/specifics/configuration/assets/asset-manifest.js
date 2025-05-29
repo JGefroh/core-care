@@ -25,6 +25,7 @@ const manifest = {
 
 addAsset('CARROT', 'carrot', 5)
 addAsset('DAISY', 'daisy', 5)
+addAsset('LETTUCE', 'lettuce', 5)
 
 function addAsset(assetKey, assetFile, frameCount) {
   for(let i = 0; i < frameCount; i++) {

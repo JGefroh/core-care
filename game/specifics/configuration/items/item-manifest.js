@@ -58,6 +58,16 @@ const ItemDefinitions = {
       imagePaths: [
       ],
     },
+    LETTUCE: {
+      type: "PLANT",
+      name: "Lettuce",
+      useOn: [{ type: "TILE", tileType: "DIRT" }],
+      effects: [
+        { event: "ADD_PLANT", params: { type: "LETTUCE", scale: 0.5, stageCount: 5 } }
+      ],
+      imagePaths: [
+      ],
+    },
   };
 
   export default ItemDefinitions;
