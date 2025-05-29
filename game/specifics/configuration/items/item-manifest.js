@@ -11,7 +11,10 @@ const ItemDefinitions = {
     SHOVEL: {
       type: "TOOL",
       name: "Shovel",
-      useOn: [{ type: "TILE", tileType: "GRASS" }],
+      useOn: [
+          { type: "TILE", tileType: "GRASS" },
+          { type: "TILE", tileType: "DIRT_TILLED" }
+      ],
       effects: [
         { event: "REQUEST_TILE_CHANGE", params: { to: "DIRT" } }
       ]
@@ -33,9 +36,6 @@ const ItemDefinitions = {
       effects: [
         { event: "ADD_PLANT", params: { type: "SUNFLOWER" } }
       ],
-      imagePaths: [
-        "SUNFLOWER.png"
-      ]
     },
   
     DAISIES: {
@@ -46,7 +46,6 @@ const ItemDefinitions = {
         { event: "ADD_PLANT", params: { type: "DAISY", scale: 0.5 } }
       ],
       imagePaths: [
-        "DAISY.png"
       ],
     }
   };

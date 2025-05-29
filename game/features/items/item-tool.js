@@ -15,7 +15,7 @@ class ItemTool {
             }
 
             if (condition.type == 'TILE') {
-                if (context.selectedRegion.getComponent('RenderComponent').imagePath?.indexOf(`${condition.tileType}_`) != -1) {
+                if (context.selectedRegion.getComponent('RenderComponent').imagePath?.indexOf(`${condition.tileType}`) != -1) {
                     use = true;
                 }
             }

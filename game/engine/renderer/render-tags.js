@@ -16,8 +16,8 @@ export default class Renderable extends Tag {
       return this.entity.getComponent('RenderComponent').renderLayer.toUpperCase();
     }
 
-    getRenderFromCorner() {
-      return this.entity.getComponent('RenderComponent').renderFromCorner;
+    getRenderAlignment() {
+      return this.entity.getComponent('RenderComponent').renderAlignment;
     }
 
     getXPosition() {
@@ -25,7 +25,12 @@ export default class Renderable extends Tag {
     };
   
     getYPosition() {
-      return this.entity.getComponent('PositionComponent').yPosition;
+      if (this.entity.getComponent('RenderComponent').renderAlignment == 'center') {
+        return this.entity.getComponent('PositionComponent').yPosition;
+      }
+      else if (this.entity.getComponent('RenderComponent').renderAlignment == 'bottom-center') {
+        return this.entity.getComponent('PositionComponent').yPosition + (-this.getHeight() / 2);
+      }
     };
 
     getZIndex() {

@@ -15,7 +15,11 @@ const manifest = {
       'SNOW_3': { path: 'snow-3.png' },
       'SNOW_4': { path: 'snow-4.png' },
       'SUNFLOWER': { path: 'sunflower.png' },
-      'DAISY': { path: 'daisy.png' }
+      'DAISY': { path: 'daisy.png' },
+      "PLANT_0": { path: 'plant-0.png'},
+      "PLANT_1": { path: 'plant-1.png'},
+      "PLANT_2": { path: 'plant-2.png'},
+      "PLANT_3": { path: 'plant-3.png'},
     }
 }
 export default manifest;

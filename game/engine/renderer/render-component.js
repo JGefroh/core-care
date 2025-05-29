@@ -16,7 +16,7 @@ export default class RenderComponent extends Component {
         // Z-indexing: you can specify a value OR assign to a semantic render layer
         this.zIndex = payload.zIndex || 0; // Supercedes render layer if present (ie. non-zero)
         this.renderLayer = payload.renderLayer || 'DEFAULT'//
-        this.renderFromCorner = payload.renderFromCorner || false;
+        this.renderAlignment = payload.renderAlignment || 'center' // default is x,y represent center ['bottom-center']
 
         // Shape primitivis
         this.shape = payload.shape ||'rectangle' // rectangle, circle, path
