@@ -1,13 +1,4 @@
 const ItemDefinitions = {
-    HOE: {
-      type: "TOOL",
-      name: "Hoe",
-      useOn: [{ type: "TILE", tileType: 'DIRT' }],
-      effects: [
-        { event: "REQUEST_TILE_CHANGE", params: { to: "DIRT_TILLED" } }
-      ]
-    },
-  
     SHOVEL: {
       type: "TOOL",
       name: "Shovel",
@@ -19,6 +10,14 @@ const ItemDefinitions = {
         { event: "REQUEST_TILE_CHANGE", params: { to: "DIRT" } }
       ]
     },
+    HOE: {
+      type: "TOOL",
+      name: "Hoe",
+      useOn: [{ type: "TILE", tileType: 'DIRT' }],
+      effects: [
+        { event: "REQUEST_TILE_CHANGE", params: { to: "DIRT_TILLED" } }
+      ]
+    },
   
     WATER_PAIL: {
       type: "TOOL",
@@ -27,15 +26,6 @@ const ItemDefinitions = {
       effects: [
         { event: "REQUEST_TILE_CHANGE", params: { to: "DIRT" } }
       ]
-    },
-  
-    SUNFLOWER: {
-      type: "PLANT",
-      name: "Sunflower",
-      useOn: [{ type: "TILE", tileType: "DIRT" }],
-      effects: [
-        { event: "ADD_PLANT", params: { type: "SUNFLOWER" } }
-      ],
     },
   
     DAISIES: {
@@ -64,6 +54,16 @@ const ItemDefinitions = {
       useOn: [{ type: "TILE", tileType: "DIRT" }],
       effects: [
         { event: "ADD_PLANT", params: { type: "LETTUCE", scale: 0.5, stageCount: 5 } }
+      ],
+      imagePaths: [
+      ],
+    },
+    CAULIFLOWER: {
+      type: "PLANT",
+      name: "Cauliflower",
+      useOn: [{ type: "TILE", tileType: "DIRT" }],
+      effects: [
+        { event: "ADD_PLANT", params: { type: "CAULIFLOWER", scale: 0.5, stageCount: 5 } }
       ],
       imagePaths: [
       ],
