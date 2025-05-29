@@ -10,11 +10,6 @@ export default class PlantSystem extends System {
       super()
 
       this.plantStages = {
-        'PLANT_0': { key: 'PLANT_0', height: 32, next: 'PLANT_1'},
-        'PLANT_1': { key: 'PLANT_1', height: 32, next: 'PLANT_2'},
-        'PLANT_2': { key: 'PLANT_2', height: 48, next: 'PLANT_3'},
-        'PLANT_3': { key: 'PLANT_3', height: 64, next: 'FINAL'},
-        'FINAL': { key: 'FINAL', height: 64}
       }
       this.wait = 500;
     }
@@ -36,7 +31,7 @@ export default class PlantSystem extends System {
       let regionXPosition = region.getComponent('PositionComponent').xPosition;
       let regionYPosition = region.getComponent('PositionComponent').yPosition;
       let plantWidth = 32 * (params.scale || 1);
-      let plantHeight = 32 * (params.scale || 1);
+      let plantHeight = 64 * (params.scale || 1);
 
 
       let entity = new Entity();
@@ -51,28 +46,26 @@ export default class PlantSystem extends System {
         width: plantWidth,
         height: plantHeight,
         shape: 'rectangle',
-        imagePath: 'PLANT_0',
+        imagePath: `${type}_1`,
         zIndex: regionYPosition,
         renderLayer: 'PROP',
         renderAlignment: 'bottom-center'
       }));
       entity.addComponent(new PlantComponent({
-        type: type
+        type: type,
+        stageCount: params.stageCount,
+        stageCurrent: 0
       }));
       this._core.addEntity(entity);
     }
 
     advancePlant(entity) {
-      let plantStage = this.plantStages[entity.getComponent('RenderComponent').imagePath]
-      console.info(plantStage)
-      if (plantStage && plantStage.next != 'FINAL') {
-        let nextStage = this.plantStages[plantStage.next]
-        entity.getComponent('RenderComponent').imagePath = nextStage.key
-        entity.getComponent('RenderComponent').height = nextStage.height;
-      }
-      else if (plantStage?.next == 'FINAL') {
-        let plantType = entity.getComponent('PlantComponent').type;
-        entity.getComponent('RenderComponent').imagePath = plantType;
+      let plant = entity.getComponent('PlantComponent');
+
+      if (plant.stageCurrent < plant.stageCount) {
+        plant.stageCurrent += 1;
+        entity.getComponent('RenderComponent').imagePath = `${plant.type}_${plant.stageCurrent}`
+        console.info(entity.getComponent('RenderComponent').imagePath)
       }
     }
 }

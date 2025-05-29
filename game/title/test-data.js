@@ -15,10 +15,10 @@ import CollisionComponent from '@game/engine/collision/collision-component';
 
 
 export function createTestData() {
-    createTree(window.innerWidth / 2, 300, 30, 100, true);
-    createTree(window.innerWidth / 2 - 100, 300, 30, 100, false);
-    createTree(window.innerWidth / 2 - 300, 300, 30, 100, false);
-    createGuard(0, -128, 32);
+    // createTree(window.innerWidth / 2, 300, 30, 100, true);
+    // createTree(window.innerWidth / 2 - 100, 300, 30, 100, false);
+    // createTree(window.innerWidth / 2 - 300, 300, 30, 100, false);
+    // createGuard(0, -128, 32);
 
 }
 

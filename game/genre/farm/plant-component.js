@@ -6,5 +6,7 @@ export default class PlantComponent extends Component {
         this.componentType = "PlantComponent"
 
         this.type = payload.type;
+        this.stageCount = payload.stageCount;
+        this.stageCurrent = payload.stageCurrent || 0;
     }
 }

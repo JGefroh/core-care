@@ -22,4 +22,14 @@ const manifest = {
       "PLANT_3": { path: 'plant-3.png'},
     }
 }
+
+addAsset('CARROT', 'carrot', 5)
+addAsset('DAISY', 'daisy', 5)
+
+function addAsset(assetKey, assetFile, frameCount) {
+  for(let i = 0; i < frameCount; i++) {
+    manifest.props[`${assetKey}_${i+1}`] = { path: `${assetFile}-${i + 1}.png`};
+  }
+  console.info(manifest)
+}
 export default manifest;

@@ -43,11 +43,21 @@ const ItemDefinitions = {
       name: "Daisies",
       useOn: [{ type: "TILE", tileType: "GRASS" }],
       effects: [
-        { event: "ADD_PLANT", params: { type: "DAISY", scale: 0.5 } }
+        { event: "ADD_PLANT", params: { type: "DAISY", scale: 0.5, stageCount: 5} }
       ],
       imagePaths: [
       ],
-    }
+    },
+    CARROTS: {
+      type: "PLANT",
+      name: "Carrots",
+      useOn: [{ type: "TILE", tileType: "DIRT" }],
+      effects: [
+        { event: "ADD_PLANT", params: { type: "CARROT", scale: 0.5, stageCount: 5 } }
+      ],
+      imagePaths: [
+      ],
+    },
   };
 
   export default ItemDefinitions;
