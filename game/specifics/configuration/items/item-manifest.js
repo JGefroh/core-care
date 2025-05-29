@@ -70,4 +70,22 @@ const ItemDefinitions = {
     },
   };
 
+  function addPlantToDefinitions(plantName) {
+    const key = plantName.toUpperCase();
+    const name = plantName.charAt(0).toUpperCase() + plantName.slice(1).toLowerCase();
+  
+    ItemDefinitions[key] = {
+      type: "PLANT",
+      name: name,
+      useOn: [{ type: "TILE", tileType: "DIRT" }],
+      effects: [
+        { event: "ADD_PLANT", params: { type: key, scale: 0.5, stageCount: 5 } }
+      ],
+      imagePaths: [],
+    };
+  }
+  
+  addPlantToDefinitions("lavender");
+
+
   export default ItemDefinitions;

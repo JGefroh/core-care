@@ -32,6 +32,9 @@ export default class InputConfigurationSystem extends System {
             '5_release': 'select_item_slot_5',
             '6_release': 'select_item_slot_6',
             '7_release': 'select_item_slot_7',
+            '8_release': 'select_item_slot_8',
+            '9_release': 'select_item_slot_9',
+            '0_release': 'select_item_slot_0',
 
             // DEBUG
             'p_release': 'debug_kill',
