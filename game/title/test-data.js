@@ -17,6 +17,8 @@ import CollisionComponent from '@game/engine/collision/collision-component';
 export function createTestData() {
   setSceneTiles();
 
+  Core.send('CREATE_PROP', {type: 'HOUSE', xPosition: 300, yPosition: -250, width: 128, height: 128});
+
 }
 
 function setSceneTiles() {

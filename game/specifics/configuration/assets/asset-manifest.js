@@ -27,6 +27,7 @@ const manifest = {
       "PLANT_1": { path: 'plant-1.png'},
       "PLANT_2": { path: 'plant-2.png'},
       "PLANT_3": { path: 'plant-3.png'},
+      "HOUSE": { path: 'house.png'},
     }
 }
 
