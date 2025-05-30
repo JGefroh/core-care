@@ -57,6 +57,12 @@ export default class PlantSystem extends System {
         stageCurrent: 0
       }));
       this._core.addEntity(entity);
+
+      
+      this.send("PLAY_AUDIO", {
+        audioKey: 'planting.mp3',
+        volume: 0.8
+    })
     }
 
     advancePlant(entity) {

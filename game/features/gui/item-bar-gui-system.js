@@ -5,6 +5,7 @@ export default class ItemBarGuiSystem extends System {
       super()
       let itemCount = 0;
 
+
       this.addHandler('SELECTED_ITEM_SLOT', (payload) => {
         this.updateItemSlots(payload)
       });
@@ -30,11 +31,12 @@ export default class ItemBarGuiSystem extends System {
         }
     }
 
+
     addItemSlot(slotNumber, payload) {
         let baseYPosition = window.innerHeight - 72;
         let baseXPosition =  10;
         let size = 64;
-        let spacing = 12;
+        let spacing = 2;
         let yPosition = baseYPosition;
         let xPosition = baseXPosition + (slotNumber * size) + (spacing * slotNumber);
 
@@ -46,7 +48,7 @@ export default class ItemBarGuiSystem extends System {
             width: size,
             height: size,
             fillStyle: 'rgba(0,0,0,0.6)',
-            iamgePath: '/assets/images/item-slot-inactive.png'
+            imagePath: '/assets/images/item-slot-inactive.png'
         })
         this.send('ADD_GUI_RENDERABLE', {
             key: `gui-item-slot-${slotNumber}-pic`,
@@ -59,5 +61,6 @@ export default class ItemBarGuiSystem extends System {
             lineWidth: 8,
             imagePath: `/assets/images/${payload.item.name.toLowerCase()}-5.png`
         })
+
     }
 }
