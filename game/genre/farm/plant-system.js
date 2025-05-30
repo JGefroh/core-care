@@ -11,7 +11,7 @@ export default class PlantSystem extends System {
 
       this.plantStages = {
       }
-      this.wait = 500;
+      this.wait = 50;
     }
 
     initialize() {
@@ -65,7 +65,6 @@ export default class PlantSystem extends System {
       if (plant.stageCurrent < plant.stageCount) {
         plant.stageCurrent += 1;
         entity.getComponent('RenderComponent').imagePath = `${plant.type}_${plant.stageCurrent}`
-        console.info(entity.getComponent('RenderComponent').imagePath)
       }
     }
 }

@@ -1,8 +1,15 @@
 const manifest = {
     textures: {
         'DEV_NO_TEXTURE': { path: 'dev-no-texture.jpg' },
-        'GRASS_5': { path: 'grass-5.png' },
-        'DIRT_5': { path: 'dirt-5.png' },
+        'DIRT_0': { path: 'dirt-4.png' },
+        'DIRT_1': { path: 'dirt-4.png' },
+        'DIRT_2': { path: 'dirt-4.png' },
+        'DIRT_3': { path: 'dirt-4.png' },
+        'DIRT_4': { path: 'dirt-4.png' },
+        'DIRT_5': { path: 'dirt-4.png' },
+        'DIRT_6': { path: 'dirt-4.png' },
+        'DIRT_7': { path: 'dirt-4.png' },
+        'DIRT_8': { path: 'dirt-4.png' },
         'DIRT_TILLED': { path: 'dirt-tilled.png' },
         'GUARD_1': { path: 'guard-1.png'},
         'BG_MOUNTAIN': { path: 'mountains.png'},
@@ -28,11 +35,18 @@ addAsset('DAISY', 'daisy', 5)
 addAsset('LETTUCE', 'lettuce', 5)
 addAsset('CAULIFLOWER', 'cauliflower', 5)
 addAsset('LAVENDER', 'lavender', 5)
+addTilemap('GRASS', 'grass')
 
 function addAsset(assetKey, assetFile, frameCount) {
   for(let i = 0; i < frameCount; i++) {
     manifest.props[`${assetKey}_${i+1}`] = { path: `${assetFile}-${i + 1}.png`};
   }
-  console.info(manifest)
+}
+
+
+function addTilemap(key, name) {
+  for(let i = 0; i < 9; i++) {
+    manifest.props[`${key}_${i}`] = { path: `${name}-${i}.png`};
+  }
 }
 export default manifest;

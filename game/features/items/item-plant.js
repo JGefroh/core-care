@@ -15,7 +15,6 @@ class ItemPlant {
             }
 
             if (condition.type == 'TILE') {
-                console.info(this.useOn)
 
                 if (context.selectedRegion.getComponent('RenderComponent').imagePath?.indexOf(`${condition.tileType}_`) != -1) {
                     use = true;

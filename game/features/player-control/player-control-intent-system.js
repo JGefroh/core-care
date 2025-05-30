@@ -21,7 +21,6 @@ export default class PlayerControlIntentSystem extends System {
       } 
 
       if (context.selectedItem.canUse(context)) {
-        console.info("CAN USE", context.selectedItem)
         context.selectedItem.onUse(this, context.selectedRegion);
       }
     };

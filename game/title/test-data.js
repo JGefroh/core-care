@@ -15,11 +15,38 @@ import CollisionComponent from '@game/engine/collision/collision-component';
 
 
 export function createTestData() {
-    // createTree(window.innerWidth / 2, 300, 30, 100, true);
-    // createTree(window.innerWidth / 2 - 100, 300, 30, 100, false);
-    // createTree(window.innerWidth / 2 - 300, 300, 30, 100, false);
-    // createGuard(0, -128, 32);
+  setSceneTiles();
 
+}
+
+function setSceneTiles() {
+  Core.send('REQUEST_TILE_CHANGE', {entity: Core.getEntityWithKey('region-tile--9--3'), to: 'DIRT'})
+  Core.send('REQUEST_TILE_CHANGE', {entity: Core.getEntityWithKey('region-tile--9--2'), to: 'DIRT'})
+  Core.send('REQUEST_TILE_CHANGE', {entity: Core.getEntityWithKey('region-tile--9--1'), to: 'DIRT'})
+  Core.send('REQUEST_TILE_CHANGE', {entity: Core.getEntityWithKey('region-tile--8--1'), to: 'DIRT'})
+  Core.send('REQUEST_TILE_CHANGE', {entity: Core.getEntityWithKey('region-tile--8--2'), to: 'DIRT'})
+  Core.send('REQUEST_TILE_CHANGE', {entity: Core.getEntityWithKey('region-tile--8--3'), to: 'DIRT'})
+  Core.send('REQUEST_TILE_CHANGE', {entity: Core.getEntityWithKey('region-tile--7--3'), to: 'DIRT'})
+  Core.send('REQUEST_TILE_CHANGE', {entity: Core.getEntityWithKey('region-tile--7--2'), to: 'DIRT'})
+  Core.send('REQUEST_TILE_CHANGE', {entity: Core.getEntityWithKey('region-tile--7--1'), to: 'DIRT'})
+  Core.send('REQUEST_TILE_CHANGE', {entity: Core.getEntityWithKey('region-tile--9-2'), to: 'DIRT'})
+  Core.send('REQUEST_TILE_CHANGE', {entity: Core.getEntityWithKey('region-tile--8-2'), to: 'DIRT'})
+  Core.send('REQUEST_TILE_CHANGE', {entity: Core.getEntityWithKey('region-tile--7-2'), to: 'DIRT'})
+  Core.send('REQUEST_TILE_CHANGE', {entity: Core.getEntityWithKey('region-tile--5-2'), to: 'DIRT'})
+  Core.send('REQUEST_TILE_CHANGE', {entity: Core.getEntityWithKey('region-tile--6-2'), to: 'DIRT'})
+  Core.send('REQUEST_TILE_CHANGE', {entity: Core.getEntityWithKey('region-tile--6-3'), to: 'DIRT'})
+  Core.send('REQUEST_TILE_CHANGE', {entity: Core.getEntityWithKey('region-tile--5-3'), to: 'DIRT'})
+  Core.send('REQUEST_TILE_CHANGE', {entity: Core.getEntityWithKey('region-tile--7-3'), to: 'DIRT'})
+  Core.send('REQUEST_TILE_CHANGE', {entity: Core.getEntityWithKey('region-tile--8-3'), to: 'DIRT'})
+  Core.send('REQUEST_TILE_CHANGE', {entity: Core.getEntityWithKey('region-tile--9-3'), to: 'DIRT'})
+  Core.send('REQUEST_TILE_CHANGE', {entity: Core.getEntityWithKey('region-tile--9-4'), to: 'DIRT'})
+  Core.send('REQUEST_TILE_CHANGE', {entity: Core.getEntityWithKey('region-tile--8-4'), to: 'DIRT'})
+  Core.send('REQUEST_TILE_CHANGE', {entity: Core.getEntityWithKey('region-tile--7-4'), to: 'DIRT'})
+  Core.send('REQUEST_TILE_CHANGE', {entity: Core.getEntityWithKey('region-tile--6-4'), to: 'DIRT'})
+  Core.send('REQUEST_TILE_CHANGE', {entity: Core.getEntityWithKey('region-tile--5-4'), to: 'DIRT'})
+  Core.send('REQUEST_TILE_CHANGE', {entity: Core.getEntityWithKey('region-tile--4--1'), to: 'DIRT'})
+  Core.send('REQUEST_TILE_CHANGE', {entity: Core.getEntityWithKey('region-tile--4--2'), to: 'DIRT'})
+  Core.send('REQUEST_TILE_CHANGE', {entity: Core.getEntityWithKey('region-tile--4--3'), to: 'DIRT'})
 }
 
 

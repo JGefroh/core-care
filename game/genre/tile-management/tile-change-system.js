@@ -32,5 +32,6 @@ export default class TileChangeSystem extends System {
         else if (to == 'DIRT_TILLED') {
             entity.getComponent('RenderComponent').imagePath = 'DIRT_TILLED';
         }
+        this.send('TILE_CHANGED', {entity: entity, to: to})
     }
   }

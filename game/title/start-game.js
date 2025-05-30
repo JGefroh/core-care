@@ -97,6 +97,7 @@ import PlayerControlIntentSystem from '../features/player-control/player-control
 import PlayerControlItemSelectionSystem from '../features/player-control/player-control-item-selection-system';
 import ItemConfigurationSystem from '../specifics/configuration/items/item-configuration-system';
 import ItemRegistrySystem from '../features/items/item-registry-system';
+import AutoTileSystem from '../genre/tile-management/auto-tile-system';
 export function startGame() {
 
     ////
@@ -214,6 +215,7 @@ export function startGame() {
 
     // Tile system
     Core.addSystem(new TileChangeSystem());
+    Core.addSystem(new AutoTileSystem());
 
     // FX
     Core.addTag(Material);
