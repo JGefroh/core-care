@@ -98,6 +98,7 @@ import PlayerControlItemSelectionSystem from '../features/player-control/player-
 import ItemConfigurationSystem from '../specifics/configuration/items/item-configuration-system';
 import ItemRegistrySystem from '../features/items/item-registry-system';
 import AutoTileSystem from '../genre/tile-management/auto-tile-system';
+import ItemBarGuiSystem from '../features/gui/item-bar-gui-system';
 export function startGame() {
 
     ////
@@ -235,6 +236,9 @@ export function startGame() {
     ////
     // Game-specific configuration
     ////
+
+    // GUI
+    Core.addSystem(new ItemBarGuiSystem());
 
     // Environmental
     Core.addSystem(new DayNightCycleSystemSystem());
