@@ -11,6 +11,7 @@ export default class GuiSystem extends System {
       super()
       this.hoverLastChecked = null;
       this.lastHoverStyle = null;
+      this.imageMap = {};
 
       this._addUIHandlers();
     }
@@ -130,11 +131,11 @@ export default class GuiSystem extends System {
     }
 
     _renderImage(renderable, canvasCtx) {
-        let img = renderable.getImageObject();
+        let img = this.imageMap[renderable.getImagePath()]
         if (!img) {
           img = new Image()
           img.src = renderable.getImagePath();
-          renderable.setImageObject(img)
+          this.imageMap[renderable.getImagePath()] = img;
         }
         canvasCtx.drawImage(img, renderable.getXPosition(), renderable.getYPosition(), renderable.getWidth(), renderable.getHeight());
     }

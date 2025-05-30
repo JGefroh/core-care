@@ -24,7 +24,7 @@ export default class ItemBarGuiSystem extends System {
             this.send('GUI_UPDATE_PROPERTIES', {
                 key: `gui-item-slot-${i - 1}`,
                 value: {
-                    strokeStyle: selectedItemSlot == i ? 'rgba(0,255,0,0.6)' : 'rgba(0,0,0,0.6)',
+                    imagePath: `${selectedItemSlot == i ? '/assets/images/item-slot-active.png' : '/assets/images/item-slot-inactive.png'}`,
                 }
             })
         }
@@ -46,8 +46,7 @@ export default class ItemBarGuiSystem extends System {
             width: size,
             height: size,
             fillStyle: 'rgba(0,0,0,0.6)',
-            strokeStyle: 'rgba(79, 58, 0, 0.84)',
-            lineWidth: 8,
+            iamgePath: '/assets/images/item-slot-inactive.png'
         })
         this.send('ADD_GUI_RENDERABLE', {
             key: `gui-item-slot-${slotNumber}-pic`,
