@@ -7,7 +7,8 @@ const ItemDefinitions = {
           { type: "TILE", tileType: "DIRT_TILLED" }
       ],
       effects: [
-        { event: "REQUEST_TILE_CHANGE", params: { to: "DIRT" } }
+        { event: "REQUEST_TILE_CHANGE", params: { to: "DIRT" } },
+        { event: "PLAY_AUDIO", params: { audioKey: 'planting.mp3', volume: 1 }}
       ]
     },
     // HOE: {
