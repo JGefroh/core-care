@@ -1,15 +1,15 @@
 const ItemDefinitions = {
-    // SHOVEL: {
-    //   type: "TOOL",
-    //   name: "Shovel",
-    //   useOn: [
-    //       { type: "TILE", tileType: "GRASS" },
-    //       { type: "TILE", tileType: "DIRT_TILLED" }
-    //   ],
-    //   effects: [
-    //     { event: "REQUEST_TILE_CHANGE", params: { to: "DIRT" } }
-    //   ]
-    // },
+    SHOVEL: {
+      type: "TOOL",
+      name: "Shovel",
+      useOn: [
+          { type: "TILE", tileType: "GRASS" },
+          { type: "TILE", tileType: "DIRT_TILLED" }
+      ],
+      effects: [
+        { event: "REQUEST_TILE_CHANGE", params: { to: "DIRT" } }
+      ]
+    },
     // HOE: {
     //   type: "TOOL",
     //   name: "Hoe",

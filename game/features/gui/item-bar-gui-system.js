@@ -41,6 +41,8 @@ export default class ItemBarGuiSystem extends System {
         let xPosition = baseXPosition + (slotNumber * size) + (spacing * slotNumber);
 
 
+        let imagePath = payload.item.constructor.name == 'ItemTool' ?  `/assets/images/${payload.item.name.toLowerCase()}.png` :  `/assets/images/${payload.item.name.toLowerCase()}-5.png`
+        let imageShape = payload.item.constructor.name == 'ItemTool' ? 'square' : 'rectangle';
         this.send('ADD_GUI_RENDERABLE', {
             key: `gui-item-slot-${slotNumber}`,
             xPosition: xPosition,
@@ -52,14 +54,14 @@ export default class ItemBarGuiSystem extends System {
         })
         this.send('ADD_GUI_RENDERABLE', {
             key: `gui-item-slot-${slotNumber}-pic`,
-            xPosition: xPosition + (size * 0.8) / 3,
+            xPosition:  imageShape == 'square' ? xPosition + (size * 0.7) / 6: xPosition + (size * 0.8) / 3,
             yPosition: yPosition + 8,
-            width: (size * 0.8) / 2,
+            width: imageShape == 'square' ? (size * 0.8) : (size * 0.8) / 2,
             height: size * 0.8,
             fillStyle: 'rgba(0,0,0,0.6)',
             strokeStyle: 'rgba(79, 58, 0, 0.84)',
             lineWidth: 8,
-            imagePath: `/assets/images/${payload.item.name.toLowerCase()}-5.png`
+            imagePath: imagePath
         })
 
     }
