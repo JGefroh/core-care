@@ -202,6 +202,7 @@ export function startGame() {
     Core.addSystem(new PlayerControlItemSelectionSystem());
 
     // Items and Inventory
+    Core.addSystem(new ItemBarGuiSystem());
     Core.addSystem(new ItemRegistrySystem());
     Core.addSystem(new ItemConfigurationSystem());
 
@@ -236,9 +237,6 @@ export function startGame() {
     ////
     // Game-specific configuration
     ////
-
-    // GUI
-    Core.addSystem(new ItemBarGuiSystem());
 
     // Environmental
     Core.addSystem(new DayNightCycleSystemSystem());

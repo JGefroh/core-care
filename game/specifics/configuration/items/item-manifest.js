@@ -30,7 +30,7 @@ const ItemDefinitions = {
   
     DAISIES: {
       type: "PLANT",
-      name: "Daisies",
+      name: "Daisy",
       useOn: [{ type: "TILE", tileType: "DIRT" }],
       effects: [
         { event: "ADD_PLANT", params: { type: "DAISY", scale: 0.5, stageCount: 5} }
@@ -40,7 +40,7 @@ const ItemDefinitions = {
     },
     CARROTS: {
       type: "PLANT",
-      name: "Carrots",
+      name: "Carrot",
       useOn: [{ type: "TILE", tileType: "DIRT" }],
       effects: [
         { event: "ADD_PLANT", params: { type: "CARROT", scale: 0.5, stageCount: 5 } }
