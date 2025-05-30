@@ -23,6 +23,12 @@ export default class PlayerControlIntentSystem extends System {
       if (context.selectedItem.canUse(context)) {
         context.selectedItem.onUse(this, context.selectedRegion);
       }
+      else {
+        this.send("PLAY_AUDIO", {
+          audioKey: 'intent-reject.mp3',
+          volume: 0.5
+        })
+      }
     };
 
 

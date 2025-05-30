@@ -36,6 +36,11 @@ export default class PlayerControlItemSelectionSystem extends System {
       this.selectedItem = this.itemSlots[selectedItemSlot];
       this._core.publishData('SELECTED_ITEM', this.selectedItem)
       this._core.send('SELECTED_ITEM_SLOT', stringInt)
+      
+      this.send("PLAY_AUDIO", {
+        audioKey: 'item-select.mp3',
+        volume: 0.2
+      })
     }
     
     work() {
