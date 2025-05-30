@@ -2,9 +2,6 @@ import { default as System } from '@core/system';
 import { default as Core}  from '@core/core';
 import { default as Entity } from '@core/entity.js'
 
-import ItemTool from './item-tool';
-import ItemPlant from './item-plant';
-
 import PositionComponent from '@game/engine/position/position-component';
 import RenderComponent from '@game/engine/renderer/render-component';
 import VectorComponent from '@game/engine/movement/vector-component';
@@ -15,9 +12,14 @@ export default class ItemRegistrySystem extends System {
       super()
 
       this.items = {}
+      this.itemTypes = {};
     }
 
     initialize() {
+        this.addHandler('REGISTER_ITEM_TYPE', (payload) => {
+            this.itemTypes[payload.itemType] = payload.itemClass;
+        });
+
         this.addHandler('LOAD_ITEMS', (payload) => {
             this.loadItems(payload.itemManifest);
         });
@@ -26,27 +28,12 @@ export default class ItemRegistrySystem extends System {
     loadItems(itemDefinitions) {
         Object.entries(itemDefinitions).forEach(([key, value]) => {
             value.key = key;
-            if (value.type == 'TOOL') {
-                let item = this.loadTool(value)
+            let itemClass = this.itemTypes[value.type];
+            if (itemClass) {
+                let item = new itemClass(value)
+                this.items[value.key] = item;
                 this.send('ADD_ITEM_TO_SLOTS', {item: item});
             }
-            else if (value.type == 'PLANT') {
-                let item = this.loadPlant(value);
-                this.send('ADD_ITEM_TO_SLOTS', {item: item});
-            }
-
         })
-    }
-
-    loadTool(itemDefinition) {
-        let tool = new ItemTool(itemDefinition);
-        this.items[itemDefinition.key] = tool;
-        return tool;
-    }
-
-    loadPlant(itemDefinition) {
-        let plant = new ItemPlant(itemDefinition);
-        this.items[itemDefinition.key] = plant;
-        return plant;
     }
 }
