@@ -18,8 +18,11 @@ export default class PlantSystem extends System {
       this.addHandler('ADD_PLANT', (payload) => {
         this.addPlantAt(payload.entity, payload.type, payload);
       });
+      this.addHandler('ADVANCE_PLANT', (payload) => {
+        this.advancePlantAt(payload.entity);
+      });
       this.addHandler('HARVEST_PLANT', (payload) => {
-        this.harvestPlantAt(payload.entity, payload.type, payload);
+        this.harvestPlantAt(payload.entity);
       });
     }
 
@@ -80,10 +83,21 @@ export default class PlantSystem extends System {
       })
     }
 
-    advancePlant(entity) {
+    advancePlantAt(region) {
+      let row = region.getComponent('RegionTileComponent').row;
+      let column = region.getComponent('RegionTileComponent').column;
+      let entity = this._core.getEntityWithKey(`plant-${row}-${column}`)
+      if (!entity) {
+        return;
+      }
+      console.info(region, entity)
+
+      this.advancePlant(entity, true)
+    }
+    advancePlant(entity, force) {
       let plant = entity.getComponent('PlantComponent');
 
-      if (plant.stageCurrent < plant.stageCount) {
+      if ((force || plant.stageCurrent != 0) && plant.stageCurrent < plant.stageCount) {
         plant.stageCurrent += 1;
         entity.getComponent('RenderComponent').imagePath = `${plant.type}_${plant.stageCurrent}`
       }

@@ -23,9 +23,9 @@ const ItemDefinitions = {
     WATER: {
       type: "TOOL",
       name: "Water",
-      useOn: [{ type: "TILE", tileType: "WATER" }],
+      useOn: [{ type: "PLANT" }],
       effects: [
-        { event: "REQUEST_TILE_CHANGE", params: { to: "DIRT" } }
+        { event: "ADVANCE_PLANT", params: { } }
       ]
     },
   
