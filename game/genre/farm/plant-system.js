@@ -46,6 +46,7 @@ export default class PlantSystem extends System {
       }
 
       this._core.removeEntity(entity);
+      this.send('ADD_SCORE', 10)
     }
 
     addPlantAt(region, type, params = {}) {

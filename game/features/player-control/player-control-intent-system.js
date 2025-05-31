@@ -22,7 +22,6 @@ export default class PlayerControlIntentSystem extends System {
 
       if (context.selectedItem.canUse(context)) {
         context.selectedItem.onUse(this, context.selectedRegion);
-        this.send('INPUT_RECEIVED', {action: 'next_time_of_day', amount: 300})
       }
       else {
         this.send("PLAY_AUDIO", {

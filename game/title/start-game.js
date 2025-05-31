@@ -100,6 +100,8 @@ import ItemRegistrySystem from '../features/items/item-registry-system';
 import AutoTileSystem from '../genre/tile-management/auto-tile-system';
 import ItemBarGuiSystem from '../features/gui/item-bar-gui-system';
 import TileHoverGuiSystem from '../features/gui/tile-hover-gui-system';
+import ScoreSystem from '../features/scoring/score-system';
+import ScoreGuiSystem from '../features/gui/score-gui-system';
 export function startGame() {
 
     ////
@@ -122,6 +124,7 @@ export function startGame() {
         Core.addTag(GuiCanvasRenderable)
 
     Core.addSystem(new TileHoverGuiSystem());
+    Core.addSystem(new ScoreGuiSystem());
 
     // Loaders and Gnerators
     Core.addSystem(new AssetLoaderSystem());
@@ -241,12 +244,14 @@ export function startGame() {
     // Game-specific configuration
     ////
 
+    Core.addSystem(new ScoreSystem())
+
     // Environmental
     Core.addSystem(new DayNightCycleSystemSystem());
     Core.addSystem(new CloudGeneratorSystem());
     Core.addSystem(new SunSystem());
-    Core.addSystem(new SnowSystem());
-        Core.addTag(SnowAccumulator);
+    // Core.addSystem(new SnowSystem());
+    //     Core.addTag(SnowAccumulator);
 
     // Game Specific Configuration
     Core.addSystem(new InputConfigurationSystem());
