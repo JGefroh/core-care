@@ -77,7 +77,6 @@ export default class RegionSystem extends System {
         entity.addComponent(new RenderComponent({
             width: this.regionTileSize,
             height: this.regionTileSize,
-            imagePath: 'GRASS_4',
         }));
 
         this._core.addEntity(entity);

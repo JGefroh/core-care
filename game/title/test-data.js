@@ -22,6 +22,9 @@ export function createTestData() {
 }
 
 function setSceneTiles() {
+  Core.getTaggedAs('RegionTile').forEach((entity) => {
+    entity.getComponent('RenderComponent').imagePath = 'GRASS_4'
+  })
   Core.send('REQUEST_TILE_CHANGE', {entity: Core.getEntityWithKey('region-tile--9--3'), to: 'DIRT'})
   Core.send('REQUEST_TILE_CHANGE', {entity: Core.getEntityWithKey('region-tile--9--2'), to: 'DIRT'})
   Core.send('REQUEST_TILE_CHANGE', {entity: Core.getEntityWithKey('region-tile--9--1'), to: 'DIRT'})
