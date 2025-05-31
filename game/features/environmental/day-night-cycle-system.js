@@ -52,10 +52,10 @@ export default class DayNightCycleSystem extends System {
       
       this.addHandler('INPUT_RECEIVED', (payload) => {
         if (payload.action == 'previous_time_of_day') {
-          this._gameStartTime -= 100;
+          this._gameStartTime -= payload.amount || 100;
         }
         else if (payload.action == 'next_time_of_day') {
-          this._gameStartTime += 100;
+          this._gameStartTime += payload.amount || 100;
         }
       })
     }
