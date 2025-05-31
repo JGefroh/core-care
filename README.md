@@ -11,7 +11,10 @@ This is not intended to be used in a commercial or production environment - it w
 
 # Screenshots
 
-![Screenshot 2025-05-30 at 8 35 38 PM](https://github.com/user-attachments/assets/f63a8994-e615-44d1-ab2b-0a256a964869)
+![output](https://github.com/user-attachments/assets/62132c1e-67f9-47d6-bee2-778ac4dd3008)
+
+![Screenshot 2025-05-30 at 8 22 16 PM](https://github.com/user-attachments/assets/ff85f144-126b-4a4c-8f2e-3be4e6e2d80c)
+
 
 
 
