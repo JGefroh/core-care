@@ -200,7 +200,7 @@ function addTitle() {
 
 
 setTimeout(() => {
-    if (window.location.href.includes('skiptitle')) {
+    if (true || window.location.href.includes('skiptitle')) {
         startGame()
     }
     else {
