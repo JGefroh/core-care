@@ -32,10 +32,15 @@ export default class PlantSystem extends System {
       });
     }
 
-    harvestPlantAt(region) {
+    getPlantAt(region) {
       let row = region.getComponent('RegionTileComponent').row;
       let column = region.getComponent('RegionTileComponent').column;
       let entity = this._core.getEntityWithKey(`plant-${row}-${column}`)
+      return entity;
+    }
+
+    harvestPlantAt(region) {
+      let entity = this.getPlantAt(region);
       if (!entity) {
         return;
       }
@@ -44,6 +49,15 @@ export default class PlantSystem extends System {
     }
 
     addPlantAt(region, type, params = {}) {
+      let entityPlant = this.getPlantAt(region);
+      if (entityPlant) {
+        this.send("PLAY_AUDIO", {
+          audioKey: 'intent-reject.mp3',
+          volume: 0.5
+        })
+        return;
+      }
+
       let row = region.getComponent('RegionTileComponent').row;
       let column = region.getComponent('RegionTileComponent').column;
       let regionXPosition = region.getComponent('PositionComponent').xPosition;
@@ -84,9 +98,7 @@ export default class PlantSystem extends System {
     }
 
     advancePlantAt(region) {
-      let row = region.getComponent('RegionTileComponent').row;
-      let column = region.getComponent('RegionTileComponent').column;
-      let entity = this._core.getEntityWithKey(`plant-${row}-${column}`)
+      let entity = this.getPlantAt(region);
       if (!entity) {
         return;
       }
