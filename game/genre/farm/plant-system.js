@@ -90,7 +90,6 @@ export default class PlantSystem extends System {
       if (!entity) {
         return;
       }
-      console.info(region, entity)
 
       this.advancePlant(entity, true)
     }

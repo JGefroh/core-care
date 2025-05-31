@@ -16,7 +16,8 @@ const ItemDefinitions = {
       name: "Sycthe",
       useOn: [{ type: "PLANT" }],
       effects: [
-        { event: "HARVEST_PLANT", params: { } }
+        { event: "HARVEST_PLANT", params: { } },
+        { event: "PLAY_AUDIO", params: { audioKey: 'scythe.mp3', volume: 1 }}
       ]
     },
   
@@ -25,7 +26,8 @@ const ItemDefinitions = {
       name: "Water",
       useOn: [{ type: "PLANT" }],
       effects: [
-        { event: "ADVANCE_PLANT", params: { } }
+        { event: "ADVANCE_PLANT", params: { } },
+        { event: "PLAY_AUDIO", params: { audioKey: 'water.mp3', volume: 1 }}
       ]
     },
   
