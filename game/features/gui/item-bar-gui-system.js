@@ -5,9 +5,10 @@ export default class ItemBarGuiSystem extends System {
       super()
       let itemCount = 0;
 
+      this.addItemDescription();
 
       this.addHandler('SELECTED_ITEM_SLOT', (payload) => {
-        this.updateItemSlots(payload)
+        this.updateItemSlots(payload.slot, payload.item)
       });
 
       this.addHandler('ADD_ITEM_TO_SLOTS', (payload) => {
@@ -20,7 +21,7 @@ export default class ItemBarGuiSystem extends System {
 
     };
 
-    updateItemSlots(selectedItemSlot) {
+    updateItemSlots(selectedItemSlot, item) {
         for (let i = 0; i < 9; i++) {
             this.send('GUI_UPDATE_PROPERTIES', {
                 key: `gui-item-slot-${i - 1}`,
@@ -29,6 +30,7 @@ export default class ItemBarGuiSystem extends System {
                 }
             })
         }
+        this.updateItemDescription(item?.description)
     }
 
 
@@ -63,6 +65,30 @@ export default class ItemBarGuiSystem extends System {
             lineWidth: 8,
             imagePath: imagePath
         })
+    }
 
+    updateItemDescription(text) {
+        this.send('GUI_UPDATE_PROPERTIES', {
+            key: `gui-item-slot-description`,
+            value: {
+                text: text
+            }
+        })
+    }
+
+    addItemDescription(text) {
+        let baseYPosition = window.innerHeight - 110;
+        let baseXPosition =  10;
+        this.send('ADD_GUI_RENDERABLE', {
+            key: `gui-item-slot-description`,
+            xPosition: baseXPosition,
+            yPosition: baseYPosition,
+            width: 520,
+            height: 32,
+            fillStyle: 'rgba(0,0,0,0.6)',
+            text: text,
+            textOffsetY: 10,
+            textOffsetX: 12
+        })
     }
 }

@@ -5,6 +5,7 @@ class ItemTool {
         this.name = itemDefinition.name;
         this.useOn = itemDefinition.useOn;
         this.effects = itemDefinition.effects;
+        this.description = itemDefinition.description;
     }
 
     canUse(context) {
