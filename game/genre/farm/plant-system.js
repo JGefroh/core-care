@@ -18,6 +18,9 @@ export default class PlantSystem extends System {
       this.addHandler('ADD_PLANT', (payload) => {
         this.addPlantAt(payload.entity, payload.type, payload);
       });
+      this.addHandler('HARVEST_PLANT', (payload) => {
+        this.harvestPlantAt(payload.entity, payload.type, payload);
+      });
     }
 
     work() {
@@ -26,15 +29,27 @@ export default class PlantSystem extends System {
       });
     }
 
+    harvestPlantAt(region) {
+      let row = region.getComponent('RegionTileComponent').row;
+      let column = region.getComponent('RegionTileComponent').column;
+      let entity = this._core.getEntityWithKey(`plant-${row}-${column}`)
+      if (!entity) {
+        return;
+      }
+
+      this._core.removeEntity(entity);
+    }
+
     addPlantAt(region, type, params = {}) {
       let row = region.getComponent('RegionTileComponent').row;
+      let column = region.getComponent('RegionTileComponent').column;
       let regionXPosition = region.getComponent('PositionComponent').xPosition;
       let regionYPosition = region.getComponent('PositionComponent').yPosition;
       let plantWidth = 32 * (params.scale || 1);
       let plantHeight = 64 * (params.scale || 1);
 
 
-      let entity = new Entity();
+      let entity = new Entity({key: `plant-${row}-${column}`});
       entity.addComponent(new PositionComponent({
         xPosition: regionXPosition,
         yPosition: regionYPosition,

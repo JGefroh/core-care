@@ -14,7 +14,9 @@ const manifest = {
         'GUARD_1': { path: 'guard-1.png'},
         'BG_MOUNTAIN': { path: 'mountains.png'},
         'BG_TREELINE': { path: 'treeline.png'},
-        'SHOVEL': { path: 'shovel.png'}
+        'SHOVEL': { path: 'shovel.png'},
+        'SYCTHE': { path: 'sycthe.png'},
+        'WATER': { path: 'water.png'}
     },
     props: {
       'CLOUD_1': { path: 'cloud-1.png' },

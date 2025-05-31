@@ -11,23 +11,23 @@ const ItemDefinitions = {
         { event: "PLAY_AUDIO", params: { audioKey: 'planting.mp3', volume: 1 }}
       ]
     },
-    // HOE: {
-    //   type: "TOOL",
-    //   name: "Hoe",
-    //   useOn: [{ type: "TILE", tileType: 'DIRT' }],
-    //   effects: [
-    //     { event: "REQUEST_TILE_CHANGE", params: { to: "DIRT_TILLED" } }
-    //   ]
-    // },
+    SYCTHE: {
+      type: "TOOL",
+      name: "Sycthe",
+      useOn: [{ type: "PLANT" }],
+      effects: [
+        { event: "HARVEST_PLANT", params: { } }
+      ]
+    },
   
-    // WATER_PAIL: {
-    //   type: "TOOL",
-    //   name: "Water Pail",
-    //   useOn: [{ type: "TILE", tileType: "DIRT" }],
-    //   effects: [
-    //     { event: "REQUEST_TILE_CHANGE", params: { to: "DIRT" } }
-    //   ]
-    // },
+    WATER: {
+      type: "TOOL",
+      name: "Water",
+      useOn: [{ type: "TILE", tileType: "WATER" }],
+      effects: [
+        { event: "REQUEST_TILE_CHANGE", params: { to: "DIRT" } }
+      ]
+    },
   
     DAISIES: {
       type: "PLANT",

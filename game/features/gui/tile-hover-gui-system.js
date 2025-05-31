@@ -24,7 +24,6 @@ export default class TileHoverGuiSystem extends System {
         let entity = this._core.getEntityWithKey('region-tile-hover');
         entity.getComponent('PositionComponent').xPosition = selectedRegion.getComponent('PositionComponent').xPosition
         entity.getComponent('PositionComponent').yPosition = selectedRegion.getComponent('PositionComponent').yPosition
-        console.info(entity)
     }
 
     createHoverEntity(row, column) {
