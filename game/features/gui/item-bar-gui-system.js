@@ -88,7 +88,9 @@ export default class ItemBarGuiSystem extends System {
             fillStyle: 'rgba(0,0,0,0.6)',
             text: text,
             textOffsetY: 10,
-            textOffsetX: 12
+            textOffsetX: 12,
+            fontSize: 16,
+            fontType: 'Pixellari'
         })
     }
 }
