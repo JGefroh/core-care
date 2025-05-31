@@ -99,6 +99,7 @@ import ItemConfigurationSystem from '../specifics/configuration/items/item-confi
 import ItemRegistrySystem from '../features/items/item-registry-system';
 import AutoTileSystem from '../genre/tile-management/auto-tile-system';
 import ItemBarGuiSystem from '../features/gui/item-bar-gui-system';
+import TileHoverGuiSystem from '../features/gui/tile-hover-gui-system';
 export function startGame() {
 
     ////
@@ -119,6 +120,8 @@ export function startGame() {
     // GUI
     Core.addSystem(new GuiSystem())
         Core.addTag(GuiCanvasRenderable)
+
+    Core.addSystem(new TileHoverGuiSystem());
 
     // Loaders and Gnerators
     Core.addSystem(new AssetLoaderSystem());
